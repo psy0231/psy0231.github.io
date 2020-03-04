@@ -13,9 +13,10 @@ seo:
     1. tool/run (처음 한번만)
     2. add
     3. commit 
-    4. tool/init
-    5. tool/build
-    6. push
+    4. push
+    5. tool/init
+    6. tool/build
+  
 
 ## in tool
 - run은 local에서 할때 어쩌고 하는데 실행전 후 달라진걸 모르겠음
