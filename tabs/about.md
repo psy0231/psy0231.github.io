@@ -8,4 +8,7 @@ title: About
 # MIT License
 ---
 
-> **Note**: Add Markdown syntax content to file `tabs/about.md` and it will show up on this page.
+<!-- > **Note**: Add Markdown syntax content to file `tabs/about.md` and it will show up on this page. -->
+# 그냥 노는애
+- 아는거 별로없음  
+그나마 까먹기 싫어 남김.
