@@ -4,7 +4,7 @@ date: 2020-03-03 14:00:00 +0800
 categories: [Blogging, Init]
 tags: [getting started]
 seo:
-  date_modified: 2020-03-03 14:00:00 +0800
+  date_modified: 2020-03-04 22:15:20 +0900
 ---
 
 ## 포스팅 순서
