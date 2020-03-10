@@ -21,7 +21,6 @@ seo:
             {
                 _a += 1;
             }
-
             vt_1(temp_3);
             cw(temp_3);
             ```
@@ -170,29 +169,29 @@ ref는 생겨난 배경이 저럴것이다 하고 넘어갔으니 신경끄고 o
     - 하나 더 TryDequeue
 
         ```C#
-        /// <summary>
-        /// Attempts to remove and return the object at the beginning of the <see
-        /// cref="ConcurrentQueue{T}"/>.
-        /// </summary>
-        /// <param name="result">
-        /// When this method returns, if the operation was successful, <paramref name="result"/> contains the
-        /// object removed. If no object was available to be removed, the value is unspecified.
-        /// </param>
-        /// <returns>true if an element was removed and returned from the beggining of the <see
-        /// cref="ConcurrentQueue{T}"/>
-        /// succesfully; otherwise, false.</returns>
-        public bool TryDequeue(out T result)
-        {
-            while (!IsEmpty)
+            /// <summary>
+            /// Attempts to remove and return the object at the beginning of the <see
+            /// cref="ConcurrentQueue{T}"/>.
+            /// </summary>
+            /// <param name="result">
+            /// When this method returns, if the operation was successful, <paramref name="result"/> contains the
+            /// object removed. If no object was available to be removed, the value is unspecified.
+            /// </param>
+            /// <returns>true if an element was removed and returned from the beggining of the <see
+            /// cref="ConcurrentQueue{T}"/>
+            /// succesfully; otherwise, false.</returns>
+            public bool TryDequeue(out T result)
             {
-                Segment head = m_head;
-                if (head.TryRemove(out result))
-                    return true;
-                //since method IsEmpty spins, we don't need to spin in the while loop
+                while (!IsEmpty)
+                {
+                    Segment head = m_head;
+                    if (head.TryRemove(out result))
+                        return true;
+                    //since method IsEmpty spins, we don't need to spin in the while loop
+                }
+                result = default(T);
+                return false;
             }
-            result = default(T);
-            return false;
-        }
         ```
 
     - 둘다 return이 있고 parameter은 out임
