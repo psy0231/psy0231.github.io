@@ -15,15 +15,15 @@ seo:
     - 굳이 왜?
     - 예를들어 temp_3에 1을 더해보면
 
-            ```C#
-            int temp_3 = 100;
-            public void vt_1(int _a)
-            {
-                _a += 1;
-            }
-            vt_1(temp_3);
-            cw(temp_3);
-            ```
+        ```C#
+        int temp_3 = 100;
+        public void vt_1(int _a)
+        {
+            _a += 1;
+        }
+        vt_1(temp_3);
+        cw(temp_3);
+        ```
 
         - 값을 넘기기때문에 실제 temp_3은 안바뀜
         - 이건 당연하겠지
@@ -43,21 +43,22 @@ seo:
 ## ref
 - 먼저, 설명을 보면 중간에
 
-        An argument that is passed to a ref or in parameter must be initialized before it is passed. This differs from out parameters, whose arguments do not have to be explicitly initialized before they are passed.
+    > An argument that is passed to a ref or in parameter must be initialized before it is passed. This differs from out parameters, whose arguments do not have to be explicitly initialized before they are passed.
+
 - 이게 위 예시랑 비슷해 보인다 
     - temp_3은 사용전에 먼저 선언, 할당되어 있어야 한다.
     - vt_2의 return 값을 temp_3에 넣어 끝낸다.
 - ref 사용으로 바꿔보면
 
-        ```C#
-        int temp_1 = 0;
-        public void rf(ref int _a)
-        {
-            _a += 1;
-        }
-        rf(ref temp_1);
-        cw(temp_1);
-        ```
+    ```C#
+    int temp_1 = 0;
+    public void rf(ref int _a)
+    {
+        _a += 1;
+    }
+    rf(ref temp_1);
+    cw(temp_1);
+    ```
 
     - value전달시 return을 다시 원본에 넣는과정을 ref는 알아서 해주는거 아닐까? 하고 넘어가면 똑같아 보임 둘은.
 - 이런 이유로 생겨나지 않았을까 싶음...아님말고
@@ -77,21 +78,17 @@ seo:
     ```C#
     int temp_1 = 0;
     int temp_2 = 10;
-
     rf(ref temp_1);
     ot(out temp_2);
-    
     public void rf(ref int _a)
     {
         _a += 1;
     }
-
     public void ot(out int _a)
     {
         //Console.WriteLine(_a);
         _a=0;
         _a += 2;
-
     }
     ```
 
