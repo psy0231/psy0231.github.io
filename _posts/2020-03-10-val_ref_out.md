@@ -14,6 +14,7 @@ seo:
     - 공통점은 둘다 reference참조 전달임.
     - 굳이 왜?
     - 예를들어 temp_3에 1을 더해보면
+
         ```C#
         int temp_3 = 100;
         public void vt_1(int _a)
@@ -24,9 +25,11 @@ seo:
         vt_1(temp_3);
         cw(temp_3);
         ```
+
         - 값을 넘기기때문에 실제 temp_3은 안바뀜
         - 이건 당연하겠지
     - 따라서 위 목적에 맞게는
+
         ```c#
         int temp_3 = 100;
         public int vt_2(int _a)
@@ -46,6 +49,7 @@ seo:
     - temp_3은 사용전에 먼저 선언, 할당되어 있어야 한다.
     - vt_2의 return 값을 temp_3에 넣어 끝낸다.
 - ref 사용으로 바꿔보면
+
     ```C#
     int temp_1 = 0;
     public void rf(ref int _a)
@@ -55,6 +59,7 @@ seo:
     rf(ref temp_1);
     cw(temp_1);
     ```
+
     - value전달시 return을 다시 원본에 넣는과정을 ref는 알아서 해주는거 아닐까? 하고 넘어가면 똑같아 보임 둘은.
 - 이런 이유로 생겨나지 않았을까 싶음...아님말고
 
@@ -68,7 +73,8 @@ seo:
     |변수 초기화  | 호출 전 초기화  | 상관없음
     |변수 사용    | 사용 가능      | 사용 불가
     |반환(!return)| 상관없음       | 있어야함
--   먼저 비교
+- 먼저 비교
+
     ```C#
     int temp_1 = 0;
     int temp_2 = 10;
@@ -89,6 +95,7 @@ seo:
 
     }
     ```
+
 - 변수 초기화
     - ref는  temp_1 =0; 이라고 꼭 써야함 temp_1; 하면 에러
     - out사용은 temp_2 =10; 에서 temp_2; 라고 끝내도 상관없음
@@ -114,6 +121,7 @@ seo:
 ref는 생겨난 배경이 저럴것이다 하고 넘어갔으니 신경끄고 out만 따로 생각해봄.
 - 잘 몰라서 직접 보기로함 
     - 흔히 보이는 이거
+
         ```C#
         int res;
         string input = "123";
@@ -122,7 +130,9 @@ ref는 생겨난 배경이 저럴것이다 하고 넘어갔으니 신경끄고 o
             Console.WriteLine(res);
         }
         ```
+
     - TryParse 
+
         ```C# 
         // Parses an integer from a String. Returns false rather
         // than throwing exceptin if input is invalid
@@ -156,7 +166,9 @@ ref는 생겨난 배경이 저럴것이다 하고 넘어갔으니 신경끄고 o
             return true;           
         }
         ```
+
     - 하나 더 TryDequeue
+
         ```C#
         /// <summary>
         /// Attempts to remove and return the object at the beginning of the <see
@@ -182,6 +194,7 @@ ref는 생겨난 배경이 저럴것이다 하고 넘어갔으니 신경끄고 o
             return false;
         }
         ```
+
     - 둘다 return이 있고 parameter은 out임
         - 위 아래 둘 다 걸리는거 없이 성공하면 return true, result는 out로 반환(? 할당?)
     - 성공, 실패를 반환하고(이건 쓰기 나름이지만) return 결과 상관없이 parameter값을 무조건 할당 하고 싶으면 쓰는것같음
@@ -195,7 +208,9 @@ ref는 생겨난 배경이 저럴것이다 하고 넘어갔으니 신경끄고 o
 ## 위에 썼던거
 - [TryParse](https://referencesource.microsoft.com/#mscorlib/system/int32.cs,325507e509229dbc)  
 - [TryDequeue](https://referencesource.microsoft.com/#mscorlib/system/Collections/Concurrent/ConcurrentQueue.cs,0e91b925b71182e1)
+
 - basic
+
     ```C#
         class Program
         {
@@ -270,3 +285,4 @@ ref는 생겨난 배경이 저럴것이다 하고 넘어갔으니 신경끄고 o
             }
         }
     ```
+    
