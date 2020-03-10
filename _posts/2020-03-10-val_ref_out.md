@@ -1,5 +1,5 @@
 ---
-title: title
+title: ref / out
 date: 2020-03-10 20:00:00 +0900
 categories: [Grind, C#]
 tags: [.net, C#]
