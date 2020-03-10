@@ -208,76 +208,76 @@ ref는 생겨난 배경이 저럴것이다 하고 넘어갔으니 신경끄고 o
 - basic
 
     ```c#
-        class Program
+    class Program
+    {
+        static void Main(string[] args)
         {
-            static void Main(string[] args)
+
+            int temp_1 = 0;
+            int temp_2 = 10;
+            //int temp_2;
+            int temp_3 = 100;
+
+            ValTest vt = new ValTest();
+            Console.WriteLine("vt_1 before : {0}", temp_3.ToString() );
+            vt.vt_1(temp_3);
+            Console.WriteLine("vt_1 after : {0}", temp_3.ToString());
+            temp_3 = vt.vt_2(temp_3);
+            Console.WriteLine("vt_2 after : {0}", temp_3.ToString());
+
+            ///
+            Console.WriteLine("before");
+            Console.WriteLine(temp_1);
+            Console.WriteLine(temp_2);
+            
+            RefTest rt = new RefTest();
+            OutTest ot = new OutTest();
+
+            Console.WriteLine("after");
+            rt.rf(ref temp_1);
+            ot.ot(out temp_2);
+            
+            Console.WriteLine(temp_1);
+            Console.WriteLine(temp_2);
+
+            int res;
+            if (int.TryParse("123", out res))
             {
-
-                int temp_1 = 0;
-                int temp_2 = 10;
-                //int temp_2;
-                int temp_3 = 100;
-
-                ValTest vt = new ValTest();
-                Console.WriteLine("vt_1 before : {0}", temp_3.ToString() );
-                vt.vt_1(temp_3);
-                Console.WriteLine("vt_1 after : {0}", temp_3.ToString());
-                temp_3 = vt.vt_2(temp_3);
-                Console.WriteLine("vt_2 after : {0}", temp_3.ToString());
-
-                ///
-                Console.WriteLine("before");
-                Console.WriteLine(temp_1);
-                Console.WriteLine(temp_2);
-                
-                RefTest rt = new RefTest();
-                OutTest ot = new OutTest();
-
-                Console.WriteLine("after");
-                rt.rf(ref temp_1);
-                ot.ot(out temp_2);
-                
-                Console.WriteLine(temp_1);
-                Console.WriteLine(temp_2);
-
-                int res;
-                if (int.TryParse("123", out res))
-                {
-
-                }
-            }
-        }
-
-        class RefTest
-        {
-            public void rf(ref int _a)
-            {
-                _a += 1;
-            }
-        }
-
-        class OutTest
-        {
-            public void ot(out int _a)
-            {
-                //Console.WriteLine(_a);
-                _a = 0;
-                _a += 2;
 
             }
         }
+    }
 
-        class ValTest
+    class RefTest
+    {
+        public void rf(ref int _a)
         {
-            public void vt_1(int _a)
-            {
-                _a += 1;
-            }
-
-            public int vt_2(int _a)
-            {
-                int res = _a+1;
-                return res;
-            }
+            _a += 1;
         }
+    }
+
+    class OutTest
+    {
+        public void ot(out int _a)
+        {
+            //Console.WriteLine(_a);
+            _a = 0;
+            _a += 2;
+
+        }
+    }
+
+    class ValTest
+    {
+        public void vt_1(int _a)
+        {
+            _a += 1;
+        }
+
+        public int vt_2(int _a)
+        {
+            int res = _a+1;
+            return res;
+        }
+    }
     ```
