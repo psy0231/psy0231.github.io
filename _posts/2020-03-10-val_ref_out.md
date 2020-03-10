@@ -15,16 +15,16 @@ seo:
     - 굳이 왜?
     - 예를들어 temp_3에 1을 더해보면
 
-        ```C#
-        int temp_3 = 100;
-        public void vt_1(int _a)
-        {
-            _a += 1;
-        }
+            ```C#
+            int temp_3 = 100;
+            public void vt_1(int _a)
+            {
+                _a += 1;
+            }
 
-        vt_1(temp_3);
-        cw(temp_3);
-        ```
+            vt_1(temp_3);
+            cw(temp_3);
+            ```
 
         - 값을 넘기기때문에 실제 temp_3은 안바뀜
         - 이건 당연하겠지
@@ -50,15 +50,15 @@ seo:
     - vt_2의 return 값을 temp_3에 넣어 끝낸다.
 - ref 사용으로 바꿔보면
 
-    ```C#
-    int temp_1 = 0;
-    public void rf(ref int _a)
-    {
-        _a += 1;
-    }
-    rf(ref temp_1);
-    cw(temp_1);
-    ```
+        ```C#
+        int temp_1 = 0;
+        public void rf(ref int _a)
+        {
+            _a += 1;
+        }
+        rf(ref temp_1);
+        cw(temp_1);
+        ```
 
     - value전달시 return을 다시 원본에 넣는과정을 ref는 알아서 해주는거 아닐까? 하고 넘어가면 똑같아 보임 둘은.
 - 이런 이유로 생겨나지 않았을까 싶음...아님말고
@@ -285,4 +285,3 @@ ref는 생겨난 배경이 저럴것이다 하고 넘어갔으니 신경끄고 o
             }
         }
     ```
-    
