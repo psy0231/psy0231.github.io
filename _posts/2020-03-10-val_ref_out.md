@@ -15,7 +15,7 @@ seo:
     - 굳이 왜?
     - 예를들어 temp_3에 1을 더해보면
 
-        ```C#
+        ```c#
         int temp_3 = 100;
         public void vt_1(int _a)
         {
@@ -50,7 +50,7 @@ seo:
     - vt_2의 return 값을 temp_3에 넣어 끝낸다.
 - ref 사용으로 바꿔보면
 
-    ```C#
+    ```c#
     int temp_1 = 0;
     public void rf(ref int _a)
     {
@@ -75,7 +75,7 @@ seo:
     |반환(!return)| 상관없음       | 있어야함
 - 먼저 비교
 
-    ```C#
+    ```c#
     int temp_1 = 0;
     int temp_2 = 10;
     rf(ref temp_1);
@@ -118,7 +118,7 @@ ref는 생겨난 배경이 저럴것이다 하고 넘어갔으니 신경끄고 o
 - 잘 몰라서 직접 보기로함 
     - 흔히 보이는 이거
 
-        ```C#
+        ```c#
         int res;
         string input = "123";
         if (int.TryParse(input, out res))
@@ -129,7 +129,7 @@ ref는 생겨난 배경이 저럴것이다 하고 넘어갔으니 신경끄고 o
 
     - TryParse 
 
-        ```C# 
+        ```c# 
         // Parses an integer from a String. Returns false rather
         // than throwing exceptin if input is invalid
         // 
@@ -165,30 +165,30 @@ ref는 생겨난 배경이 저럴것이다 하고 넘어갔으니 신경끄고 o
 
     - 하나 더 TryDequeue
 
-        ```C#
-            /// <summary>
-            /// Attempts to remove and return the object at the beginning of the <see
-            /// cref="ConcurrentQueue{T}"/>.
-            /// </summary>
-            /// <param name="result">
-            /// When this method returns, if the operation was successful, <paramref name="result"/> contains the
-            /// object removed. If no object was available to be removed, the value is unspecified.
-            /// </param>
-            /// <returns>true if an element was removed and returned from the beggining of the <see
-            /// cref="ConcurrentQueue{T}"/>
-            /// succesfully; otherwise, false.</returns>
-            public bool TryDequeue(out T result)
+        ```c#
+        /// <summary>
+        /// Attempts to remove and return the object at the beginning of the <see
+        /// cref="ConcurrentQueue{T}"/>.
+        /// </summary>
+        /// <param name="result">
+        /// When this method returns, if the operation was successful, <paramref name="result"/> contains the
+        /// object removed. If no object was available to be removed, the value is unspecified.
+        /// </param>
+        /// <returns>true if an element was removed and returned from the beggining of the <see
+        /// cref="ConcurrentQueue{T}"/>
+        /// succesfully; otherwise, false.</returns>
+        public bool TryDequeue(out T result)
+        {
+            while (!IsEmpty)
             {
-                while (!IsEmpty)
-                {
-                    Segment head = m_head;
-                    if (head.TryRemove(out result))
-                        return true;
-                    //since method IsEmpty spins, we don't need to spin in the while loop
-                }
-                result = default(T);
-                return false;
+                Segment head = m_head;
+                if (head.TryRemove(out result))
+                    return true;
+                //since method IsEmpty spins, we don't need to spin in the while loop
             }
+            result = default(T);
+            return false;
+        }
         ```
 
     - 둘다 return이 있고 parameter은 out임
@@ -207,7 +207,7 @@ ref는 생겨난 배경이 저럴것이다 하고 넘어갔으니 신경끄고 o
 
 - basic
 
-    ```C#
+    ```c#
         class Program
         {
             static void Main(string[] args)
