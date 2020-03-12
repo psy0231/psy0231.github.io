@@ -4,7 +4,7 @@ date: 2020-03-10 20:00:00 +0900
 categories: [Grind, C#]
 tags: [.net, C#]
 seo:
-  date_modified: 2020-03-10 20:36:04 +0900
+  date_modified: 2020-03-10 20:38:02 +0900
 ---
 
 ## 뭔데
