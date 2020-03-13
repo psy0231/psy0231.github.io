@@ -11,13 +11,14 @@ seo:
 > Action - ***Task*** - async/await
 
 ## Task_1 쓰다가 궁금했던것
+> 근데 "특정 작업에서 실행이 오래걸림"의 재현을 THread.sleep()로 구현하는데 맞는지는 모르겠다.
 - wait()??
     > Waits for the Task to complete execution.
 
     - _1 쓰다가 궁금했고 다시보니 대충 알것같음.
     - 기다려 주는건 Main thread이거나 이걸 불렀던 parent thread 일것같음 
     - 직접보자. 또 보다가 새로 찾은것도 있고.....
-    - 근데
+    - 그런데....
 - 사실은
     ```c#
      class Program
@@ -105,13 +106,89 @@ seo:
     16:45:44.127 mtd_1 end  
     16:45:46.128 mtd_2 end  
     16:45:50.131 mtd_3 end  
-    이럴줄알았는데 **!!!아님.!!**
+    이럴줄알았는데 **!아님!**
+- 하나 더 순서만 좀 바꾼거.  
+    ```c#
+    Console.WriteLine("1");  
+    t1.Start();  
+    Console.WriteLine("2");  
+    t2.Start();  
+    Console.WriteLine("3");  
+    t2.Wait();  
+    Console.WriteLine("4");  
+    t1.Wait();  
+    Console.WriteLine("5");  
+    t3.Start();  
+    Console.WriteLine("6");  
+    t3.Wait();  
+    Console.WriteLine("7");  
+    ```
+    - 이거 출력은  
+    1       
+    2  
+    3  
+    22:01:33.562 mtd_1 start  
+    22:01:33.563 mtd_2 start  
+    22:01:35.568 mtd_2 end  
+    4  
+    22:01:36.568 mtd_1 end  
+    5  
+    6  
+    22:01:36.569 mtd_3 start  
+    22:01:40.569 mtd_3 end  
+    7  
+    - 같다. 실행은 async인데 실제 method에서는 blocking라 저런식인듯
+- 확실히 이상해 보이긴 한다.
+    - 보통 thread로 따로 빼는 작업들은 시간이 오래 걸려 main에서 처리를 안하게끔하는게 목적인데 이렇게 하면 별반 다를게 없어보인다.
+    - wait()를 빼면 될것같은데 그것도 찝찝하긴함. 끝났다는걸 모르거나 아니면... 보통은 실제 실행하는 method에서 시간을 많이잡아먹으면 main먼저 끝나는 그런경우처럼 될수있음
 
-    
+## Task<TResult>
+- 이번엔 return이 있는경우
+    ```c#
+    class test_2
+    {
+        public test_2()
+        {
+            Func<object, int> func;
+            func = mtd;
+
+            Task<int> t1 = new Task<int>(func,1);
+            t1.Start();
+            Console.WriteLine(t1.Result);
+
+            Task<int> t = Task<int>.Run(() => {
+                // Just loop.
+                int max = 1000000;
+                int ctr = 0;
+                for (ctr = 0; ctr <= max; ctr++)
+                {
+                    if (ctr == max / 2 && DateTime.Now.Hour <= 12)
+                    {
+                        ctr++;
+                        break;
+                    }
+                }
+                return ctr;
+            });
+            Console.WriteLine("Finished {0:N0} iterations.", t.Result);   
+        }
+
+        int mtd(object _i)
+        {
+            return (int)_i + 1;
+        }
+    }
+    ```
+    - 두 가지 경우를 보임.
+        - parameter 하나 넘기고 return 받는 경우(t1)
+        - paramerer없이 return 받는 경우(t)
+    - 근데 t의 경우 wait가 없는데 어떤 경우건 정상적으로 끝남 (지금까지는). run()다음 cw부분때문인것같음...
+
+## 정리
+- task는 async로 동작하나 여전히 block임.
+- paramster, return이 있는경우 상관없음
 
 
-
-    
 
 
 
