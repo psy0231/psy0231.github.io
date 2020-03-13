@@ -11,6 +11,7 @@ seo:
 > Action - ***Task*** - async/await
 
 ## Task_1 쓰다가 궁금했던것
+> 근데 "특정 작업에서 실행이 오래걸림"의 재현을 THread.sleep()로 구현하는데 맞는지는 모르겠다.
 - wait()??
     > Waits for the Task to complete execution.
 
@@ -141,14 +142,53 @@ seo:
     - 보통 thread로 따로 빼는 작업들은 시간이 오래 걸려 main에서 처리를 안하게끔하는게 목적인데 이렇게 하면 별반 다를게 없어보인다.
     - wait()를 빼면 될것같은데 그것도 찝찝하긴함. 끝났다는걸 모르거나 아니면... 보통은 실제 실행하는 method에서 시간을 많이잡아먹으면 main먼저 끝나는 그런경우처럼 될수있음
 
+## Task<TResult>
+- 이번엔 return이 있는경우
+    ```c#
+    class test_2
+    {
+        public test_2()
+        {
+            Func<object, int> func;
+            func = mtd;
+
+            Task<int> t1 = new Task<int>(func,1);
+            t1.Start();
+            Console.WriteLine(t1.Result);
+
+            Task<int> t = Task<int>.Run(() => {
+                // Just loop.
+                int max = 1000000;
+                int ctr = 0;
+                for (ctr = 0; ctr <= max; ctr++)
+                {
+                    if (ctr == max / 2 && DateTime.Now.Hour <= 12)
+                    {
+                        ctr++;
+                        break;
+                    }
+                }
+                return ctr;
+            });
+            Console.WriteLine("Finished {0:N0} iterations.", t.Result);   
+        }
+
+        int mtd(object _i)
+        {
+            return (int)_i + 1;
+        }
+    }
+    ```
+    - 두 가지 경우를 보임.
+        - parameter 하나 넘기고 return 받는 경우(t1)
+        - paramerer없이 return 받는 경우(t)
+    - 근데 t의 경우 wait가 없는데 어떤 경우건 정상적으로 끝남 (지금까지는). run()다음 cw부분때문인것같음...
+
+## 정리
+- task는 async로 동작하나 여전히 block임.
+- paramster, return이 있는경우 상관없음
 
 
-
-    
-
-
-
-    
 
 
 
