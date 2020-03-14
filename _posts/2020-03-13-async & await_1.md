@@ -1,5 +1,5 @@
 ---
-title: async/await_1(sync/async, block/non-block)
+title: async/await_1 (sync/async, block/non-block)
 date: 2020-03-13 15:00:00 +0900
 categories: [Grind, C#]
 tags: [C#, sync/async , block/non-block]
