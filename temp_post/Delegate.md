@@ -1,8 +1,10 @@
 ## Delegate
 - 이전에 Action, Func에서 봤던 형식으로 이 둘이 좀더 표준화 느낌이라 했는데 그럼 delegate에 대해 좀더 정리해보자.
-- A delegate is a type that represents references to methods with a particular parameter list and return type.
-- 메서드에 대한 참조를 나타내는 타입.
-- ex)
+- 메서드에 대한 참조를 나타내는 타입. 
+- delegate는 뜻이 대리자임. 하는짓 그 자체. method를 가리키거나 method자체를 parameter로 넘길때 쓴다함.
+- 쨌든 method를 직접 call하는 대신 이 delegate로 대신해 call 할 수 있다.
+- delegate 선언때 return, parameter을 지정하는데 실제 method가 이 delegate형식과 맞으면 붙여다 쓸 수 있고, 하나 이상 붙여 쓸 수 있다. 
+- ex) 일단 써보자.
     ```c#
     class Program
     {
@@ -19,6 +21,7 @@
 
         public deletgate_1()
         {
+            //test = new testdel(mtd_1);
             test = mtd_1;
             test();
         }
@@ -36,17 +39,50 @@
     ```
     - 여기서 test에 mtd_1을 연결한 후 test(); 를 호출할 때마다 mtd_1이 실행됨.  
     여기서는 deletgate_1의 ctor에서 한번 Main에서 한번.
-- 추가적인 설명에는 
-    - 대리자는 C++ 함수 포인터와 유사하지만 C++ 함수 포인터와 달리 멤버 함수에 대해 완전히 개체 지향입니다. 대리자는 개체 인스턴스 및 메서드를 모두 캡슐화합니다.
-    - 대리자를 통해 메서드를 매개 변수로 전달할 수 있습니다.
-    - 대리자를 사용하여 콜백 메서드를 정의할 수 있습니다.
-    - 여러 대리자를 연결할 수 있습니다. 예를 들어 단일 이벤트에 대해 여러 메서드를 호출할 수 있습니다.
-    - 메서드와 대리자 형식이 정확히 일치할 필요는 없습니다. 자세한 내용은 대리자의 가변성 사용을 참조하세요.
-    - C# 버전 2.0에는 별도로 정의된 메서드 대신 코드 블록을 매개 변수로 전달할 수 있도록 하는 무명 메서드라는 개념이 도입되었습니다. C# 3.0에는 인라인 코드 블록을 더 간단하게 작성할 수 있는 람다 식이 도입되었습니다. 특정 컨텍스트에서는 무명 메서드와 람다 식 모두 대리자 형식으로 컴파일됩니다. 이 두 기능을 익명 함수라고 합니다. 람다 식에 대한 자세한 내용은 람다 식을 참조하세요.
-- 그러니까 delegate로 연결 한 method를 직접 call하지 않고 delegate를 call함으로써 연결 된 method를 사용하는 효과를 냄.
+    - 그러니까 delegate로 연결 한 method를 직접 call하지 않고 delegate를 call함으로써 연결 된 method를 사용하는 효과를 냄.
+    - 주석 처리된 부분은 원래 저렇게 써야되는것 같은데 편의상(?) 아래처럼 쓰는듯하다.
+
+- ex) delegate return method(parameter)
+    ```c#
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            rtnprm rp = new rtnprm();
+            rp.cal = rp.add;
+            rp.cal(2, 1);
+            rp.cal = rp.sub;
+            rp.cal(2, 1);
+        }
+    }
+
+    class rtnprm
+    {
+        public delegate void delcal(int a, int b);
+        public delcal cal;
+
+        public void add(int _a, int _b)
+        {
+            Console.WriteLine(_a + _b);
+        }
+
+        public void sub(int _a, int _b)
+        {
+            Console.WriteLine(_a - _b);
+        }
+    }
+    ``` 
+    - 결과 
+    ```
+    3
+    1
+    ```
+    - 여기 delegate는 return은 void, parameter은 int, int 임. 아래 add, sub도 같은 형식의 method이다. 따라서 delegate는 이 둘 method를 참조 할 수 있다.
+    - delegate와 형식만 같다면 위처럼 add를 하건 sub를 하건 그때그때 붙여 쓸 수 있다.
+- ex) delegate chain
 - callback / event 이건 나중에
 
-## 추가
+## delegate 쓰면서 
 - 먼저 class A,B가 있다하자. A는 연산, B는 출력을함
 - delegate를 안쓴다면 
     ```c#
