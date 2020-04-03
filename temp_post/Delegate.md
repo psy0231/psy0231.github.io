@@ -82,7 +82,7 @@
 - ex) delegate chain
 - callback / event 이건 나중에
 
-## delegate 쓰면서 
+## delegate 쓰면서
 - 먼저 class A,B가 있다하자. A는 연산, B는 출력을함
 - delegate를 안쓴다면 
     ```c#
@@ -98,7 +98,7 @@
         A_1 a_2 = new A_1();
         a_2.mtd_cal_2(3);
         //3
-        B_1 b_3 = new B_1();
+        B_1 b_3 = new B_1(); 
         A_1 a_3 = new A_1(b_3);
         a_3.mtd_cal_3(4);
 
