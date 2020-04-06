@@ -42,3 +42,4 @@ seo:
   https://github.com/NLog/NLog/issues/796
   https://stackoverflow.com/questions/20352325/logging-in-multiple-files-using-nlog
   https://www.google.com/search?q=NLog+separate+file&oq=NLog+separate+file&aqs=chrome..69i57j0l4.4239j0j7&sourceid=chrome&ie=UTF-8
+  https://dzone.com/articles/how-make-nlog-create-separate
