@@ -79,6 +79,7 @@
     ```
     - 여기 delegate는 return은 void, parameter은 int, int 임. 아래 add, sub도 같은 형식의 method이다. 따라서 delegate는 이 둘 method를 참조 할 수 있다.
     - delegate와 형식만 같다면 위처럼 add를 하건 sub를 하건 그때그때 붙여 쓸 수 있다.
+- ex) delegate를 parameter로
 - ex) delegate chain
 - callback / event 이건 나중에
 
