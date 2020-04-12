@@ -4,7 +4,9 @@
 - delegate는 뜻이 대리자임. 하는짓 그 자체. method를 가리키거나 method자체를 parameter로 넘길때 쓴다함.
 - 쨌든 method를 직접 call하는 대신 이 delegate로 대신해 call 할 수 있다.
 - delegate 선언때 return, parameter을 지정하는데 실제 method가 이 delegate형식과 맞으면 붙여다 쓸 수 있고, 하나 이상 붙여 쓸 수 있다. 
-- ex) 일단 써보자.
+
+## 일단 써보자.
+- 기본
     ```c#
     class Program
     {
