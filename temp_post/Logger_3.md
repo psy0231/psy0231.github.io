@@ -8,7 +8,8 @@ seo:
 ---
 
 ## ...
-- Serilog는 사용 못한다고 치고 
+- Serilog는 사용 못한다고 치고.. NLog에 희망을 걸어 보기로 함.
+- Serilog, NLog 둘다 .config 에서 관련 설정을 다 할 수 있는데 
 ## 참고
 - []()  
 
