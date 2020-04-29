@@ -4,7 +4,7 @@ date: 2020-03-09 14:00:00 +0900
 categories: [Project, NCC]
 tags: [network, c#]
 seo:
-  date_modified: 2020-04-29 16:37:56 +0900
+  date_modified: 2020-04-29 17:25:37 +0900
 ---
 
 ## structure
