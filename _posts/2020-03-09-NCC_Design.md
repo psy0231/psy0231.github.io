@@ -2,7 +2,7 @@
 title: Design
 date: 2020-03-09 14:00:00 +0900
 categories: [Project, NCC]
-tags: [network, C#]
+tags: [network, c#]
 seo:
   date_modified: 2020-03-09 14:00:00 +0900
 ---
