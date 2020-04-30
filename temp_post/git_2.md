@@ -10,7 +10,21 @@ seo:
 ## 설치
 - 난 윈도우만 쓰니까 일단.
 - 근데 설치 과정을 쓰는게 의미가 있나 싶긴한데 ..
-- 
+- ![image](https://github.com/psy0231/psy0231.github.io/blob/master/assets/img/git/git_2/git%20install/1.JPG?raw=true "1")
+- ![image](https://github.com/psy0231/psy0231.github.io/blob/master/assets/img/git/git_2/git%20install/2.JPG?raw=true "2")
+- ![image](https://github.com/psy0231/psy0231.github.io/blob/master/assets/img/git/git_2/git%20install/3.JPG?raw=true "3")
+- ![image](https://github.com/psy0231/psy0231.github.io/blob/master/assets/img/git/git_2/git%20install/4.JPG?raw=true "4")
+- ![image](https://github.com/psy0231/psy0231.github.io/blob/master/assets/img/git/git_2/git%20install/5.JPG?raw=true "5")
+- ![image](https://github.com/psy0231/psy0231.github.io/blob/master/assets/img/git/git_2/git%20install/6.JPG?raw=true "6")
+- ![image](https://github.com/psy0231/psy0231.github.io/blob/master/assets/img/git/git_2/git%20install/7.JPG?raw=true "7")
+- ![image](https://github.com/psy0231/psy0231.github.io/blob/master/assets/img/git/git_2/git%20install/8.JPG?raw=true "8")
+- ![image](https://github.com/psy0231/psy0231.github.io/blob/master/assets/img/git/git_2/git%20install/9.JPG?raw=true "9")
+- ![image](https://github.com/psy0231/psy0231.github.io/blob/master/assets/img/git/git_2/git%20install/10.JPG?raw=true "10")
+- ![image](https://github.com/psy0231/psy0231.github.io/blob/master/assets/img/git/git_2/git%20install/11.JPG?raw=true "11")
+- ![image](https://github.com/psy0231/psy0231.github.io/blob/master/assets/img/git/git_2/git%20install/12.JPG?raw=true "12")
+- ![image]()
+- ![image]()
+- ![image]()
 
 ## 초기 설정
 - commit 할때는 어떤사람이 했는지 정보가 남는다. 그럼 그 정보가 어딘가는 있어야겠지.
