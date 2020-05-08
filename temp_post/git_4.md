@@ -1,5 +1,5 @@
 ---
-title: 4.commit rewind
+title: 4. reset, revert
 date: 2020-05-03 13:00:00 +0900
 categories: [Grind, Git]
 tags: [git]
@@ -173,7 +173,13 @@ hard와 다르게 아무런 반응이 없다.
 - 사실 soft와 차이는 잘 모르겠다. commit는 여전히 날라갔고 작업 내용은 여전히 남아있다.  
 add차이만 있다 뿐이지..
 
-## revert
+## revert 
+- 설명
+- 근데 아래 두 가지 경우 결과가 다르다.
+- 의문. 5층짜리 건물이 있다. 이 중 3층에 문제가 생겨 3층을 없애 버렸다고 했을때, 4층과 5층은 남아있어야 하는가 없어져야 하는가.
+- 5년의 역사에서 3년째에 핵전쟁으로 4,5년까지 영향이있다. 3년째를 역사에서 지우면 4,5년에 있던 핵전쟁 피해는 있나?
+
+### revert_파일들
 - 되돌아가다 라고 나온다.
 - 하루 종일 뻘짓하다 뭔가 이상해서 확실하게 보는 방법을 알게되 다시 작성함.
 - 지금 쓰는내용은 뻘짓거리들 다 지우고 씀
@@ -305,8 +311,291 @@ add차이만 있다 뿐이지..
     4cd12ca 2
     d06b272 1
     ```
-    - 이것도 아님.
+    - 이것도 아님.  
+    실제로 해보면 
+    ```
+    $ git log --oneline
+    2fee114 (HEAD -> master) 5
+    d06ff1f 4
+    6730662 3
+    4cd12ca 2
+    d06b272 1
+
+    $ git revert d06ff1f..4cd12ca
+    error: empty commit set passed
+    fatal: revert failed
+    ```
+    - 일단 에러난다. 
+
+        위 commit 는 순서상 1 -> 5 순서로 쌓았는데 revert 범위를 지정할때에도 그 방향으로 해줘야 하나봄  
+        그럼 HEAD가 원하는 포인트로 가서 commit가록들을 다시 한다는게 맞는 말일수도 있겠다.  
+        commit4..commit2 가 아닌 쌓은 순서대로 commit2..commit4로 가야 맞다.
+    ```
+
+    $ git revert 4cd12ca..d06ff1f
+    ============================================
+    Revert "4"
+
+    This reverts commit d06ff1fb28551ad8c5884399ac85660be791baa0.
+
+    # Please enter the commit message for your changes. Lines starting
+    # with '#' will be ignored, and an empty message aborts the commit.
+    #
+    # On branch master
+    # Revert currently in progress.
+    #
+    # Changes to be committed:
+    #       deleted:    4.md
+    #
+    ~
+    ==============================================
+
+    Revert "3"
+
+    This reverts commit 67306628e3f506153ba2b45e52bec38864a105be.
+
+    # Please enter the commit message for your changes. Lines starting
+    # with '#' will be ignored, and an empty message aborts the commit.
+    #
+    # On branch master
+    # Revert currently in progress.
+    #
+    # Changes to be committed:
+    #       deleted:    3.md
+    #
     
+    ==================================================
+
+    $ git revert 4cd12ca..d06ff1f
+    Removing 4.md
+    [master b719edf] Revert "4"
+    1 file changed, 0 insertions(+), 0 deletions(-)
+    delete mode 100644 4.md
+    Removing 3.md
+    [master e5b2e77] Revert "3"
+    1 file changed, 0 insertions(+), 0 deletions(-)
+    delete mode 100644 3.md
+
+    $ git log --oneline
+    e5b2e77 (HEAD -> master) Revert "3"
+    b719edf Revert "4"
+    2fee114 5
+    d06ff1f 4
+    6730662 3
+    4cd12ca 2
+    d06b272 1
+
+    psy02@psy-company MINGW64 ~/Desktop/root/revert_2 (master)
+    $ ls
+    1.md  2.md  5.md
+
+    psy02@psy-company MINGW64 ~/Desktop/root/revert_2 (master)
+    $
+    ```
+    - 이런 결과. 아디에서 봤던것처럼 순조롭게 자동으로 된다.
+    - 근데 결과가 생각과는 다르다. commit 2 작업 내용이 살아있다 실제 revert 된것도 3,4에 대해서만 나왔다.
+
+        그러니까 revert범위는 단일 commit를 지정하면 그 commit만 revert하고  
+        범위로 지정 할 경우 commit이후..commit까지로 지정이 된다.
+
+        범위 지정은 commit순서대로 옛날commit..최근commit으로 하는데 
+        실행은 최근commit -> 옛날commit순으로 됨.  
+        이건 당연해 보이는게 해당 commit의 작업 내용을 없애는 작업은 최근부터 과거순으로 해야 되감아지기때문에.
+
+### revert_단일파일
+> revert [commit] [file] 둘 다 해봐야될듯? 
+- 이걸 단일 파일 하나에서 하면 conflict나는데 .. 파일 자체의 내용이 내부에서 바뀌니까 그런건가?
+- 근데 git help revert 내용 중에  
+
+        기존 커밋이 하나 이상 있으면 관련 패치가 도입 한 변경 사항을 되돌리고이를 기록하는 새로운 커밋을 기록하십시오. 이를 위해서는 작업 트리가 깨끗해야합니다 (HEAD 커밋의 수정 사항 없음).
+
+    라고 하는데 ...  
+    이 내용이면 revert_1의 내용이 어느정도 맞는것같음.  
+    근데 "도입 한 변경 사항을 되돌리고" 라면 이후 변경사항도 없어지는게 맞다고 생각하면 revert_1도 아님.  
+    그래서 지금부터 하는건 결과가 다름.  
+    이 둘의 혼동으로 지금 뭐가 맞는지 모르겠음
+
+- 5층짜리 건물에서 3층이 없어진다면  4,5층은 있어야 하는가 사라져야 하는가.
+- 다시, 원본으로 와서
+    ```
+    $ git log --oneline
+    ea2e280 (HEAD -> 1) 5
+    ba42806 4
+    b8103da 3
+    32e5a2d 2
+    c8441a0 1
+
+    ```
+- git revert HEAD 
+    ```
+    $ git revert HEAD
+    [1 b26730a] Revert "5"
+    1 file changed, 1 insertion(+), 2 deletions(-)
+
+    $ git log --oneline
+    b26730a (HEAD -> 1) Revert "5"
+    ea2e280 5
+    ba42806 4
+    b8103da 3
+    32e5a2d 2
+    c8441a0 1
+
+    $ cat test.md
+    1
+    2
+    3
+    4
+    ```
+    - 잘 된다. 파일 내용도 고쳐졌고 HEAD이전으로 돌아가되 그게대한 commit가 남고 1~5까지의 commit도 전부 남아있다. 
+    - 내가지금 reset, revert이내용만 3번쨰 쓰는게 빡치는건아닌데 계속 반복되는 의미없는것들은 설명안하고 넘어가겠음
+
+- git revert HEAD~2
+    ```
+    psy02@psy-company MINGW64 ~/Desktop/root/revert (1)
+    $ git revert HEAD~2
+    Auto-merging test.md
+    CONFLICT (content): Merge conflict in test.md
+    error: could not revert b8103da... 3
+    hint: after resolving the conflicts, mark the corrected paths
+    hint: with 'git add <paths>' or 'git rm <paths>'
+    hint: and commit the result with 'git commit'
+
+    psy02@psy-company MINGW64 ~/Desktop/root/revert (1|REVERTING)
+    $
+    ```
+    - 이 전과 다르다 conflict난다. 내용을 보자.
+    ```
+    1
+    <<<<<<< HEAD
+    2
+    3
+    4
+    5
+    =======
+    2
+    >>>>>>> parent of b8103da... 3
+    ```
+    - HEAD부터 ===까지 지우고 parent 줄도 지운다 
+    ```
+    1
+    2
+    ```
+    - 이게 남은 내용일꺼임. 저장하고 add, commit 하면 
+    ```
+    psy02@psy-company MINGW64 ~/Desktop/root/revert (1)
+    $ git log --oneline
+    fb189b3 (HEAD -> 1) revert
+    ea2e280 5
+    ba42806 4
+    b8103da 3
+    32e5a2d 2
+    c8441a0 1
+
+    psy02@psy-company MINGW64 ~/Desktop/root/revert (1)
+    $ cat test.md
+    1
+    2
+    ```
+    - 그럼 다시 생각해보자.
+
+        원본에서 HEAD는 commit5에있었다. HEAD~2했으니 commit3을 revert했겠지  
+        근데 "revert_파일들"에서의결과와 다르다.  
+        전자는 3층의 블럭을 빼고 4,5층은 2층위에 쌓은 모양이면  
+        지금은 3층부터 그 윗층을 전부 박살냈는데 이전 셜계도는 남겨놓은것  
+        
+        conflict상황에 수정을 1245이렇게 하면 이 전과 같긴한데 그래도  
+        위 수정 필요한곳 incomming는 2만 붙어있음.... 내가 저 수정을 잘 못하는건가?
+        
+        단순하게, <<<부터 ===까지 이전내용 다시, ===부터 >>>까지 바뀔내용으로 알고있는데  
+        이전내용 무시하고 새 변경사항만 하면 위처럼 되는게 맞는걸로 알고있음
+
+    - git revert 32e5a2d..ba42806 
+    ```
+    psy02@psy-company MINGW64 ~/Desktop/root/revert (1)
+    $ git revert 32e5a2d..ba42806
+    Auto-merging test.md
+    CONFLICT (content): Merge conflict in test.md
+    error: could not revert ba42806... 4
+    hint: after resolving the conflicts, mark the corrected paths
+    hint: with 'git add <paths>' or 'git rm <paths>'
+    hint: and commit the result with 'git commit'
+
+    1
+    2
+    <<<<<<< HEAD
+    3
+    4
+    5
+    =======
+    3
+    >>>>>>> parent of ba42806... 4
+
+    1
+    2
+    3
+
+    psy02@psy-company MINGW64 ~/Desktop/root/revert (1|REVERTING)
+    $ git add .
+
+    psy02@psy-company MINGW64 ~/Desktop/root/revert (1|REVERTING)
+    $ git commit -m "revert 4?"
+    [1 b0c4762] revert 4?
+    1 file changed, 2 deletions(-)
+
+    psy02@psy-company MINGW64 ~/Desktop/root/revert (1|REVERTING)
+    $ git revert --continue
+    Auto-merging test.md
+    CONFLICT (content): Merge conflict in test.md
+    error: could not revert b8103da... 3
+    hint: after resolving the conflicts, mark the corrected paths
+    hint: with 'git add <paths>' or 'git rm <paths>'
+    hint: and commit the result with 'git commit'
+
+    1
+    <<<<<<< HEAD
+    2
+    3
+    =======
+    2
+    >>>>>>> parent of b8103da... 3
+
+    1
+    2
+
+
+    psy02@psy-company MINGW64 ~/Desktop/root/revert (1|REVERTING)
+    $ git add .
+
+    psy02@psy-company MINGW64 ~/Desktop/root/revert (1|REVERTING)
+    $ git commit -m "revert 3??"
+    [1 9519ab2] revert 3??
+    1 file changed, 1 deletion(-)
+
+    psy02@psy-company MINGW64 ~/Desktop/root/revert (1)
+
+    ```
+    - 총 2번의 과정을 거침.  
+    
+        비슷한점은 revert는 단일 commit를 선택할 때는 그 commit에 대해 작용하고  
+        범위를 지정하면 시작 commit를 포함하지 않고 다음 commit부터 최근 범위로 지정된 commit를 포함해 작용함
+        
+        또, 변화 과정을 보면 알겠지만 최근 변화분부터 거꾸로 하고있음.
+
+### revert...
+- 그럼 결과를 정리해보면 
+    
+    파일에 대해서는 commit때 작업만 revert함  
+    내부에 대해서는 commit을 포함한 이후 전부 사라짐.
+    단 이 두 경우 모두 이 전 commit에 대해서는 관여를 안함
+
+    전자의 경우 핵전쟁 시점으로 돌아가서 핵전쟁을 멈췄어도 전쟁 흔적은 남아있는경우고  
+    후자의 경우는 핵전생시점에서 전쟁을 멈추고 평화로워짐  
+    단, 둘 다 역사교과서에는 핵전쟁 났다 써있음
+
+## reset vs revert
+- 
+- 
+- 이 다음장으로 commit 제어는 일단 끝내고 branch 로 넘어갈라고... 
 
 ## 참고
 - []()  
