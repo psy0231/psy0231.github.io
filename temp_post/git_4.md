@@ -50,10 +50,17 @@ seo:
     b24316b 2
     59bb278 1
     ea27983 initial commit
+
+    $ cat test.md
+    1
+    2
+    3
+
     ```
     - 원래 있던 4,5 commit 가 사라졌고 3으로 내려왔다.  
     그러니까 HEAD~2는 HEAD를 지금 가리키고 있는 포인트에서 2개 돌아가란 뜻.
     - 이때 실제 commit를 만들기 위해 수정했던 파일은 그 당시로 돌아가있다.진짜 이전 save point로 돌아간느낌이든다.
+    - 작업 내용도 그 당시로 돌아가있다.
 
 - 직접 commit id를 넣는방법
     ```
@@ -94,6 +101,13 @@ hard와 다르게 아무런 반응이 없다.
     b24316b 2
     59bb278 1
     ea27983 initial commit
+
+    $ cat test.md
+    1
+    2
+    3
+    4
+    5
 
     $ git status
     On branch reset_soft
@@ -137,6 +151,13 @@ hard와 다르게 아무런 반응이 없다.
     $ git reset --mixed HEAD~2
     Unstaged changes after reset:
     M       test.md
+  
+    $ cat test.md
+    1
+    2
+    3
+    4
+    5
 
     $ git log --oneline
     da141ef (HEAD -> reset_mixed) 3
@@ -173,26 +194,34 @@ hard와 다르게 아무런 반응이 없다.
 - 사실 soft와 차이는 잘 모르겠다. commit는 여전히 날라갔고 작업 내용은 여전히 남아있다.  
 add차이만 있다 뿐이지..
 
-## revert 
-- 설명
-- 근데 아래 두 가지 경우 결과가 다르다.
-- 의문. 5층짜리 건물이 있다. 이 중 3층에 문제가 생겨 3층을 없애 버렸다고 했을때, 4층과 5층은 남아있어야 하는가 없어져야 하는가.
-- 5년의 역사에서 3년째에 핵전쟁으로 4,5년까지 영향이있다. 3년째를 역사에서 지우면 4,5년에 있던 핵전쟁 피해는 있나?
+### reset 정리
+- HEAD를 원하는 시점으로 옮기고 그 이후 commit는 다 지운다.
+    - HARD는 완전히 그 시점으로 돌아감.
+    - SOFT는 내용은 남기고 commit를 삭제함. 단, add까지 해놓은 상태.
+    - MIXED는 내용을 남기고 commit를 삭제함. 단, add 도 안되어있음.
 
-### revert_파일들
+## revert 
 - 되돌아가다 라고 나온다.
-- 하루 종일 뻘짓하다 뭔가 이상해서 확실하게 보는 방법을 알게되 다시 작성함.
+- 근데 아래 두 가지 경우 결과가 다르다.
+    - 5층짜리 건물이 있다. 이 중 3층에 문제가 생겨 3층을 없애 버렸다고 했을때, 4층과 5층은 남아있어야 하는가 없어져야 하는가.
+    - 5년의 역사에서 3년째에 핵전쟁으로 4,5년까지 영향이있다. 3년째를 역사에서 지우면 4,5년에 있던 핵전쟁 피해는 있나?
+- 하루 종일 뻘짓하다 뭔가 이상해서 확실하게 보는 방법몰라서 다시 작성함.
 - 지금 쓰는내용은 뻘짓거리들 다 지우고 씀
 
-    먼저, 파일 하나에 대해 수정하고있었는데 이 파일 하나에 대한 수정 commit 5개 중 revert는 HEAD에 대해 할 때 빼놓고 다른경우 전부 conflict 걸림
+    먼저는 파일 하나에 대해 revert하고 있었는데 이 파일 하나에 대해 revert는 HEAD에 대해 할 때 빼놓고 다른경우 전부 conflict 걸림  
+    그래서 5개의 파일을 만들면서 각각의 commit를 만들고 그 경우에 대해 revert해봄.
 
-    여기서 다른 경우라고 하는건  
+- case 1
     ```
-    commit5(HEAD) 5
-    commit4 4
-    commit3 3
-    commit2 2
-    commit1 1
+    $ ls 
+    test.md
+
+    $ git log --oneline
+    ea2e280 (HEAD -> 1) 5
+    ba42806 4
+    b8103da 3
+    32e5a2d 2
+    c8441a0 1
     ```
     이렇게 commit가 있을 때 git revert HEAD 는 문제없이 함.  
     git revert commit3 하면 conflict  
@@ -205,7 +234,7 @@ add차이만 있다 뿐이지..
     해서 예제를 바꿔서 다시 해보기로함.  
     file 하나가 아니라 5개 의 다른 파일을 생성하고 각각생성시 commit를 씀
 
-- file
+- case 2
     ```
     $ ls
     1.md  2.md  3.md  4.md  5.md
@@ -218,6 +247,11 @@ add차이만 있다 뿐이지..
     d06b272 1
 
     ```
+
+- 아래에서 두 경우 다 보기로.
+
+### revert case 1
+
 - 이제 다시 해보자. git revert HEAD
     ```
     Revert "5"
@@ -266,6 +300,7 @@ add차이만 있다 뿐이지..
     git revert HEAD~2
     ```
     - 이러면 어떻게 될까 내 예상은 이랬다.
+    - 단순히 reset와 비슷할 거라는 생각으로 
     ```
     $ ls
     1.md  2.md  3.md
@@ -294,8 +329,7 @@ add차이만 있다 뿐이지..
     4cd12ca 2
     d06b272 1
     ```
-    - 이렇게 되면 위에 git revert HEAD 제외한 모든 revert에서 conflict났던게 대충 유추되는데 HEAD를 포인트까지 옮기고 지움 그리고 그 이후 commit 내용들을 계속함 .
-    - 이부분은 다시,
+    - 이렇게 되면 위에 git revert HEAD 제외한 모든 revert에서 conflict났던게 대충 유추되는데 HEAD를 포인트까지 옮기고 지움 그리고 그 이후 commit 내용들을 그대로임 .
     - reset와 revert조금씩 다름.
 - 범위를 지정.
     - 그럼 이것도 얘를들어 git revert commit4..commit2 이러면 
@@ -328,7 +362,6 @@ add차이만 있다 뿐이지..
     - 일단 에러난다. 
 
         위 commit 는 순서상 1 -> 5 순서로 쌓았는데 revert 범위를 지정할때에도 그 방향으로 해줘야 하나봄  
-        그럼 HEAD가 원하는 포인트로 가서 commit가록들을 다시 한다는게 맞는 말일수도 있겠다.  
         commit4..commit2 가 아닌 쌓은 순서대로 commit2..commit4로 가야 맞다.
     ```
 
@@ -402,12 +435,11 @@ add차이만 있다 뿐이지..
         실행은 최근commit -> 옛날commit순으로 됨.  
         이건 당연해 보이는게 해당 commit의 작업 내용을 없애는 작업은 최근부터 과거순으로 해야 되감아지기때문에.
 
-### revert_단일파일
-> revert [commit] [file] 둘 다 해봐야될듯? 
+### revert case 2
 - 이걸 단일 파일 하나에서 하면 conflict나는데 .. 파일 자체의 내용이 내부에서 바뀌니까 그런건가?
 - 근데 git help revert 내용 중에  
 
-        기존 커밋이 하나 이상 있으면 관련 패치가 도입 한 변경 사항을 되돌리고이를 기록하는 새로운 커밋을 기록하십시오. 이를 위해서는 작업 트리가 깨끗해야합니다 (HEAD 커밋의 수정 사항 없음).
+    > 기존 커밋이 하나 이상 있으면 관련 패치가 도입 한 변경 사항을 되돌리고 이를 기록하는 새로운 커밋을 기록하십시오. 이를 위해서는 작업 트리가 깨끗해야합니다 (HEAD 커밋의 수정 사항 없음).
 
     라고 하는데 ...  
     이 내용이면 revert_1의 내용이 어느정도 맞는것같음.  
@@ -581,7 +613,7 @@ add차이만 있다 뿐이지..
         
         또, 변화 과정을 보면 알겠지만 최근 변화분부터 거꾸로 하고있음.
 
-### revert...
+### revert 결과
 - 그럼 결과를 정리해보면 
     
     파일에 대해서는 commit때 작업만 revert함  
@@ -591,16 +623,25 @@ add차이만 있다 뿐이지..
     전자의 경우 핵전쟁 시점으로 돌아가서 핵전쟁을 멈췄어도 전쟁 흔적은 남아있는경우고  
     후자의 경우는 핵전생시점에서 전쟁을 멈추고 평화로워짐  
     단, 둘 다 역사교과서에는 핵전쟁 났다 써있음
+- 다시, 위의 revert에서 처음에 가졌던 의문에 대해 생각해보면 
+
+    예시가 좀 부적절했지만 대충 결과는  
+    revert했을 떄 이 후 결과들이 독립젹인 다른 시행이면 살아있고  
+    revert한 시점의 연속적인 작업물이 있다면 이후 작업물도 다 사라짐.
 
 ## reset vs revert
-- 
-- 
-- 이 다음장으로 commit 제어는 일단 끝내고 branch 로 넘어갈라고... 
+- 서로 해주는게 좀 다른데 
+    
+    reset는 HEAD를 움직여 새 HEAD그 이후 시점부터 수정을 함  
+    수정 사항은 option에 따라 다른데 commit가 지워지는건 같음.
+
+    revert는 HEAD를 움직여 새 HEAD가 가리키는 commit의 수정사항을 취소함.  
+    revert한 commit이후 서로 영향이 없는 작업을 경우 남아있고 그렇지 못한경우는 수정을 직접 확인해야하는듯하다.  
+    범위를 지정했다면 범위의 가장 오래된 commit이후부터 범위 마지막을 포함한 commit까지...
+- 근데 위 했던 테스트들이 확실이 이렇게 하는게 맞나는 잘 모르겠다. 
+- 이거 찾으면서 봤던 대부분의 글에 
 
 ## 참고
-- []()  
--  Bla bla <sup id="a1">[1](#f1)</sup>
-- <b id="f1">1</b> Footnote content here. [↩](#a1)
 - https://victorydntmd.tistory.com/79
 - https://github.com/HomoEfficio/dev-tips/blob/master/Git%20reverting%20multiple-commits.md
 - https://blog.outsider.ne.kr/1166
