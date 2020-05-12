@@ -638,10 +638,30 @@ add차이만 있다 뿐이지..
     revert는 HEAD를 움직여 새 HEAD가 가리키는 commit의 수정사항을 취소함.  
     revert한 commit이후 서로 영향이 없는 작업을 경우 남아있고 그렇지 못한경우는 수정을 직접 확인해야하는듯하다.  
     범위를 지정했다면 범위의 가장 오래된 commit이후부터 범위 마지막을 포함한 commit까지...
+    아... 해당 commit내용을 되돌리는거면 다른 commit에서 생긴 내용은 건들 필요가 없고, 해당 commit에 영향을 받으면 물어보고? 
+    
 - 근데 위 했던 테스트들이 확실이 이렇게 하는게 맞나는 잘 모르겠다. 
-- 이거 찾으면서 봤던 대부분의 글에 
+- 이 둘의 동작상의 차이점은 위에 적은 식이고   
+둘은 어떤때 쓰이나 하는 말들이 참고했던 자료들 거의 마지막에 항상 따라다니던데
+
+    일단, 혼자쓸때는 별 문제 없어보임.  
+    이 전으로 돌아가는구나, 작업내용이 없어지거나 유지되거나 하는정도.   
+    근데 원격의 저장소를 쓸 때는 조금 다름.
+
+    원격 저장소로 push할 때 원격 저장소의 최신 commit까지의 내용이 같은게 내꺼에도 있어야함  
+    원격에 1-2-3의 commit가 있다면 내가 올리는 commit는 1-2-3을 포함한 4-5 총 1-2-3-4-5가 되어야함.  
+    그럼 반대로 1-2-3-4-5를 push했다.  
+    다음 reset로 1-2-3으로 돌아와 1-2-3-4'-5' 를 push 했는데  
+    다른사람은 이전 reset를 모르고 1-2-3-4-5-6을 push하려 한다.   
+    reset은 단독으로 쓰기에는 편한듯하지만 원격에서 쓴다면 위험해질 요소가 있다.  
+    중간 어딘가 commit가 통으로 날라간다는건
+
+    그럼 revert는 ? 번경사항에 대한 기록을 다시 남기고 이 전으로 돌아간다.
+    1-2-3-4-5의 순서에서 변경으로 1-2-3-2(r)-4-5 라고 수정했다하고  
+    다른 사람이 1-2-3-4-5-6을 push 한다면, 2(r)만 update하면 된다.
 
 ## 참고
-- https://victorydntmd.tistory.com/79
-- https://github.com/HomoEfficio/dev-tips/blob/master/Git%20reverting%20multiple-commits.md
-- https://blog.outsider.ne.kr/1166
+- [1. reset과 revert](https://victorydntmd.tistory.com/79)
+- [git revert multiple-commits](https://github.com/HomoEfficio/dev-tips/blob/master/Git%20reverting%20multiple-commits.md)
+- [git revert로 커밋 되돌리기](https://blog.outsider.ne.kr/1166)
+- [What's the difference between Git Revert, Checkout and Reset?](https://stackoverflow.com/questions/8358035/whats-the-difference-between-git-revert-checkout-and-reset)
