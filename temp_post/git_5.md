@@ -108,19 +108,19 @@ seo:
     ```
     - 이렇게 editor로 바뀌는데 그 중 바꾸고 싶은 부분을 위처럼 reword로 수정 후 저장-종료  
     하면 다시 editor로 뜨는데 내가 바꾸고 싶던 commit의 commit message가 보임.
-    ```
-    2-fix
-    ```
+        ```
+        2-fix
+        ```
     - 수정하고 wq
-    ```
-    $ git log --oneline
-    052ae35 (HEAD -> rebase) 5
-    3127def 4
-    2ce337e 3
-    d286381 2-fix
-    59bb278 1
-    ea27983 initial commit
-    ```
+        ```
+        $ git log --oneline
+        052ae35 (HEAD -> rebase) 5
+        3127def 4
+        2ce337e 3
+        d286381 2-fix
+        59bb278 1
+        ea27983 initial commit
+        ```
     - commit message가 수정됨.
     - 참고로, reword하면 그 commit부터는 새 commit임. (commit Id가 바뀜)
 
@@ -144,26 +144,26 @@ seo:
     - 상태가 바뀌었고 힌트도 생겼는데 
     --amend는 commit message를 고치는거라함.  
     이렇게만 하면 reword랑 같을텐데 
-    ```
-    $ touch test2.md 
-    ```
+        ```
+        $ touch test2.md 
+        ```
     - 이걸 해볼까?
-    ```
-    psy02@psy-company MINGW64 ~/Desktop/root/reset (rebase)
-    $ ls
-    test.md  test2.md
+        ```
+        psy02@psy-company MINGW64 ~/Desktop/root/reset (rebase)
+        $ ls
+        test.md  test2.md
 
-    psy02@psy-company MINGW64 ~/Desktop/root/reset (rebase)
-    $ git log --oneline
-    f2e9ce3 (HEAD -> rebase) 5
-    5e62373 4
-    607f282 3
-    1ec0f9e 2-fix and add contents
-    59bb278 1
-    ea27983 initial commit
+        psy02@psy-company MINGW64 ~/Desktop/root/reset (rebase)
+        $ git log --oneline
+        f2e9ce3 (HEAD -> rebase) 5
+        5e62373 4
+        607f282 3
+        1ec0f9e 2-fix and add contents
+        59bb278 1
+        ea27983 initial commit
 
-    psy02@psy-company MINGW64 ~/Desktop/root/reset (rebase)
-    ```
+        psy02@psy-company MINGW64 ~/Desktop/root/reset (rebase)
+        ```
 - edit는 그 commit에서의 작업 내용도 수정 할 수 있다.  
 단, 이 경우 revert처럼 한 파일 안애서 그 뒤의 commit에 영향을 줄 경우 conflict나고 이건 다 처리 해줘야함.  
 위는 새 파일 만들었으니 독립적인 다른시행인가봄 이것도 revert때랑 같은 경우.
@@ -182,81 +182,81 @@ seo:
     squash f11bb5a 5
     ```
     - 위 처럼 하면 
-    ```
-    # This is a combination of 2 commits.
-    # This is the 1st commit message:
-
-    4
-
-    # This is the commit message #2:
-
-    5
-
-    # Please enter the commit message for your changes. Lines starting
-    # with '#' will be ignored, and an empty message aborts the commit.
-    #
-    # Date:      Thu May 7 12:41:20 2020 +0900
-    #
-    # interactive rebase in progress; onto a674841
-    # Last commands done (6 commands done):
-    #    pick e2d7109 4
-    #    squash f11bb5a 5
-    # No commands remaining.
-    # You are currently rebasing branch 'rebase' on 'a674841'.
-    #
-    # Changes to be committed:
-    #       modified:   test.md
-    #
-    # Untracked files:
-    #       test2.md
-    #
-    ~
-    ~
-
-    ```
-    - 결과는 
-    ```
-    psy02@psy-company MINGW64 ~/Desktop/root/reset (rebase)
-    $ git rebase -i --root
-    [detached HEAD 9a33cac] 4
-    Date: Thu May 7 12:41:20 2020 +0900
-    1 file changed, 3 insertions(+), 1 deletion(-)
-    Successfully rebased and updated refs/heads/rebase.
-
-    $ git log
-    commit 9a33cac4aa2f70efc31a2c4a481236e2d8ccb59c (HEAD -> rebase)
-    Author: psy_comp <psy0231@gmail.com>
-    Date:   Thu May 7 12:41:20 2020 +0900
+        ```
+        # This is a combination of 2 commits.
+        # This is the 1st commit message:
 
         4
 
+        # This is the commit message #2:
+
         5
 
-    commit da141efb96e0eef14dc3c60c3d558ecbc5e5521d (temp)
-    Author: psy_comp <psy0231@gmail.com>
-    Date:   Thu May 7 12:41:11 2020 +0900
+        # Please enter the commit message for your changes. Lines starting
+        # with '#' will be ignored, and an empty message aborts the commit.
+        #
+        # Date:      Thu May 7 12:41:20 2020 +0900
+        #
+        # interactive rebase in progress; onto a674841
+        # Last commands done (6 commands done):
+        #    pick e2d7109 4
+        #    squash f11bb5a 5
+        # No commands remaining.
+        # You are currently rebasing branch 'rebase' on 'a674841'.
+        #
+        # Changes to be committed:
+        #       modified:   test.md
+        #
+        # Untracked files:
+        #       test2.md
+        #
+        ~
+        ~
 
-        3
+        ```
+    - 결과는 
+        ```
+        psy02@psy-company MINGW64 ~/Desktop/root/reset (rebase)
+        $ git rebase -i --root
+        [detached HEAD 9a33cac] 4
+        Date: Thu May 7 12:41:20 2020 +0900
+        1 file changed, 3 insertions(+), 1 deletion(-)
+        Successfully rebased and updated refs/heads/rebase.
 
-    commit b24316b3120631230fdb57f689a0d7c1620174b4 (reset_hard)
-    Author: psy_comp <psy0231@gmail.com>
-    Date:   Thu May 7 12:41:04 2020 +0900
+        $ git log
+        commit 9a33cac4aa2f70efc31a2c4a481236e2d8ccb59c (HEAD -> rebase)
+        Author: psy_comp <psy0231@gmail.com>
+        Date:   Thu May 7 12:41:20 2020 +0900
 
-        2
+            4
 
-    commit 59bb2788175cb909883587f56bf0106f8c4785b5
-    Author: psy_comp <psy0231@gmail.com>
-    Date:   Thu May 7 12:40:55 2020 +0900
+            5
 
-        1
+        commit da141efb96e0eef14dc3c60c3d558ecbc5e5521d (temp)
+        Author: psy_comp <psy0231@gmail.com>
+        Date:   Thu May 7 12:41:11 2020 +0900
 
-    commit ea27983f66dd7881757cb5e76eaaf3f4d1a8e05c
-    Author: psy_comp <psy0231@gmail.com>
-    Date:   Thu May 7 12:39:33 2020 +0900
+            3
 
-        initial commit
+        commit b24316b3120631230fdb57f689a0d7c1620174b4 (reset_hard)
+        Author: psy_comp <psy0231@gmail.com>
+        Date:   Thu May 7 12:41:04 2020 +0900
 
-    ```
+            2
+
+        commit 59bb2788175cb909883587f56bf0106f8c4785b5
+        Author: psy_comp <psy0231@gmail.com>
+        Date:   Thu May 7 12:40:55 2020 +0900
+
+            1
+
+        commit ea27983f66dd7881757cb5e76eaaf3f4d1a8e05c
+        Author: psy_comp <psy0231@gmail.com>
+        Date:   Thu May 7 12:39:33 2020 +0900
+
+            initial commit
+
+        ```
 - 두 개가 합쳐짐
 ### fixup
 - 요건 다르다니까  
