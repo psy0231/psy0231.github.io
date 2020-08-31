@@ -111,19 +111,19 @@ public delegate void Action();
             int a = func();
             Console.WriteLine(a);
 
-            Func<object, int> func_2 = mtd_2;
+            Func<int, int> func_2 = mtd_2;
             int a_2 = func_2(1);
             Console.WriteLine(a_2);
         }
 
         int mtd()
         {
-            return 1;
+            return 0;
         }
 
-        int mtd_2(object _i)
+        int mtd_2(int _i)
         {
-            return (int)_i;
+            return _i+1;
         }
     }
     ```
