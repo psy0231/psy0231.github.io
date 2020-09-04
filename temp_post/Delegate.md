@@ -5,8 +5,8 @@
 - 쨌든 method를 직접 call하는 대신 이 delegate로 대신해 call 할 수 있다.
 - delegate 선언때 return, parameter을 지정하는데 실제 method가 이 delegate형식과 맞으면 붙여다 쓸 수 있고, 하나 이상 붙여 쓸 수 있다. 
 
-## 일단 써보자.
-- 기본
+## 기본
+- 일단써봄
     ```c#
     class Program
     {
@@ -34,17 +34,19 @@
         }
     }
     ```
-    - 결과 
+- 결과 
     ```
     mtd_1
     mtd_1
     ```
-    - 여기서 test에 mtd_1을 연결한 후 test(); 를 호출할 때마다 mtd_1이 실행됨.  
-    여기서는 deletgate_1의 ctor에서 한번 Main에서 한번.
-    - 그러니까 delegate로 연결 한 method를 직접 call하지 않고 delegate를 call함으로써 연결 된 method를 사용하는 효과를 냄.
-    - 주석 처리된 부분은 원래 저렇게 써야되는것 같은데 편의상(?) 아래처럼 쓰는듯하다.
+- 여기서 test에 mtd_1을 연결한 후 test(); 를 호출할 때마다 mtd_1이 실행됨.  
+여기서는 deletgate_1의 ctor에서 한번 Main에서 한번.
+- 그러니까 delegate로 연결 한 method를 직접 call하지 않고 delegate를 call함으로써 연결 된 method를 사용하는 효과를 냄.
+- 주석 처리된 부분은 원래 저렇게 써야되는것 같은데 편의상(?) 아래처럼 쓰는듯하다. 주석처럼 쓰더라도 test();로 콜하는건 달라지지않음.
 
-- ex) delegate return method(parameter)
+
+## return, paraneters
+- delegate return method(parameter)
     ```c#
     class Program
     {
@@ -52,35 +54,66 @@
         {
             rtnprm rp = new rtnprm();
             rp.cal = rp.add;
-            rp.cal(2, 1);
+            Console.WriteLine(rp.cal(2, 1));
+            
             rp.cal = rp.sub;
-            rp.cal(2, 1);
+            Console.WriteLine(rp.cal(2, 1));
         }
     }
 
     class rtnprm
     {
-        public delegate void delcal(int a, int b);
+        public delegate int delcal(int a, int b);
         public delcal cal;
 
-        public void add(int _a, int _b)
+        public int add(int _a, int _b)
         {
-            Console.WriteLine(_a + _b);
+            Console.WriteLine("add");
+            return _a + _b;
         }
 
-        public void sub(int _a, int _b)
+        public int sub(int _a, int _b)
         {
-            Console.WriteLine(_a - _b);
+            Console.WriteLine("sub");
+            return _a - _b;
         }
     }
     ``` 
-    - 결과 
+- 결과 
     ```
+    add
     3
+    sub
     1
     ```
-    - 여기 delegate는 return은 void, parameter은 int, int 임. 아래 add, sub도 같은 형식의 method이다. 따라서 delegate는 이 둘 method를 참조 할 수 있다.
-    - delegate와 형식만 같다면 위처럼 add를 하건 sub를 하건 그때그때 붙여 쓸 수 있다.
+- 여기 delegate는 return은 int, parameter은 int, int 임. 아래 add, sub도 같은 형식의 method이다. 따라서 delegate는 이 둘 method를 참조 할 수 있다.
+- delegate와 형식만 같다면 위처럼 add를 하건 sub를 하건 그때그때 붙여 쓸 수 있다.
+
+## Generalization
+- ...
+
+## chain
+- 위 예시에서 return, parameter조건이 다 같다. 만약 항상 add, sub을 같이 불러야한다면?
+- delegate가 나오면 자주보이는 키워드인데 이 delegate에 여러개 지정해놓고 동시에(연속으로) 실행가능. 위 예시에서 main만 수정하면됨 rtnprm은동일.
+    ```            
+    rtnprm rp = new rtnprm();
+    rp.cal = rp.add;
+    rp.cal += rp.sub;
+    Console.WriteLine(rp.cal(2,1));
+    ```
+- 결과 
+    ```
+    add
+    sub
+    1
+    ```
+- 이런식으로 = 이 아닌 +=로 더하면 된다.  
+반대로, 뺄때는 당연히 -=로 ..
+- 결과를 보면 add, sub가 찍힐걸 보니 method까진 간것같음 근데 출력은 마지막 결과값만 나옴.  
+그래서 아래 찾아봤는데 의도는 조금 다르지만 비슷한 질문이 있음.
+
+
+## not
 - ex) delegate를 parameter로
 - ex) delegate chain
 - callback / event 이건 나중에
@@ -202,3 +235,12 @@
 - 하나 더. A, B가 있고...
 
 ## ㅁㄴㅇㄹ
+
+## 참고
+[Using a Multicast Delegate to chain functions](https://stackoverflow.com/questions/15227876/using-a-multicast-delegate-to-chain-functions)
+
+- 대전 
+전북
+인천 
+제주 
+강원
