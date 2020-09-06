@@ -42,8 +42,38 @@
 - 여기서 test에 mtd_1을 연결한 후 test(); 를 호출할 때마다 mtd_1이 실행됨.  
 여기서는 deletgate_1의 ctor에서 한번 Main에서 한번.
 - 그러니까 delegate로 연결 한 method를 직접 call하지 않고 delegate를 call함으로써 연결 된 method를 사용하는 효과를 냄.
-- 주석 처리된 부분은 원래 저렇게 써야되는것 같은데 편의상(?) 아래처럼 쓰는듯하다. 주석처럼 쓰더라도 test();로 콜하는건 달라지지않음.
+- 주석 처리된 부분은 원래 저렇게 써야되는것 같은데 편의상(?) 아래처럼 쓰는듯하다. 주석처럼 쓰더라도 test();로 콜하는건 달라지지않음.  
+결론만 말하자면 chain으로 사용하면 return은 void로 하고 사용하는걸 권장. 아니면 다른 방법으로 하는데 그건 해당 글 참조.
 
+- 하나 더 써보면 delegate는 class외부에 쓸 수 있음
+    ```c#
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            deletgate_1 del_1 = new deletgate_1();
+            del_1.test();
+        }
+    }
+
+    public delegate void testdel();
+    class deletgate_1
+    {
+        public testdel test;
+
+        public deletgate_1()
+        {
+            //test = new testdel(mtd_1);
+            test = mtd_1;
+            test();
+        }
+
+        public void mtd_1()
+        {
+            Console.WriteLine("mtd_1");
+        }
+    }
+    ```
 
 ## return, paraneters
 - delegate return method(parameter)
@@ -90,7 +120,37 @@
 - delegate와 형식만 같다면 위처럼 add를 하건 sub를 하건 그때그때 붙여 쓸 수 있다.
 
 ## Generalization
-- ...
+- 위에서 return, parameter을 일반화할 수 있음
+    ```c#
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Generalization gen = new Generalization();
+            gen.cal_int = gen.add;
+            Console.WriteLine(gen.cal(1,2));
+
+        }
+    }
+    class Generalization
+    {
+        public delegate T3 delcal<T1,T2,T3>(T1 a, T2 b);
+        public delcal<int, int, double> cal;
+        //public delcal<double> cal_dou;
+
+        public Generalization()
+        {
+
+        }
+
+        public double add(int _a, int _b)
+        {
+            Console.WriteLine("add");
+            return _a + _b;
+        }
+    }
+    ```
+- 어디서 많이 본 그림이다?
 
 ## chain
 - 위 예시에서 return, parameter조건이 다 같다. 만약 항상 add, sub을 같이 불러야한다면?
@@ -112,129 +172,75 @@
 - 결과를 보면 add, sub가 찍힐걸 보니 method까진 간것같음 근데 출력은 마지막 결과값만 나옴.  
 그래서 아래 찾아봤는데 의도는 조금 다르지만 비슷한 질문이 있음.
 
+## use delegate as parameter
+- 또한 delegate자체를 parameter로 넘겨줄 수 있다.
+    ```c#
+    class UseDelegateAsParameter
+    {
+        public delegate int delcal(int a, int b);
+        public delcal cal;
 
-## not
-- ex) delegate를 parameter로
-- ex) delegate chain
-- callback / event 이건 나중에
+        public UseDelegateAsParameter()
+        {
+            cal = add;
+            test(cal);
+        }
 
-## delegate 쓰면서
-- 먼저 class A,B가 있다하자. A는 연산, B는 출력을함
-- delegate를 안쓴다면 
+        public void test(delcal _dc)
+        {
+            Console.WriteLine(_dc(1, 2));
+        }
+        public int add(int _a, int _b)
+        {
+            Console.WriteLine("add");
+            return _a + _b;
+        }
+
+        public int sub(int _a, int _b)
+        {
+            Console.WriteLine("sub");
+            return _a - _b;
+        }
+    }
+    ```
+
+## delegate??
+- 위 까지 보면 막상 이걸 왜쓰나 싶은데 써보면 편함. 
+- 가장 편하게 쓰는건 class간 작업할 때.
     ```c#
     static void Main(string[] args)
     {
-        //1
-        A_1 a_1 = new A_1();
-        B_1 b_1 = new B_1();
-        int res = a_1.mtd_cal_1(2);
-        //b_1.mtd_prt(a_1.mtd_cal_1(2));
-        b_1.mtd_prt(res);
-        //2
-        A_1 a_2 = new A_1();
-        a_2.mtd_cal_2(3);
-        //3
-        B_1 b_3 = new B_1(); 
-        A_1 a_3 = new A_1(b_3);
-        a_3.mtd_cal_3(4);
-
+        DelegateClass_1 dc1 = new DelegateClass_1();
+        DelegateClass_2 dc2 = new DelegateClass_2();
+        dc1.from1 = dc2.mtd_1;
+        dc1.mtd_1(1,2);
     }
-
-    class A_1
+    
+    class DelegateClass_1
     {
-        private B_1 b_3;
+        public delegate string delfrom1(int a, int b);
+        public delfrom1 from1;
 
-        public A_1()
+        public void mtd_1(int _a, int _b)
         {
-
-        }
-
-        public A_1(B_1 b_3)
-        {
-            this.b_3 = b_3;
-        }
-
-        public int mtd_cal_1(int _a)
-        {
-            return _a*_a;
-        }
-
-        public void mtd_cal_2(int _a)
-        {
-            B_1 b= new B_1();
-            b.mtd_prt(_a*_a);
-        }
-
-        public void mtd_cal_3(int _a)
-        {
-            b_3.mtd_prt(_a * _a);
+            Console.WriteLine(_a + _b);
+            Console.WriteLine(from1(_a, _b));
         }
     }
 
-    class B_1
+    class DelegateClass_2
     {
-        public B_1()
+        public string mtd_1(int _a, int _b)
         {
-
-        }
-
-        public void mtd_prt(int _a)
-        {
-            Console.WriteLine(_a);
-        }
-    ```
-    - 위처럼 세가지정도?
-    - 이건 그냥 내 버릇임.  
-    보통 위처럼 a,b가 구별 가능한 기능 또는 덩어리라면 같이 묶어두는걸 피하려함(a,b). 또 포함하지 않으려함(3).
-    - 따라서 3번이 가장 싫어하는 구조, 2번이 꺼려짐 이건그냥 내 습관이니까. -> 최대한 조각내는걸 목표로하고 최대한 서로 관계없게.. 종속적이지 않게 하려고함...내가 할 수 있는 최대한.
-- delegate를 쓴다면 
-    ```c#
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            //use delegate
-            A a = new A();
-            B b = new B();
-            a.temp = b.mtd;
-            a.mtd(5);
-
-        }
-    }
-
-    class A
-    {
-        public delegate void del_temp(int _a);
-        public del_temp temp;
-
-        public A()
-        {
-
-        }
-
-        public void mtd(int _a)
-        {
-            temp(_a * _a);
-        }
-    }
-
-    class B
-    {
-        public B()
-        {
-
-        }
-        public void mtd(int _a)
-        {
-            Console.WriteLine(_a);
+            return _a.ToString() + _b.ToString();
         }
     }
     ```
-    - delegate를 안썼을 때가 이것저것 다 모아쓰다보니 좀 길어졌지 이거 1번 예시와 비슷해 보인다.
-    - 다른건 A에서 계산결과(res)를 받아서 쓸 필요가 없어 보인다. 
-- 하나 더. A, B가 있고...
-
-## ㅁㄴㅇㄹ
+- 쉬운 예를 들어 위에서 class1은 받은 수를 더하고 출력, class2는 받은 수를 string로 변환후 더함.  
+main에서 class1, class2로 각각 method를 부른 것 이 아닌 class1에서 class2로 delegate만 연결 하고 class1의 method만 씀.  
+이렇게 되면 class2의 method를 class1의 method인것처럼 쓰게됨.
+- 가장 떠올리기 쉬운 상황은 form간 작업할 떄.  
+서로 다른 form이 떠있을 때 data를 주고 받거나 다른쪽에 있는 method를 쓸때 유연하게 쓸 수 있다.
 
 ## 참고
 [Using a Multicast Delegate to chain functions](https://stackoverflow.com/questions/15227876/using-a-multicast-delegate-to-chain-functions)
