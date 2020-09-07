@@ -43,8 +43,7 @@
 여기서는 deletgate_1의 ctor에서 한번 Main에서 한번.
 - 그러니까 delegate로 연결 한 method를 직접 call하지 않고 delegate를 call함으로써 연결 된 method를 사용하는 효과를 냄.
 - 주석 처리된 부분은 원래 저렇게 써야되는것 같은데 편의상(?) 아래처럼 쓰는듯하다. 주석처럼 쓰더라도 test();로 콜하는건 달라지지않음.  
-결론만 말하자면 chain으로 사용하면 return은 void로 하고 사용하는걸 권장. 아니면 다른 방법으로 하는데 그건 해당 글 참조.
-
+- delegate는 이벤트가 처음 시작되는 애한테 쥐어줌.
 - 하나 더 써보면 delegate는 class외부에 쓸 수 있음
     ```c#
     class Program
@@ -155,7 +154,7 @@
 ## chain
 - 위 예시에서 return, parameter조건이 다 같다. 만약 항상 add, sub을 같이 불러야한다면?
 - delegate가 나오면 자주보이는 키워드인데 이 delegate에 여러개 지정해놓고 동시에(연속으로) 실행가능. 위 예시에서 main만 수정하면됨 rtnprm은동일.
-    ```            
+    ```c#
     rtnprm rp = new rtnprm();
     rp.cal = rp.add;
     rp.cal += rp.sub;
@@ -170,7 +169,9 @@
 - 이런식으로 = 이 아닌 +=로 더하면 된다.  
 반대로, 뺄때는 당연히 -=로 ..
 - 결과를 보면 add, sub가 찍힐걸 보니 method까진 간것같음 근데 출력은 마지막 결과값만 나옴.  
-그래서 아래 찾아봤는데 의도는 조금 다르지만 비슷한 질문이 있음.
+그래서 아래 찾아봤는데 의도는 조금 다르지만 비슷한 질문이 있음.  
+결론만 말하자면 chain으로 사용하면 return은 void로 하고 사용하는걸 권장. 아니면 다른 방법으로 하는데 그건 해당 글 참조.
+- 무튼 muiltcast하는 효과를 볼 수 있다.
 
 ## use delegate as parameter
 - 또한 delegate자체를 parameter로 넘겨줄 수 있다.
@@ -241,6 +242,10 @@ main에서 class1, class2로 각각 method를 부른 것 이 아닌 class1에서
 이렇게 되면 class2의 method를 class1의 method인것처럼 쓰게됨.
 - 가장 떠올리기 쉬운 상황은 form간 작업할 떄.  
 서로 다른 form이 떠있을 때 data를 주고 받거나 다른쪽에 있는 method를 쓸때 유연하게 쓸 수 있다.
+- 조금 더 일반적으로는 class A와 class B가 있을 때 class A에서 B를 만들지 않는 이상 접근을 위해서는 생성 된 B를 받아 쓰거나 A와 B를 생성한 상위 class에서 연결 역할을 해줘야함  
+또, class를 맴버로 갖고있는 계층구조 단계가 좀 많을 경우, 예를들어 class A 안에 class B 안에 class C...class F 같은경우 class A 에서 class F로 바로 access할 경우 등  
+귀찮아질 상황들이 delegate로 간단히 해결됨.  
+이걸 미리 만들어놓은 Action, Function으로 하면 더 좋고. 
 
 ## 참고
 [Using a Multicast Delegate to chain functions](https://stackoverflow.com/questions/15227876/using-a-multicast-delegate-to-chain-functions)
