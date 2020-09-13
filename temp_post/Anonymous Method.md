@@ -1,3 +1,12 @@
+---
+title: Anonymous Method
+date: 2020-09-07 13:00:00 +0900
+categories: [Grind, C#]
+tags: [c#]
+seo:
+  date_modified: 2020-09-13 13:29:46 +0900
+---
+
 ## Anonymous
 - 무명.  
 이름이 없음.  
@@ -66,3 +75,64 @@
     - 사실 잘 모르겠다. LINQ 정리하다보면 알게되겠지뭐.
     
 ## Anonymous Method
+- 이전 delegate에서는 이미 있던 method를 연결해 사용했다.  
+만약 단순하거나 단발성 사용등일떄 이름 없이 만들수 있다.
+
+- 간단한 사용범들
+    ```c#
+    class AnonymousMethod
+    {
+        public delegate void TestDelegate();
+        public TestDelegate td;
+
+        public delegate T3 TestDelegate2<T1, T2, T3>(T1 a,  T2 b);
+        public TestDelegate2<int , int , string > td2;
+
+        public AnonymousMethod()
+        {
+            td = delegate 
+            {
+                Console.WriteLine("test");
+            };
+            td();
+
+            td2 = delegate (int a, int b)
+            {
+                return (a + b).ToString();
+            };
+            Console.WriteLine(td2(1, 2));
+
+
+            Action act = delegate
+            {
+                Console.WriteLine("test2");
+            };
+            act();
+
+            Action<int, int> act2 = delegate(int a, int b)
+            {
+                Console.WriteLine(a+b);
+            };
+            act2(10, 11);
+
+            Func<int, int, string> func = delegate (int a, int b)
+            {
+                return (a + b).ToString();
+            };
+            Console.WriteLine(func(22,45));
+        }
+    }
+
+    
+    //test
+    //3
+    //test2
+    //21
+    //67
+    ```
+- delegate를 이용하기떄문에 Action, Func도 사용 가능. 
+- 한번 만들어 놓으면 저 del을 쓸수 있는곳에서는 걔속 쓸 수 있음...   
+1회용이 아니라 미름만 없던것. 매초에 왜 1회용이라고 생각했음? 
+
+## 참고.
+- [C# 무명 메서드 (Anonymous Method)](http://www.csharpstudy.com/CSharp/CSharp-anonymous-method.aspx)
