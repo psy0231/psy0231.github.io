@@ -1,6 +1,6 @@
 ---
 title: Anonymous Method
-date: 2020-09-07 13:00:00 +0900
+date: 2020-09-14 13:00:00 +0900
 categories: [Grind, C#]
 tags: [c#]
 seo:
@@ -131,8 +131,8 @@ seo:
     //67
     ```
 - delegate를 이용하기떄문에 Action, Func도 사용 가능. 
-- 한번 만들어 놓으면 저 del을 쓸수 있는곳에서는 걔속 쓸 수 있음...   
-1회용이 아니라 미름만 없던것. 매초에 왜 1회용이라고 생각했음? 
+- 한번 만들어 놓으면 해당 delegate를 쓸 수 있는곳에서는 걔속 쓸 수 있음...   
+1회용이 아니라 이름만 없던것. 매초에 왜 1회용이라고 생각했음? 이름도 이름없음인데..
 
 ## 참고.
 - [C# 무명 메서드 (Anonymous Method)](http://www.csharpstudy.com/CSharp/CSharp-anonymous-method.aspx)
