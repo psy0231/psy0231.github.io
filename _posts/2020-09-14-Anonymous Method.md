@@ -1,5 +1,5 @@
 ---
-title: Anonymous Method
+title: Anonymous
 date: 2020-09-14 13:00:00 +0900
 categories: [Grind, C#]
 tags: [c#]
