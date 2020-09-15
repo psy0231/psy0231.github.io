@@ -26,7 +26,7 @@
             test = () => { Console.WriteLine("test_1"); };
             test();
 
-            test = () => { Console.WriteLine("test_2"); };
+            test += () => { Console.WriteLine("test_2"); };
             test();
 
             test_del tt = () => { Console.WriteLine("test_3"); };
@@ -54,6 +54,7 @@
 
     ```
     test_1
+    test_1
     test_2
     test_3
     act_1
@@ -61,9 +62,17 @@
     120
     100
     ```
-- 일단, 식이건 블록이건 별 다른게 없어보이고  
+- 일단, 식이건 블록이건 별 다른게 없어보이고(act_1 vs act_2)  
 delegate에서 뻗어나와서 그런지 Action, Func 사용이 자유로움  
 anonymous method에서 delegate를 빼고 (parameter) => (식) 이렇게 간소화한 표현으로 보임.
+
+## Async Lambdas
+## Lambda expressions and tuples
+## Lambdas with the standard query operators
+## Type inference in lambda expressions
+## Capture of outer variables and variable scope in lambda expressions
+
+
 
 ## ref
 - [Lambda expressions](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/statements-expressions-operators/lambda-expressions#expression-lambdas)
