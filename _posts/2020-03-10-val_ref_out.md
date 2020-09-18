@@ -1,5 +1,5 @@
 ---
-title: ref / out
+title: Parameters
 date: 2020-03-10 20:00:00 +0900
 categories: [Grind, C#]
 tags: [c#]
@@ -8,7 +8,10 @@ seo:
 ---
 
 ## 뭔데
-- 문득 ref랑 out랑 차이가 뭔지 궁금함
+- 이 전에 ref / out 만 정리 해놨다가 세계관을 확장.
+- params, ref, out, in을 정리할 예정.
+
+
 - 비슷해보임 실제 찾아봤을때도 out는 할당 필요없음 이러고 끝내는 설명도 있었고 문서는 주절주절 말많아서 그 중 몇개만 추리고 짐작해서 써봄
 - 쉬운거부터.
     - 공통점은 둘다 reference참조 전달임.
@@ -40,7 +43,81 @@ seo:
         cw(temp_3);
         ```
 
+## params
+> params specifies that this parameter may take a variable number of arguments.    
+- paramters를 가변개수의 변수가 있다고 지정.
+- ex
+    ```c#
+    class Params
+    {
+        public Params()
+        {
+            mtd_1(1, 2, 3);
+            mtd_2(1, "1", new SocketAsyncEventArgs(), 4.5F);
+
+            int[] arr = { 1, 2, 3 };
+            mtd_1(arr);
+        }
+        public void mtd_1(params int[] _a)
+        {
+            Console.WriteLine(_a.Rank);
+            Console.WriteLine(_a.Length);
+        }
+
+        public void mtd_2(params object[] _a)
+        {
+            foreach (object item in _a)
+            {
+                Console.WriteLine(item.GetType());
+            }
+        }
+    }
+
+    //1
+    //3
+    //1
+    //3
+    //System.Int32
+    //System.String
+    //System.Net.Sockets.SocketAsyncEventArgs
+    //System.Single
+    ```
+- 1차원 배열이어야 한다.  
+object도 상관없긴한데...
+- method 선언 시 params뒤에 다른 parameter 추가는 안된다.  
+params를 맨 뒤에 쓰면 앞엔 상관없음.
+- method 하나에 하나만 사용 가능.
+- parameter는 쉼표로 구별해 넣으면 알아서 배열로 알아먹고  
+배열로 넣으면 그거 통으로 들어감(차원이 안늘어남)
+
+## in
+> in specifies that this parameter is passed by reference but is only read by the called method.
+- 참조전달, 읽기전용
+- ex
+    ```c#
+    class In
+    {
+        public In()
+        {
+            int a = 1;
+            mtd_1(a);
+        }
+        void mtd_1(in int _a)
+        {
+            Console.WriteLine(_a);
+            //_a = 123;
+        }
+    }
+    ```
+- 참조로 전달
+- 읽기전용.
+- 정식 매개변수를 위해 해당 인수의 별칭을 만드는데 반드시 변수여야함. 
+즉, 매개 변수의 모튼 작업이 인수에서 수행됨.
+- 3번째 
+
 ## ref
+> ref specifies that this parameter is passed by reference and may be read or written by the called method.
+
 - 먼저, 설명을 보면 중간에
 
     > An argument that is passed to a ref or in parameter must be initialized before it is passed. This differs from out parameters, whose arguments do not have to be explicitly initialized before they are passed.
@@ -201,9 +278,11 @@ ref는 생겨난 배경이 저럴것이다 하고 넘어갔으니 신경끄고 o
     - out는 전달받은 param형을 사용해야 하고 값은 없어도 무방   out 결과값은 무조건 받아야 할 떄 
     - 근데 ref는좀 달라졌다는데? 그건 나중에.
 
-## 위에 썼던거
+## 참고
 - [TryParse](https://referencesource.microsoft.com/#mscorlib/system/int32.cs,325507e509229dbc)  
 - [TryDequeue](https://referencesource.microsoft.com/#mscorlib/system/Collections/Concurrent/ConcurrentQueue.cs,0e91b925b71182e1)
+- [메서드 매개 변수(C# 참조)](https://docs.microsoft.com/ko-kr/dotnet/csharp/language-reference/keywords/method-parameters)
+
 
 - basic
 
