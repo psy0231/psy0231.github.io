@@ -44,7 +44,8 @@ seo:
         ```
 
 ## params
-> params specifies that this parameter may take a variable number of arguments.    
+> params specifies that this parameter may take a variable number of arguments.
+
 - paramters를 가변개수의 변수가 있다고 지정.
 - ex
     ```c#
@@ -92,7 +93,8 @@ params를 맨 뒤에 쓰면 앞엔 상관없음.
 
 ## in
 > in specifies that this parameter is passed by reference but is only read by the called method.
-- 참조전달, 읽기전용
+
+- 참조전달, 읽기전용 이라 한다.
 - ex
     ```c#
     class In
@@ -101,44 +103,208 @@ params를 맨 뒤에 쓰면 앞엔 상관없음.
         {
             int a = 1;
             mtd_1(a);
+            mtd_2();
+
+            List<int> b = new List<int>();
+            for (int i = 0; i < 10; i++)
+            {
+                b.Add(i);
+            }
+            mtd_3(b);
+            foreach (var item in b)
+            {
+                Console.WriteLine(item);
+            }
+
         }
         void mtd_1(in int _a)
         {
             Console.WriteLine(_a);
             //_a = 123;
         }
+
+        void mtd_2()
+        {
+            List<int> a = new List<int>();
+            for (int i = 0; i < 10; i++)
+            {
+                a.Add(i);
+            }
+
+            //foreach (int item in a)
+            //{
+            //    a.Add(10);
+            //}
+
+            for (int i = 0; i < 10; i++)
+            {
+                a.Add(10);
+            }
+
+            foreach (int item in a)
+            {
+                Console.WriteLine(item);
+            }
+
+        }
+
+        void mtd_3(in List<int> _b)
+        {
+            _b[0] = 123123;
+            _b.Add(123123);
+        }
     }
     ```
-- 참조로 전달
+- 참조로 전달.
 - 읽기전용.
 - 정식 매개변수를 위해 해당 인수의 별칭을 만드는데 반드시 변수여야함. 
-즉, 매개 변수의 모튼 작업이 인수에서 수행됨.
-- 3번째 
+즉, 매개 변수의 모튼 작업이 인수에서 수행됨.  
+이거 때문에 별다르게 할 수 있는 작업이 없는것같음.
+- 생각해보니 자주 보인게 foreach같음.  
+위에서 mtd_2의 경우를 보면 for문은 list.Add()를 할 수 있지만  
+foreach는 List에 대한 작업을 하지 못함. (주석부분)  
+그냥 내생각엔.. foreach는 collection을 in으로 받으니까 수정은 못함.  
+그런데 그 item들은 collection을 참조로 받아왔으니 그 값을 직접적으로 바꿀 수 있게된것같음.  
+이라고 생각하고 mtd_3을 해봤는데 list수정이 된다.  
+잘 모르겠다.
+- 또 LINQ 쿼리에서 join 절의 일부로 쓰인다 하니 이건 나중에...
+- 아래 참고에 보면 더 길고 복잡한 설명들 많음.
 
 ## ref
 > ref specifies that this parameter is passed by reference and may be read or written by the called method.
 
-- 먼저, 설명을 보면 중간에
+- 참조로 전달, 읽기 쓰기 가능.
 
-    > An argument that is passed to a ref or in parameter must be initialized before it is passed. This differs from out parameters, whose arguments do not have to be explicitly initialized before they are passed.
+- 4가지 정도 용도가 있다함.
+    - 참조로 인수 전달
+    - 참조 반환 값
+    - ref 로컬
+    - ref 구조체
 
-- 이게 위 예시랑 비슷해 보인다 
-    - temp_3은 사용전에 먼저 선언, 할당되어 있어야 한다.
-    - vt_2의 return 값을 temp_3에 넣어 끝낸다.
-- ref 사용으로 바꿔보면
+### 참조로 인수 전달
+- 값이 아닌 참조로 전달됨을 나타냄.  
 
+    ref 키워드는 정식 매개 변수를 변수여야 하는 인수의 별칭으로 설정합니다.  
+    즉, 매개 변수에 대한 모든 작업이 인수에서 수행됩니다.  
+
+    위설명이 in에도 똑같이 있었는데 parameter로 in, ref, out등을 할 때 변수를 넣어줘야 한다는 말인것같음.
+    예를들어 int parameter에 '10'이런식의 상수를 넣으면 안들어감  
+    ref (변수)로 넣야함.
+
+    근데 in은 두개 상관없이 또 들어감...
+- ex
     ```c#
-    int temp_1 = 0;
-    public void rf(ref int _a)
+    class Ref
     {
-        _a += 1;
+        public Ref()
+        {
+            int i = 1;
+            mtd_1(ref i);
+            Console.WriteLine(i);
+            mtd_2(i);
+            Console.WriteLine(i); ;
+        }
+
+        void mtd_1(ref int _a)
+        {
+            _a *= 10;
+        }
+
+        void mtd_2(int _a)
+        {
+            _a *= 10;
+        }
+        //10
+        //10
     }
-    rf(ref temp_1);
-    cw(temp_1);
+    ```
+- 일단 다른점부터 하면 mtd_1과 mtd_2 모두 parameter로 받아 처리하고 return은 없지만 결과가 다르다.  
+ref로 넘어온 경우 원본의 값을 직접 바꿨고 일반적인경우 지역변수로써 역할을하고 끝남.
+- ref는 메서드 정의와 호출 시 모두 명시적으로 사용해야함.
+- ref, in은 전달 전에 초기화 해야함. ( != out )
+- class 맴버가 ref, in, out만 있을 수는 없다.  
+    ```c#
+    class CS0663_Example
+    {
+    // Compiler error CS0663: "Cannot define overloaded
+    // methods that differ only on ref and out".
+    public void SampleMethod(out int i) { }
+    public void SampleMethod(ref int i) { }
+    }
     ```
 
-    - value전달시 return을 다시 원본에 넣는과정을 ref는 알아서 해주는거 아닐까? 하고 넘어가면 똑같아 보임 둘은.
-- 이런 이유로 생겨나지 않았을까 싶음...아님말고
+    ```c#
+    class RefOverloadExample
+    {
+    public void SampleMethod(int i) { }
+    public void SampleMethod(ref int i) { }
+    }
+    ```
+    - 위는 컴파일 에러, 아래는 됨.
+- 다음과 같은 메서드에는 사용 못함
+    - 비동기 method(async 사용)
+    - yield return, yield break를 포함하는 반복기 method
+- 확장 메서드에서의 제약사항 
+    - 확장 메서드의 첫 번째 인수에는 out 키워드를 사용할 수 없음.
+    - 인수가 구조체가 아니거나 구조체로 제한되지 않는 제네릭 형식일 경우에는  
+    확장 메서드의 첫 번째 인수에 ref 키워드를 사용할 수 없음.
+    - 첫 번째 인수가 구조체인 경우 이외에는 in 키워드를 사용할 수 없음.  
+    구조체로 제한되는 경우에도 in 키워드는 제네릭 형식에 사용할 수 없음.
+- 참조 형식을 참조로 전달 가능.  
+참조 형식을 참조로 전달하는 경우 호출된 메서드는 참조 매개 변수가 호출자에서 참조하는 개체를 바꿀 수 있다.  
+개체의 스토리지 위치는 참조 매개 변수의 값으로 메서드에 전달됩니다. 
+매개 변수의 스토리지 위치에서 값을 변경하여 새 개체를 가리키도록 하면 호출자가 참조하는 스토리지 위치도 변경됩니다.  
+다음 예제에서는 참조 형식 인스턴스를 ref 매개 변수로 전달합니다.  
+라고설명이 나와있어서 일단 써놓고 넘어감.      
+
+    ```c#
+    class Product
+    {
+        public Product(string name, int newID)
+        {
+            ItemName = name;
+            ItemID = newID;
+        }
+
+        public string ItemName { get; set; }
+        public int ItemID { get; set; }
+    }
+
+    private static void ChangeByReference(ref Product itemRef)
+    {
+        // Change the address that is stored in the itemRef parameter.
+        itemRef = new Product("Stapler", 99999);
+
+        // You can change the value of one of the properties of
+        // itemRef. The change happens to item in Main as well.
+        itemRef.ItemID = 12345;
+    }
+
+    private static void ModifyProductsByReference()
+    {
+        // Declare an instance of Product and display its initial values.
+        Product item = new Product("Fasteners", 54321);
+        System.Console.WriteLine("Original values in Main.  Name: {0}, ID: {1}\n",
+            item.ItemName, item.ItemID);
+
+        // Pass the product instance to ChangeByReference.
+        ChangeByReference(ref item);
+        System.Console.WriteLine("Back in Main.  Name: {0}, ID: {1}\n",
+            item.ItemName, item.ItemID);
+    }
+
+    // This method displays the following output:
+    // Original values in Main.  Name: Fasteners, ID: 54321
+    // Back in Main.  Name: Stapler, ID: 12345
+    ```
+    
+### 참조 반환 값
+- method가 caller에게 참조로 반환함.  
+caller는 반환된 값을 수정 할 수 있으며  
+해당 변경 내용은 호출 method의 개체 상태에 반영됨.
+
+### ref 로컬
+### ref 구조체
 
 ## out
 - ref는 그렇다 치고 이건 둘다 비슷함.
@@ -282,7 +448,7 @@ ref는 생겨난 배경이 저럴것이다 하고 넘어갔으니 신경끄고 o
 - [TryParse](https://referencesource.microsoft.com/#mscorlib/system/int32.cs,325507e509229dbc)  
 - [TryDequeue](https://referencesource.microsoft.com/#mscorlib/system/Collections/Concurrent/ConcurrentQueue.cs,0e91b925b71182e1)
 - [메서드 매개 변수(C# 참조)](https://docs.microsoft.com/ko-kr/dotnet/csharp/language-reference/keywords/method-parameters)
-
+- [in 매개 변수 한정자(C# 참조)](https://docs.microsoft.com/ko-kr/dotnet/csharp/language-reference/keywords/in-parameter-modifier)
 
 - basic
 
@@ -360,3 +526,22 @@ ref는 생겨난 배경이 저럴것이다 하고 넘어갔으니 신경끄고 o
         }
     }
     ```
+
+
+- 이게 위 예시랑 비슷해 보인다 
+    - temp_3은 사용전에 먼저 선언, 할당되어 있어야 한다.
+    - vt_2의 return 값을 temp_3에 넣어 끝낸다.
+- ref 사용으로 바꿔보면
+
+    ```c#
+    int temp_1 = 0;
+    public void rf(ref int _a)
+    {
+        _a += 1;
+    }
+    rf(ref temp_1);
+    cw(temp_1);
+    ```
+- ref는 메서으 
+    - value전달시 return을 다시 원본에 넣는과정을 ref는 알아서 해주는거 아닐까? 하고 넘어가면 똑같아 보임 둘은.
+- 이런 이유로 생겨나지 않았을까 싶음...아님말고
