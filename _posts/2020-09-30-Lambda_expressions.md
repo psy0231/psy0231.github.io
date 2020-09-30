@@ -4,7 +4,7 @@ date: 2020-09-30 18:00:00 +0900
 categories: [Grind, C#]
 tags: [c#]
 seo:
-  date_modified: 1111-11-11 11:11:11 +0900
+  date_modified: 2020-09-30 23:20:36 +0900
 ---
 
 ## C#에서 대리자의 발전
