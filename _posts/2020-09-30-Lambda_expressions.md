@@ -2,7 +2,7 @@
 title: Lambda expressions
 date: 2020-09-30 18:00:00 +0900
 categories: [Grind, C#]
-tags: [c#]]
+tags: [c#]
 seo:
   date_modified: 1111-11-11 11:11:11 +0900
 ---
