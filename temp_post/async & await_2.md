@@ -1,3 +1,12 @@
+---
+title: async/await_1
+date: 2020-09-30 18:00:00 +0900
+categories: [Grind, C#]
+tags: [c#]
+seo:
+  date_modified: 2020-09-30 23:20:36 +0900
+---
+
 ## Async
 > Use the async modifier to specify that a method, lambda expression, or anonymous method is asynchronous. If you use this modifier on a method or expression, it's referred to as an async method.
 
