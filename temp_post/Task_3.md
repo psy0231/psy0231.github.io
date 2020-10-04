@@ -1,180 +1,185 @@
+---
+title: Task_3
+date: 2020-03-12 15:00:00 +0900
+categories: [Grind, C#]
+tags: [c#]
+seo:
+  date_modified: 2020-10-02 14:01:46 +0900
+---
 
-## Task_1 쓰다가 궁금했던것
-- "특정 작업에서 실행이 오래걸림"의 재현을 THread.sleep()로 구현하는데 맞는가?
+## Task 쓰다가 궁금했던것
+> 여기 부분은 나중에 더 알게되면 아는만큼 쓰던가 하고 지금은 궁금한거 만 늘어놓고 끝내기로.
+
 - main과 현재 task의 thread가 다르다는것을 보일 수 있는가?
+- "특정 task에서 실행이 오래걸림"의 재현을 THread.sleep()로 구현하는데 맞나? 
+    - 정확히 Thread.sleep는 어떤 Thread에 작용하는거??
+    - 예를들어 Task에 넘긴 Action에 연결된 method안에 Thread.Sleep()가 있다고 가정했을때  
+    어떤 Thread가 sleep하나? 
+    또, 원래 웹을 읽어온다거나 하는등의 시간이 걸렸을 작업을 Task안에 Thread.sleep로 구현하는게 맞나? 
+- Wait은 Task가 완료 될때까지 Task를 실행한 thread는 차단돤다고 했는데 ...
+    - 그럼 왜쓰는거임?
 
-- wait()??
-    > Waits for the Task to complete execution.  
-    
-    - _1 쓰다가 궁금했고 다시보니 대충 알것같음.
-    - 기다려 주는건 Main thread이거나 이걸 불렀던 parent thread 일것같음 
-    - 직접보자. 또 보다가 새로 찾은것도 있고.....
-    - 그런데....
-
-- 사실은
+### main thread / task thread
+- task는 thread pool의 thead에서 샐행 된다 했음.
     ```c#
-     class Program
+    class Program
     {
         static void Main(string[] args)
         {
-            test_1 t = new test_1();
-            
-            Action a1 = t.mtd_1;
-            Task t1 = new Task(a1);
-
-            Action a2 = t.mtd_2;
-            Task t2 = new Task(a2);
-
-            Action a3 = t.mtd_3;
-            Task t3 = new Task(a3);
-
-            Console.WriteLine("1") ;
-            t1.Start();
-            t1.Wait();
-            Console.WriteLine("2");
-            t2.Start();
-            t2.Wait();
-            Console.WriteLine("3");
-            t3.Start();
-            t3.Wait();
-            Console.WriteLine("6");
+            Console.WriteLine("Main={0}",Thread.CurrentThread.ManagedThreadId);
+            new test_3();
         }
     }
 
-    class test_1
+    class test_3
     {
-        public test_1()
+        public test_3()
         {
-
+            Console.WriteLine("test_3={0}", Thread.CurrentThread.ManagedThreadId);
+            mtd_1();
         }
 
-        public void mtd_1()
+        void mtd_1()
         {
-            string name = MethodBase.GetCurrentMethod().Name;
-            Console.WriteLine(DateTime.Now.ToString("HH:mm:ss.fff") + " "+name + " start ");
-            Thread.Sleep(3000);
-            Console.WriteLine(DateTime.Now.ToString("HH:mm:ss.fff") + " " + name + " end ");
-        }
+            Action<object> action = (object obj) =>
+            {
+                Console.WriteLine("Task={0}, obj={1}, Thread={2}",
+                                  Task.CurrentId, 
+                                  obj,
+                                  Thread.CurrentThread.ManagedThreadId);
+            };
+            Task t1 = new Task(action, "t1");
+            Task t2 = new Task(action, "t2");
+            Task t3 = new Task(action, "t3");
 
-        public void mtd_2()
-        {
-            string name = MethodBase.GetCurrentMethod().Name;
-            Console.WriteLine(DateTime.Now.ToString("HH:mm:ss.fff") + " " + name + " start ");
-            Thread.Sleep(2000);
-            Console.WriteLine(DateTime.Now.ToString("HH:mm:ss.fff") + " " + name + " end ");
+            t1.Start();
+            t2.Start();
+            t3.Start();
 
-        }
-
-        public void mtd_3()
-        {
-            string name = MethodBase.GetCurrentMethod().Name;
-            Console.WriteLine(DateTime.Now.ToString("HH:mm:ss.fff") + " " + name + " start ");
-            Thread.Sleep(4000);
-            Console.WriteLine(DateTime.Now.ToString("HH:mm:ss.fff") + " " + name + " end ");
+            t1.Wait();
+            t2.Wait();
+            t3.Wait();
         }
     }
     ```
-    - 결과는 이렇게 나옴.  
-    1  
-    16:45:41.125 mtd_1 start  
-    16:45:44.127 mtd_1 end  
-    2  
-    16:45:44.127 mtd_2 start  
-    16:45:46.128 mtd_2 end  
-    3  
-    16:45:46.129 mtd_3 start  
-    16:45:50.131 mtd_3 end  
-    6
-    - 그러니까 async/blocking 이라하면 맞나..
-    - task.start는 async로 분기되는건 맞는데 실제 method가 끝날때까지는 기다린다-block된다.
-    - 원래 생각엔  
-    1  
-    16:45:41.125 mtd_1 start  
-    2  
-    16:45:44.127 mtd_2 start  
-    3  
-    16:45:46.129 mtd_3 start  
-    6  
-    16:45:44.127 mtd_1 end  
-    16:45:46.128 mtd_2 end  
-    16:45:50.131 mtd_3 end  
-    이럴줄알았는데 **!아님!**
-- 하나 더 순서만 좀 바꾼거.  
-    ```c#
-    Console.WriteLine("1");  
-    t1.Start();  
-    Console.WriteLine("2");  
-    t2.Start();  
-    Console.WriteLine("3");  
-    t2.Wait();  
-    Console.WriteLine("4");  
-    t1.Wait();  
-    Console.WriteLine("5");  
-    t3.Start();  
-    Console.WriteLine("6");  
-    t3.Wait();  
-    Console.WriteLine("7");  
+- 실행 결과는 
     ```
-    - 이거 출력은  
-    1       
-    2  
-    3  
-    22:01:33.562 mtd_1 start  
-    22:01:33.563 mtd_2 start  
-    22:01:35.568 mtd_2 end  
-    4  
-    22:01:36.568 mtd_1 end  
-    5  
-    6  
-    22:01:36.569 mtd_3 start  
-    22:01:40.569 mtd_3 end  
-    7  
-    - 같다. 실행은 async인데 실제 method에서는 blocking라 저런식인듯
+    Main=1
+    test_3=1
+    Task=2, obj=t2, Thread=6
+    Task=3, obj=t3, Thread=5
+    Task=1, obj=t1, Thread=3
+
+    Main=1
+    test_3=1
+    Task=1, obj=t1, Thread=3
+    Task=3, obj=t3, Thread=6
+    Task=2, obj=t2, Thread=5
+
+    Main=1
+    test_3=1
+    Task=1, obj=t1, Thread=3
+    Task=2, obj=t2, Thread=4
+    Task=3, obj=t3, Thread=5
+    ```
+- 실행 결과는 대체적으로 할 때마다 순서가 바뀜.
+    - 위 실행 결과는 같은거 여러번한거.
+    - 1,2,3 start의 순서가 중요한게 아닌것같음 
+- Thread.CurrentThread.ManagedThreadId로 확인할 때마다 id가 계속 달라진다.  
+
+    그래서.. 하는건데  
+    Thread.으로 시작하는 static method들은 해당 부분을 실재로 실행하고있는 thread를 지징하는것같음
+    그래서 main, test_3은 main에서 왔으니 id = 1로 같고 
+    task로 실행하는 부분은 task각각에 다른 thread id가 생긴다.
+
+### "특정 task에서 실행이 오래걸림"의 재현
+- 위를 시작으로 조금 풀리는듯함.
+- 일단, 위의 전제가 확실히 맞다고 하면  
+Task에 구현된 method안에 Thread.sleep은  
+실제 그 method를 실행하고있는 Task의 thread에 작용하겠지..  
+그럼 맞음.
+
+
+### wait()?? 
+- Task_2 에서  
+    
+    Wait(Int32)및 Wait(TimeSpan) 메서드는 작업이 완료 되거나 시간 제한 간격이 경과할 때까지 (둘 중 먼저 도달 하는 경우) 호출 스레드를 차단.  
+    
+    이라고 했는데 애초에 이게 이상해서 위에 의문들이 계속 생긴듯함.
+    
+- Wait를 만나면 task를 호출한 thread는 차단되나?
+    ```c#
+    class test_4
+    {
+        public test_4()
+        {
+            Action<object> action = (object obj) =>
+            {
+                Console.WriteLine(DateTime.Now.ToString("ss.fff"));
+                Console.WriteLine("Task={0}, obj={1}, Thread={2}",
+                                  Task.CurrentId,
+                                  obj,
+                                  Thread.CurrentThread.ManagedThreadId);
+                Thread.Sleep(1000);
+            };
+
+            Task t1 = new Task(action,"t1");
+            Task t2 = new Task(action, "t2");
+            
+            
+
+            for (int i = 0; i < 10; i++)
+            {
+                Console.WriteLine("{0} : {1}",i, DateTime.Now.ToString("ss.fff"));
+
+                if (i == 2)
+                {
+                    t1.Start();
+                }
+                else if (i == 6)
+                {
+                    t1.Wait();
+                    t2.Start();
+                    t2.Wait();
+
+                }
+                Thread.Sleep(1000);
+            }
+        }
+    }
+
+    ```
+- 출력을 보면 
+    ```
+    Main=1
+    0 : 07.877
+    1 : 08.892
+    2 : 09.905
+    09.910
+    Task=1, obj=t1, Thread=3
+    3 : 10.921
+    4 : 11.935
+    5 : 12.935
+    6 : 13.945
+    13.945
+    Task=2, obj=t2, Thread=4
+    7 : 15.951
+    8 : 16.964
+    9 : 17.978
+    ```
+- Task 1 의 경우  
+t1.wait 만나기 전까지 Action이 끝날만한 충분한 시간이 있어서 잘 끝났는데  
+
+    Task 2 의 경우 t2.wait전에 끝나지 않아 시간을 잡아먹음.
+class test_4는 main thread 이므로 t2.wait만나면서 끝날때까지 기다림.
+흐름상 wait만나기 전까지 task가 끝나기 않으면 task를 호출했던 thread는 block됨.
+
+
+- 같다. 실행은 async인데 실제 method에서는 blocking라 저런식인듯
 - 확실히 이상해 보이긴 한다.
     - 보통 thread로 따로 빼는 작업들은 시간이 오래 걸려 main에서 처리를 안하게끔하는게 목적인데 이렇게 하면 별반 다를게 없어보인다.
     - wait()를 빼면 될것같은데 그것도 찝찝하긴함. 끝났다는걸 모르거나 아니면... 보통은 실제 실행하는 method에서 시간을 많이잡아먹으면 main먼저 끝나는 그런경우처럼 될수있음
 
-## Task<TResult>
-- 이번엔 return이 있는경우
-    ```c#
-    class test_2
-    {
-        public test_2()
-        {
-            Func<object, int> func;
-            func = mtd;
-
-            Task<int> t1 = new Task<int>(func,1);
-            t1.Start();
-            Console.WriteLine(t1.Result);
-
-            Task<int> t = Task<int>.Run(() => {
-                // Just loop.
-                int max = 1000000;
-                int ctr = 0;
-                for (ctr = 0; ctr <= max; ctr++)
-                {
-                    if (ctr == max / 2 && DateTime.Now.Hour <= 12)
-                    {
-                        ctr++;
-                        break;
-                    }
-                }
-                return ctr;
-            });
-            Console.WriteLine("Finished {0:N0} iterations.", t.Result);   
-        }
-
-        int mtd(object _i)
-        {
-            return (int)_i + 1;
-        }
-    }
-    ```
-    - 두 가지 경우를 보임.
-        - parameter 하나 넘기고 return 받는 경우(t1)
-        - paramerer없이 return 받는 경우(t)
-    - 근데 t의 경우 wait가 없는데 어떤 경우건 정상적으로 끝남 (지금까지는). run()다음 cw부분때문인것같음...
 
 ## 정리
 - task는 async로 동작하나 여전히 block임.
