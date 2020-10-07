@@ -38,6 +38,68 @@ seo:
 Socket.Receive()는 sync/block의 경우인데 사실 보통 일반적으로 만드는 method의 형태이기도 하고..  
 또 원래 목표인 async&await가 async/non-block인듯 하다. node.js도 일껄?
 
+## Async
+
+### 이유
+- 뭐든 반응성 좋게 할라고.
+    - ui, db, io, network ... 
+- 이전 API(?)들은 기본적으로 sync/block 작성되었을꺼임.  
+이전에는 딱히 문제가 없었는데 가면갈수록 비효율이라는것.  
+그럼에도 이전 것들을 갈아치우지 않는 이유는  
+기존에 너무 많은것들이 이미 그렇게 되어있어서 라는 답이있었는데...
+
+## 종류
+- APM(Asynchronous Programming Model)  
+IAsyncResult 이용하는 애들.  
+Begin, End접미사 들어가는 method인데 대충 옛날꺼 찾아보면 나옴.  
+레거시.
+
+    ```c#
+    public class MyClass  
+    {  
+        public IAsyncResult BeginRead(  
+            byte [] buffer, int offset, int count,
+            AsyncCallback callback, object state);  
+        public int EndRead(IAsyncResult asyncResult);  
+    }
+    ```
+- EAP(Event-based Asynchronous Pattern)  
+Async접미사 있는 method.  
+하나 이상의 이벤트, 이벤트 처리기 대리자 형식 및 EventArg에서 파생된 형식도 필요합니다.  
+이것도 레거시.
+
+    ```c#
+    public class MyClass  
+    {  
+        public void ReadAsync(byte [] buffer, int offset, int count);  
+        public event ReadCompletedEventHandler ReadCompleted;  
+    }
+    ```
+- TAP(Task-based asynchronous pattern)  
+async 및 await 사용. method에 Async접미사 붙은거.  
+확실치는 않은데 위 두개는 작업에 칠요한 method와는 별개로 필요한 부수적인게 있으나  
+이거는 단일로 가능.  
+.NET에서 비동기 프로그램에 권장되는 방법입니다.  
+
+    ```c#
+    public class MyClass  
+    {  
+        public Task<int> ReadAsync(byte [] buffer, int offset, int count);  
+    }
+    ```
+- 참고로 위 셋의 기본형은 
+    ```c#
+    public class MyClass  
+    {  
+        public int Read(byte [] buffer, int offset, int count);  
+    }
+    ```
+- 아무튼 레거시 된것들 보면 좀 복잡함.  
+맨첨에 공부하면서 봤을떄고 복잡해 보여서 넘겼던걸로 기억함.  
+다만, 조금 연식이 된 코드들은 가끔 저게 보이는 경우도 있음.  
+앞 두게는 자세히 안 할 예정이고 TAP만.
+
+
 ## 좀더 생각 해볼것?
 - async
     - Task하면서 의문이었던 wait에서 block되면 의미가 없는거 아닌가 했는데 ...
@@ -53,3 +115,9 @@ Socket.Receive()는 sync/block의 경우인데 사실 보통 일반적으로 만
 - [C# 5.0 : async / await 키워드](http://www.csharpstudy.com/CSharp/CSharp-async-await.aspx)  
 - [Asynchronous programming with async and await](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/async/)  
 - [What's the difference between Task.Start/Wait and Async/Await?](https://stackoverflow.com/questions/9519414/whats-the-difference-between-task-start-wait-and-async-await)
+- [TPL(작업 병렬 라이브러리)](https://docs.microsoft.com/ko-kr/dotnet/standard/parallel-programming/task-parallel-library-tpl)
+- [비동기 프로그래밍 패턴](https://docs.microsoft.com/ko-kr/dotnet/standard/asynchronous-programming-patterns/)
+- [작업 기반 비동기 패턴](https://docs.microsoft.com/ko-kr/dotnet/standard/asynchronous-programming-patterns/task-based-asynchronous-pattern-tap)
+- [비동기 프로그래밍 패턴](https://docs.microsoft.com/ko-kr/dotnet/standard/asynchronous-programming-patterns/)
+- [비동기 개요](https://docs.microsoft.com/ko-kr/dotnet/standard/async)
+- [비동기 프로그래밍](https://docs.microsoft.com/ko-kr/dotnet/csharp/async)
