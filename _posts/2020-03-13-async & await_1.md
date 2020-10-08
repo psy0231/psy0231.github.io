@@ -48,7 +48,7 @@ Socket.Receive()는 sync/block의 경우인데 사실 보통 일반적으로 만
 그럼에도 이전 것들을 갈아치우지 않는 이유는  
 기존에 너무 많은것들이 이미 그렇게 되어있어서 라는 답이있었는데...
 
-## 종류
+### 종류
 - APM(Asynchronous Programming Model)  
 IAsyncResult 이용하는 애들.  
 Begin, End접미사 들어가는 method인데 대충 옛날꺼 찾아보면 나옴.  
@@ -78,8 +78,8 @@ Async접미사 있는 method.
 - TAP(Task-based asynchronous pattern)  
 async 및 await 사용. method에 Async접미사 붙은거.  
 확실치는 않은데 위 두개는 작업에 칠요한 method와는 별개로 필요한 부수적인게 있으나  
-이거는 단일로 가능.  
-.NET에서 비동기 프로그램에 권장되는 방법입니다.  
+이거는 단일로 가능. 이라고 한다만.. 그래도 딴거보다는 간단함.  
+권장되는 방법임.  
 
     ```c#
     public class MyClass  
@@ -95,10 +95,14 @@ async 및 await 사용. method에 Async접미사 붙은거.
     }
     ```
 - 아무튼 레거시 된것들 보면 좀 복잡함.  
-맨첨에 공부하면서 봤을떄고 복잡해 보여서 넘겼던걸로 기억함.  
+맨첨에 공부하면서 봤을떄도 복잡해 보여서 넘겼던걸로 기억함.  
 다만, 조금 연식이 된 코드들은 가끔 저게 보이는 경우도 있음.  
-앞 두게는 자세히 안 할 예정이고 TAP만.
+앞 두개는 자세히 안 할 예정이고 TAP만.
 
+### 자세히...
+- .NET에서 TAP모델을 사용하면 I/O 및 CPU 바인딩된 비동기 코드를 간단하게 작성할 수 있다.  
+위 예시를 보거나 조금만 찾아봐도 예전 방법들은 확실히 복잡함.
+Task 및 Task<T> 형식과 async 및 await 키워드가 사용됨.
 
 ## 좀더 생각 해볼것?
 - async
@@ -117,6 +121,7 @@ async 및 await 사용. method에 Async접미사 붙은거.
 - [What's the difference between Task.Start/Wait and Async/Await?](https://stackoverflow.com/questions/9519414/whats-the-difference-between-task-start-wait-and-async-await)
 - [TPL(작업 병렬 라이브러리)](https://docs.microsoft.com/ko-kr/dotnet/standard/parallel-programming/task-parallel-library-tpl)
 - [비동기 프로그래밍 패턴](https://docs.microsoft.com/ko-kr/dotnet/standard/asynchronous-programming-patterns/)
+- [작업 기반 비동기 프로그래밍](https://docs.microsoft.com/ko-kr/dotnet/standard/parallel-programming/task-based-asynchronous-programming)
 - [작업 기반 비동기 패턴](https://docs.microsoft.com/ko-kr/dotnet/standard/asynchronous-programming-patterns/task-based-asynchronous-pattern-tap)
 - [비동기 프로그래밍 패턴](https://docs.microsoft.com/ko-kr/dotnet/standard/asynchronous-programming-patterns/)
 - [비동기 개요](https://docs.microsoft.com/ko-kr/dotnet/standard/async)
