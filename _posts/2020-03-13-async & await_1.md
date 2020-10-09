@@ -104,6 +104,46 @@ async 및 await 사용. method에 Async접미사 붙은거.
 위 예시를 보거나 조금만 찾아봐도 예전 방법들은 확실히 복잡함.
 Task 및 Task<T> 형식과 async 및 await 키워드가 사용됨.
 
+- Task, Task<T>
+    - Task는 Promise Model of Concurrency(동시성 약속 모델)을 구현하는데 사용.
+    - 나중에 작업이 완료될 것이라는 "약속"을 제공.
+    - await를 사용하면 태스크가 완료될 때까지 해당 호출자에게 제어가 양도되므로  
+    Task가 실행되는 동안 애플리케이션 또는 서비스에서 다른 작업을 수행할 수 있다.  
+    다른 비동기 방법과 달리 callback 또는 event를 사용할 필요가 없는데  
+    이 작업을 언어, Task API에서 자동으로 해주기 때문.  
+    Task<T>를 사용하는 경우 await 키워드는 작업이 완료될 때 반환되는 값을 추가로 “래핑 해제”함.  
+
+- 서버에서?  
+    완료되지 않은 task를 차단하는 전용 스레드가 없기 때문에 서버 스레드 풀이 훨씬 더 많은 웹 요청을 처리할 수 있다.
+
+    서버에서 서비스 요청에 사용할 수 있는 스레드가 5개뿐이고,  
+    서버가 모두 6개의 동시 요청을 받아 각 요청에서 I/O 작업을 수행한다 했을 떄  
+    
+    비동기 코드가 없는 서버는  
+    5개의 스레드 중 하나가 I/O 바인딩된 작업을 완료하고 응답을 쓸 때까지  
+    6번째 요청을 큐에 유지해야 합니다.  
+    20번째 요청이 도달할 때쯤에는 큐가 너무 길어져서 서버 속도가 저하되기 시작할 수 있다.
+    
+    비동기 코드가 실행되고 있는 서버는  
+    여섯 번째 요청을 큐에 유지하지만  
+    I/O 바인딩된 작업이 완료될 때가 아니라 시작될 때 해당 스레드가 각각 해제됩니다.  
+    20번째 요청이 도달할 때쯤에는 들어오는 요청의 큐가 훨씬 더 적으며(큐에 요청이 있는 경우에도)  
+    서버 속도가 저하되지 않습니다.
+    
+    가상의 예제이지만 실제 환경에서도 매우 유사한 방식으로 작동합니다. 실제로 서버가 async 및 await를 사용할 경우 받는 각 요청에 전용 스레드를 사용하는 경우에 비해 훨씬 더 많은 요청을 처리할 것을 예상할 수 있습니다.
+
+- 클라이언트에서?  
+클라이언트에서  사용할 경우의 가장 큰 이점은 응답성 증가.  
+스레드를 수동으로 생성하여 앱의 응답성을 개선할 수도 있지만  
+스레드 생성 작업은 async 및 await를 사용하는 것보다 비용이 많이 듭니다.  
+특히 모바일 게임 등의 경우 I/O와 관련된 UI 스레드에 대한 영향을 최소화하는 것이 중요합니다.  
+무엇보다도, I/O 바인딩된 작업은 CPU 시간이 거의 필요하지 않으므로  
+유용하지 않은 작업에 전체 CPU 스레드를 전용으로 지정할 경우 리소스를 잘못 사용하는 것입니다.  
+또한 UI 스레드에 작업을 디스패치하는 경우(예: UI 업데이트)  
+async 메서드를 사용하면 간단하며  
+추가 작업(예: 스레드로부터 안전한 대리자 호출)이 필요하지 않습니다.
+
+
 ## 좀더 생각 해볼것?
 - async
     - Task하면서 의문이었던 wait에서 block되면 의미가 없는거 아닌가 했는데 ...
@@ -115,6 +155,12 @@ Task 및 Task<T> 형식과 async 및 await 키워드가 사용됨.
     - 중간에 경과를 확인한다거나 또는 중간에 작업을 취소한다거나...
 
 ## 참고
+- [비동기 개요](https://docs.microsoft.com/ko-kr/dotnet/standard/async)
+- [비동기에 대한 자세한 설명](https://docs.microsoft.com/ko-kr/dotnet/standard/async-in-depth)
+- [Futures and promises](https://en.wikipedia.org/wiki/Futures_and_promises)
+- [비동기 프로그래밍 패턴](https://docs.microsoft.com/ko-kr/dotnet/standard/asynchronous-programming-patterns/)
+
+
 - [간편한 비동기 프로그래밍:async/await(1)](http://www.simpleisbest.net/post/2013/02/06/About_Async_Await_Keyword_Part_1.aspx)  
 - [C# 5.0 : async / await 키워드](http://www.csharpstudy.com/CSharp/CSharp-async-await.aspx)  
 - [Asynchronous programming with async and await](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/async/)  
@@ -123,6 +169,9 @@ Task 및 Task<T> 형식과 async 및 await 키워드가 사용됨.
 - [비동기 프로그래밍 패턴](https://docs.microsoft.com/ko-kr/dotnet/standard/asynchronous-programming-patterns/)
 - [작업 기반 비동기 프로그래밍](https://docs.microsoft.com/ko-kr/dotnet/standard/parallel-programming/task-based-asynchronous-programming)
 - [작업 기반 비동기 패턴](https://docs.microsoft.com/ko-kr/dotnet/standard/asynchronous-programming-patterns/task-based-asynchronous-pattern-tap)
-- [비동기 프로그래밍 패턴](https://docs.microsoft.com/ko-kr/dotnet/standard/asynchronous-programming-patterns/)
-- [비동기 개요](https://docs.microsoft.com/ko-kr/dotnet/standard/async)
 - [비동기 프로그래밍](https://docs.microsoft.com/ko-kr/dotnet/csharp/async)
+- [작업 비동기 프로그래밍 모델](https://docs.microsoft.com/ko-kr/dotnet/csharp/programming-guide/concepts/async/task-asynchronous-programming-model)
+- [.NET으로 병렬 프로그래밍](https://docs.microsoft.com/ko-kr/dotnet/standard/parallel-programming/)
+
+- []()
+- []()
