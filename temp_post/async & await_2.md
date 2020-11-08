@@ -97,50 +97,13 @@ C# 7.1부터 애플리케이션 진입점인 Main 메서드는 Task 또는 Task<
 값을 생성하지 않는 비동기 작업의 경우 Task.Wait 메서드를 호출할 수 있습니다.  
 
 ## async/await
-- 위 설명이 빈약한 이유는 아래 더 좋은 설명들이 있어서 다시쓰는건 의미가 없고, 이랬구나 하는 느낌만 남기면 됐으니까 가물가물하면 아래꺼 함 더 보자.
-- task와 비교
-    ```c#
-    private void button1_Click(object sender, EventArgs e)
-    {
-        Task t;
-
-        t = Task.Factory.StartNew(DoSomethingThatTakesTime);
-        t.Wait();
-          
-    }
-
-    private async void button2_Click(object sender, EventArgs e)
-    {
-        var result = Task.Factory.StartNew(DoSomethingThatTakesTime);
-        await result;
-    }
-
-    private void button3_Click(object sender, EventArgs e)
-    {
-        DoSomethingThatTakesTime();
-    }
-
-    private void DoSomethingThatTakesTime()
-    {
-
-        Console.WriteLine("Task id : {0} thread id : {1}", Task.CurrentId, Thread.CurrentThread.ManagedThreadId);
-        Thread.Sleep(1000 * 1);
-    }
-    ```
-    - 출력을 보면
-        ```c#
-        Task id : 1 thread id : 3  
-        Task id : 2 thread id : 3  
-        Task id :   thread id : 1
-        ```
-        - 1,3은 같아보이지만 thread가 다르고 (thread id 1이 ui thread)
-        - 1,2는 확실히 다른 곳에서 실행 됨
+https://docs.microsoft.com/ko-kr/dotnet/csharp/programming-guide/concepts/async/task-asynchronous-programming-model
+https://docs.microsoft.com/ko-kr/dotnet/csharp/async
 
 ## 참고
 - [C# 5.0 : async / await 키워드](http://www.csharpstudy.com/CSharp/CSharp-async-await.aspx)  
-- [Asynchronous programming with async and await](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/async/)  
+- [async 및 await를 사용한 비동기 프로그래밍](https://docs.microsoft.com/ko-kr/dotnet/csharp/programming-guide/concepts/async/)  
 - [What's the difference between Task.Start/Wait and Async/Await?](https://stackoverflow.com/questions/9519414/whats-the-difference-between-task-start-wait-and-async-await)
-- [작업 기반 비동기 프로그래밍](https://docs.microsoft.com/ko-kr/dotnet/standard/parallel-programming/task-based-asynchronous-programming)
 - [작업 기반 비동기 패턴](https://docs.microsoft.com/ko-kr/dotnet/standard/asynchronous-programming-patterns/task-based-asynchronous-pattern-tap)
 - [비동기 프로그래밍](https://docs.microsoft.com/ko-kr/dotnet/csharp/async)
 - [작업 비동기 프로그래밍 모델](https://docs.microsoft.com/ko-kr/dotnet/csharp/programming-guide/concepts/async/task-asynchronous-programming-model)
