@@ -97,16 +97,108 @@ C# 7.1부터 애플리케이션 진입점인 Main 메서드는 Task 또는 Task<
 값을 생성하지 않는 비동기 작업의 경우 Task.Wait 메서드를 호출할 수 있습니다.  
 
 ## async/await
+### intro
+- 다시 asynchronous programming를 async, await와 섞어서함.
+- 따라서 본 내용은 이 전 async & await 1 의 내용과  
+위의 async, await 와 중복되는 내용이 많은데,  
+이부분은 아래 링크에도 있듯이 서로 연결되어있거나 순환적임.  
+무튼, 계속 비슷한 내용들을 조금씩 다르게 설명하고있어서  
+..이 부분에 적당히 섞어 정리함.
+
+### Asynchronous programming 
+- 주로 I/O바인딩 또는 CPU바인딩때 사용하는것을 권장하고 있는데  
+실제 바인딩 영역은 몇가지 더 있는듯하나 시간이 오래 걸릴가능성이 있는건 이 둘인듯.(아래 링크)  
+- 아무튼 대부분의 경우  
+I/O 바인딩된 코드에서는 async 메서드의 내부에서 Task 또는 Task<T>를 반환하는 작업을,  
+CPU 바인딩된 코드에서는 Task.Run 메서드로 백그라운드 스레드에서 시작되는 작업을 기다린다.
+- 수행하는 작업이 어떤 바인딩인지 인식하는것이 중요하다고 하는데  
+코드의 성능에 큰 영향을 미치고 잠재적으로 특정 구문을 잘못 사용하게 될 수 있기 때문.
+- 구별짓기 위해 고려해야하는 사항으로는  
+    1. 코드가 데이터베이스의 데이터와 같은 무엇인가를 “기다리게” 되나?
+        - 대답이 "예"이면 I/O 바인딩된 작업.
+    2. 코드가 비용이 높은 계산을 수행하게 되나?
+        - 대답이 "예"이면 CPU 바인딩된 작업.
+- 위 사항에 따라 
+    - I/O 바인딩된 작업이 있을 경우 Task.Run 없이 async 및 await를 사용.  
+    작업 병렬 라이브러리를 사용하면 안 됨.  
+    그 이유는 세부 비동기에 설명.(이건 나중에)
+    - CPU 바인딩된 작업이 있고 빠른 응답이 필요할 경우  
+    async 및 await를 사용하지만 Task.Run을 사용하여 또 다른 스레드에서 작업을 생성합니다.  
+    작업이 동시성 및 병렬 처리에 해당할 경우  
+    작업 병렬 라이브러리를 사용할 것을 고려할 수도 있습니다.
+    - 또한 항상 코드 실행을 측정해야 합니다.  
+    예를 들어 CPU 바인딩된 작업이 다중 스레딩 시  
+    컨텍스트 전환의 오버헤드에 비해 부담이 크지 않은 상황이 될 수 있습니다.  
+    모든 선택에는 절충점이 있습니다.  
+    상황에 맞는 올바른 절충점을 선택해야 합니다.
+- 무튼 이 부분에서 중요한 점은 
+    - 비동기 코드는 I/O 바인딩된 코드와 CPU 바인딩된 코드에 둘 다 사용할 수 있지만  
+    시나리오마다 다르게 사용됩니다.
+    - 비동기 코드는 백그라운드에서 수행되는 작업을 모델링하는데 사용되는 구문인  
+    Task<T> 및 Task를 사용합니다.
+    - async 키워드는 본문에서 await 키워드를 사용할 수 있는 비동기 메서드로 메서드를 변환합니다.
+    - await 키워드가 적용되면 이 키워드는 호출 메서드를 일시 중단하고 대기 작업이 완료할 때까지 제어 권한을 다시 호출자에게 양도합니다.
+    - await는 비동기 메서드 내부에서만 사용.
+- 백그라운드 수행
+    - 비동기 작업과 관련하여 많은 작업이 수행됩니다.  
+    Task 및 Task<T>의 백그라운드에서 수행되는 작업이 궁금하면 세부 비동기 문서에서 자세한 내용을 확인하세요.
+    - C#에서는 컴파일러가 해당 코드를, await에 도달할 때 실행을 양도하고  
+    백그라운드 작업이 완료될 때 실행을 다시 시작하는 것과 같은 작업을 추적하는 상태 시스템으로 변환합니다.
+    - 이론적으로 보면 이 변환은 비동기 약속 모델입니다.
+- I/O 바인딩 예제: 웹 서비스에서 데이터 다운로드
+    ```c#
+    private readonly HttpClient _httpClient = new HttpClient();
+
+    downloadButton.Clicked += async (o, e) =>
+    {
+        // This line will yield control to the UI as the request
+        // from the web service is happening.
+        //
+        // The UI thread is now free to perform other work.
+        var stringData = await _httpClient.GetStringAsync(URL);
+        DoSomethingWithData(stringData);
+    };
+    ```
+    - 단추가 눌릴 때 웹 서비스에서 일부 데이터를 다운로드해야 할 수 있지만  
+    UI 스레드를 차단하지 않으려고 합니다.
+- CPU 바인딩 예제: 게임에 대한 계산 수행
+    ```c#
+    private DamageResult CalculateDamageDone()
+    {
+        // Code omitted:
+        //
+        // Does an expensive calculation and returns
+        // the result of that calculation.
+    }
+
+    calculateButton.Clicked += async (o, e) =>
+    {
+        // This line will yield control to the UI while CalculateDamageDone()
+        // performs its work. The UI thread is free to perform other work.
+        var damageResult = await Task.Run(() => CalculateDamageDone());
+        DisplayDamage(damageResult);
+    };
+    ```
+    - 단추를 누르면 화면의 많은 적에게 손상을 입힐 수 있는 모바일 게임을 작성한다고 가정합니다. 손상 계산을 수행하는 것은 부담이 클 수 있고 UI 스레드에서 이 작업을 수행하면 계산이 수행될 때 게임이 일시 중지되는 것처럼 보입니다.
+    - 이 작업을 처리하는 가장 좋은 방법은 Task.Run을 사용하여 작업을 수행하는 백그라운드 스레드를 시작하고 await를 사용하여 결과를 기다리는 것입니다. 이렇게 하면 작업이 수행되는 동안 UI가 매끄럽게 느껴질 수 있습니다.
+    - 이 코드는 단추 클릭 이벤트의 의도를 표현하고, 백그라운드 스레드를 수동으로 관리할 필요가 없고, 비차단 방식으로 작업을 수행합니다.
+
+
 https://docs.microsoft.com/ko-kr/dotnet/csharp/programming-guide/concepts/async/task-asynchronous-programming-model
 https://docs.microsoft.com/ko-kr/dotnet/csharp/async
 
 ## 참고
-- [C# 5.0 : async / await 키워드](http://www.csharpstudy.com/CSharp/CSharp-async-await.aspx)  
-- [async 및 await를 사용한 비동기 프로그래밍](https://docs.microsoft.com/ko-kr/dotnet/csharp/programming-guide/concepts/async/)  
-- [What's the difference between Task.Start/Wait and Async/Await?](https://stackoverflow.com/questions/9519414/whats-the-difference-between-task-start-wait-and-async-await)
-- [작업 기반 비동기 패턴](https://docs.microsoft.com/ko-kr/dotnet/standard/asynchronous-programming-patterns/task-based-asynchronous-pattern-tap)
-- [비동기 프로그래밍](https://docs.microsoft.com/ko-kr/dotnet/csharp/async)
-- [작업 비동기 프로그래밍 모델](https://docs.microsoft.com/ko-kr/dotnet/csharp/programming-guide/concepts/async/task-asynchronous-programming-model)
 - [async](https://docs.microsoft.com/ko-kr/dotnet/csharp/language-reference/keywords/async)  
 - [await](https://docs.microsoft.com/ko-kr/dotnet/csharp/language-reference/operators/await)
+- [비동기 프로그래밍](https://docs.microsoft.com/ko-kr/dotnet/csharp/async)
+- [async 및 await를 사용한 비동기 프로그래밍](https://docs.microsoft.com/ko-kr/dotnet/csharp/programming-guide/concepts/async/)  
+- [C# 5.0 : async / await 키워드](http://www.csharpstudy.com/CSharp/CSharp-async-await.aspx)  
+
 - [Async 쓸까말까 및 주의할 점](https://www.youtube.com/watch?v=HkLhKyoh3sI)
+- [What's the difference between Task.Start/Wait and Async/Await?](https://stackoverflow.com/questions/9519414/whats-the-difference-between-task-start-wait-and-async-await)
+- [작업 기반 비동기 패턴](https://docs.microsoft.com/ko-kr/dotnet/standard/asynchronous-programming-patterns/task-based-asynchronous-pattern-tap)
+- [작업 비동기 프로그래밍 모델](https://docs.microsoft.com/ko-kr/dotnet/csharp/programming-guide/concepts/async/task-asynchronous-programming-model)
+
+- [What do the terms “CPU bound” and “I/O bound” mean?](https://stackoverflow.com/questions/868568/what-do-the-terms-cpu-bound-and-i-o-bound-mean)
+
+[Futures and promises](https://en.wikipedia.org/wiki/Futures_and_promises)
