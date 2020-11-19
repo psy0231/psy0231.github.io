@@ -97,6 +97,57 @@ C# 7.1부터 애플리케이션 진입점인 Main 메서드는 Task 또는 Task<
 값을 생성하지 않는 비동기 작업의 경우 Task.Wait 메서드를 호출할 수 있습니다.  
 
 ## async/await
+### responsiveness / easy to write
+- Asynchrony는 모든 UI 관련 활동이 일반적으로 하나의 스레드를 공유하기 때문에 UI 스레드에 액세스하는 애플리케이션에 특히 유용합니다.  
+동기식 애플리케이션에서 프로세스가 차단되면 모두 차단됩니다.  
+애플리케이션이 응답을 중지하고 대신 대기 중일 때 실패했다고 결론을 내릴 수 있습니다.
+- C # 의 async 및 await 키워드는 비동기 프로그래밍의 핵심입니다.  
+이 두 키워드를 사용하면 .NET Framework, .NET Core 또는 Windows 런타임의 리소스를 사용하여  
+동기 메서드를 만드는 것만 큼 쉽게 비동기 메서드를 만들 수 있습니다.  
+async키워드 를 사용하여 정의하는 비동기 메서드를 비동기 메서드 라고 합니다 .
+
+### What happens in an async method
+- ex) (link)
+    ```c#
+    public async Task<int> GetUrlContentLengthAsync()
+    {
+        var client = new HttpClient();
+
+        Task<string> getStringTask =
+            client.GetStringAsync("https://docs.microsoft.com/dotnet");
+
+        DoIndependentWork();
+
+        string contents = await getStringTask;
+
+        return contents.Length;
+    }
+
+    void DoIndependentWork()
+    {
+        Console.WriteLine("Working...");
+    }
+    ```
+- 위의 샘플에서 몇 가지 사례를 알아볼 수 있습니다.  
+메서드 서명부터 시작해봅시다.  
+여기에는 async 한정자가 포함됩니다. 메서드 이름은 Async로 끝납니다.  
+반환 형식은 Task<int>입니다(추가 옵션은 "반환 형식" 섹션 참조).    
+method의 본문에서 GetStringAsync가 Task<string>을 반환합니다.  
+즉, 작업을 await하는 경우 string을 받게 됩니다(contents).  
+That means that when you await the task you'll get a string (contents).
+작업을 대기하기 전에 GetStringAsync의 string을 사용하지 않는 작업을 수행할 수 있습니다.  
+반환 문은 정수 결과를 지정합니다. GetUrlContentLengthAsync를 대기하는 메서드는 길이 값을 검색합니다.
+- await 연산자 
+    - GetUrlContentLengthAsync를 일시 중단합니다.
+    - GetUrlContentLengthAsync는 getStringTask가 완료될 때까지 계속할 수 없습니다.
+    - 반면 제어는 GetUrlContentLengthAsync의 호출자에 반환됩니다.
+    - getStringTask가 완료되면 컨트롤이 다시 시작됩니다.
+    - 그런 다음, await 연산자가 getStringTask에서 string 결과를 검색합니다.
+- GetUrlContentLengthAsync에 GetStringAsync 호출과 해당 완료 대기 사이에 수행할 수 있는 작업이 없는 경우 다음 단일 문을 호출하고 대기하여 코드를 단순화할 수 있습니다.
+    ```c#
+    string contents = await client.GetStringAsync("https://docs.microsoft.com/dotnet");
+    ```
+## async/await
 ### intro
 - 다시 asynchronous programming를 async, await와 섞어서함.
 - 따라서 본 내용은 이 전 async & await 1 의 내용과  
