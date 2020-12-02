@@ -48,10 +48,10 @@ CopyToAsync, ReadAsync 및 WriteAsync와 같은 메서드를 포함.
 
 ### 특징   
 - 메서드 서명.  
-    - 여기에는 async 한정자가 포함됩니다.  
-    - 메서드 이름은 Async로 끝납니다.  
+    - async 한정자.  
+    - 메서드 이름은 Async로 끝남.  
 - 반환 형식.  
-    - Task\<int>입니다(추가 옵션은 "반환 형식" 섹션 참조).    
+    - Task\<int>(이 관련은 아래에서 다시).    
     - method의 본문에서 GetStringAsync가 Task\<string>을 반환.  
     즉, task를 await하면 string을 받게 됨(contents).  
 - 그 외(flow)  
