@@ -10,8 +10,8 @@ seo:
 ## Asynchronous
 
 ### intro
-- 다시 asynchronous programming를 async, await와 섞어서함. [^footnote]
-- 따라서 본 내용은 이 전 async & await 1 의 내용과  [^footnote]
+- 다시 asynchronous programming를 async, await와 섞어서함. [^footnote1]
+- 따라서 본 내용은 이 전 async & await 1 의 내용과  [^footnote2]
 위의 async, await 와 중복되는 내용이 많은데,  
 이부분은 아래 링크에도 있듯이 서로 연결되어있거나 순환적임.  
 - 무튼, 계속 비슷한 내용들을 조금씩 다르게 설명하고있어서  
@@ -618,8 +618,8 @@ CPU 바인딩된 코드에서는 Task.Run 메서드로 백그라운드 스레드
 이렇게 하면 확실히 예측 가능하고, 테스트 가능하고, 유지 관리 가능한 코드베이스가 생성.
 
 ## 참고
-- [^footnote] [작업 비동기 프로그래밍 모델](https://docs.microsoft.com/ko-kr/dotnet/csharp/programming-guide/concepts/async/task-asynchronous-programming-model)
-- [^footnote] [비동기 프로그래밍](https://docs.microsoft.com/ko-kr/dotnet/csharp/async)
+- [^footnote1]: [작업 비동기 프로그래밍 모델](https://docs.microsoft.com/ko-kr/dotnet/csharp/programming-guide/concepts/async/task-asynchronous-programming-model)
+- [^footnote2]: [비동기 프로그래밍](https://docs.microsoft.com/ko-kr/dotnet/csharp/async)
 - [async](https://docs.microsoft.com/ko-kr/dotnet/csharp/language-reference/keywords/async)  
 - [await](https://docs.microsoft.com/ko-kr/dotnet/csharp/language-reference/operators/await)
 - [async 및 await를 사용한 비동기 프로그래밍](https://docs.microsoft.com/ko-kr/dotnet/csharp/programming-guide/concepts/async/)  
