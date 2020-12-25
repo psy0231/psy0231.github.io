@@ -10,8 +10,8 @@ seo:
 ## Asynchronous
 
 ### intro
-- 다시 asynchronous programming를 async, await와 섞어서함. [^footnote1]
-- 따라서 본 내용은 이 전 async & await 1 의 내용과  [^footnote2]
+- 다시 asynchronous programming를 async, await와 섞어서함.
+- 따라서 본 내용은 이 전 async & await 1 의 내용과  
 위의 async, await 와 중복되는 내용이 많은데,  
 이부분은 아래 링크에도 있듯이 서로 연결되어있거나 순환적임.  
 - 무튼, 계속 비슷한 내용들을 조금씩 다르게 설명하고있어서  
@@ -226,8 +226,8 @@ CPU 바인딩 작업을 위한 BackgroundWorker보다 효과가 뛰어남.
 이러한 매개 변수가 있는 메서드를 호출할 수는 있음.  
 마찬가지로 비동기 메서드는 참조 반환 값이 있는 메서드를 호출할 수 있지만  
 참조를 통해 값을 반환할 수 없다.
-- 자세한 내용과 예제는 비동기 반환 형식(C#)을 참조.  
-비동기 메서드에서 예외를 처리하는 방법에 대한 자세한 내용은 try-catch를 참조.
+- 자세한 내용과 예제는 비동기 반환 형식(C#)을 참조.[^footnote1]
+비동기 메서드에서 예외를 처리하는 방법에 대한 자세한 내용은 try-catch를 참조.[^footnote2]
 - Windows 런타임 프로그래밍의 비동기 API에는 작업과 유사한 다음 반환 형식에 해당함.
     - Task\<TResult>에 해당하는 IAsyncOperation\<TResult>
     - Task에 해당하는 IAsyncAction
@@ -247,7 +247,7 @@ CPU 바인딩 작업을 위한 BackgroundWorker보다 효과가 뛰어남.
 - 파일 액세스에 async 사용(C#)	
     - async 및 await를 사용하여 파일에 액세스하는 이점을 나열하고 보여줍니다.	
 - TAP(작업 기반 비동기 패턴)	
-    - 비동기 패턴에 대해 설명하고 패턴은 Task 및 Task<TResult> 형식을 기반으로 합니다.	
+    - 비동기 패턴에 대해 설명하고 패턴은 Task 및 Task\<TResult> 형식을 기반으로 합니다.	
 - 비동기 Channel 9 비디오	
     - 비동기 프로그래밍에 대한 다양한 비디오로 연결되는 링크를 제공합니다.	
 
@@ -377,7 +377,7 @@ t 형식이 Task 또는 ValueTask이면 await t 형식은 void.
 
 ### Overview 
 - 주로 I/O바인딩 또는 CPU바인딩때 사용하는것을 권장하고 있는데  
-실제 바인딩 영역은 몇가지 더 있는듯하나(아래 링크) 시간이 오래 걸릴가능성이 있는건 이 둘인듯.  
+실제 바인딩 영역은 몇가지 더 있는듯하나[^footnote3] 시간이 오래 걸릴가능성이 있는건 이 둘인듯.  
 - 아무튼 대부분의 경우  
 I/O 바인딩된 코드에서는 async 메서드의 내부에서 Task 또는 Task\<T>를 반환하는 작업을,  
 CPU 바인딩된 코드에서는 Task.Run 메서드로 백그라운드 스레드에서 시작되는 작업을 기다린다.
@@ -414,7 +414,7 @@ CPU 바인딩된 코드에서는 Task.Run 메서드로 백그라운드 스레드
     Task 및 Task\<T>의 백그라운드에서 수행되는 작업이 궁금하면 세부 비동기 문서에서 자세한 내용을 확인하세요.
     - C#에서는 컴파일러가 해당 코드를, await에 도달할 때 실행을 양도하고  
     백그라운드 작업이 완료될 때 실행을 다시 시작하는 것과 같은 작업을 추적하는 상태 시스템으로 변환합니다.
-    - 이론적으로 보면 이 변환은 비동기 약속 모델.
+    - 이론적으로 보면 이 변환은 비동기 약속 모델.[^footnote4]
     
 ### 상황에 따른 예
 - I/O 바인딩 예제: 웹 서비스에서 데이터 다운로드
@@ -618,16 +618,16 @@ CPU 바인딩된 코드에서는 Task.Run 메서드로 백그라운드 스레드
 이렇게 하면 확실히 예측 가능하고, 테스트 가능하고, 유지 관리 가능한 코드베이스가 생성.
 
 ## 참고
-- [^footnote1]: [작업 비동기 프로그래밍 모델](https://docs.microsoft.com/ko-kr/dotnet/csharp/programming-guide/concepts/async/task-asynchronous-programming-model)
-- [^footnote2]: [비동기 프로그래밍](https://docs.microsoft.com/ko-kr/dotnet/csharp/async)
+- [작업 비동기 프로그래밍 모델](https://docs.microsoft.com/ko-kr/dotnet/csharp/programming-guide/concepts/async/task-asynchronous-programming-model)
+- [비동기 프로그래밍](https://docs.microsoft.com/ko-kr/dotnet/csharp/async)
 - [async](https://docs.microsoft.com/ko-kr/dotnet/csharp/language-reference/keywords/async)  
 - [await](https://docs.microsoft.com/ko-kr/dotnet/csharp/language-reference/operators/await)
 - [async 및 await를 사용한 비동기 프로그래밍](https://docs.microsoft.com/ko-kr/dotnet/csharp/programming-guide/concepts/async/)  
 - [C# 5.0 : async / await 키워드](http://www.csharpstudy.com/CSharp/CSharp-async-await.aspx)  
-- [Async 쓸까말까 및 주의할 점](https://www.youtube.com/watch?v=HkLhKyoh3sI)
 - [What's the difference between Task.Start/Wait and Async/Await?](https://stackoverflow.com/questions/9519414/whats-the-difference-between-task-start-wait-and-async-await)
 - [작업 기반 비동기 패턴](https://docs.microsoft.com/ko-kr/dotnet/standard/asynchronous-programming-patterns/task-based-asynchronous-pattern-tap)
-- [What do the terms “CPU bound” and “I/O bound” mean?](https://stackoverflow.com/questions/868568/what-do-the-terms-cpu-bound-and-i-o-bound-mean)
-- [Futures and promises](https://en.wikipedia.org/wiki/Futures_and_promises)
-- [비동기 반환 형식(C#)](https://docs.microsoft.com/ko-kr/dotnet/csharp/programming-guide/concepts/async/async-return-types)
-- [try-catch(C# 참조)](https://docs.microsoft.com/ko-kr/dotnet/csharp/language-reference/keywords/try-catch)
+
+[^footnote1]: [비동기 반환 형식(C#)](https://docs.microsoft.com/ko-kr/dotnet/csharp/programming-guide/concepts/async/async-return-types)  
+[^footnote2]: [try-catch(C# 참조)](https://docs.microsoft.com/ko-kr/dotnet/csharp/language-reference/keywords/try-catch)  
+[^footnote3]: [What do the terms “CPU bound” and “I/O bound” mean?](https://stackoverflow.com/questions/868568/what-do-the-terms-cpu-bound-and-i-o-bound-mean)  
+[^footnote4]: [Futures and promises](https://en.wikipedia.org/wiki/Futures_and_promises)  
