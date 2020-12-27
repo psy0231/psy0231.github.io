@@ -18,3 +18,4 @@ seo:
 ###### sub 6
 1231
 - [Async 쓸까말까 및 주의할 점](https://www.youtube.com/watch?v=HkLhKyoh3sI)
+123
