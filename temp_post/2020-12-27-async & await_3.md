@@ -634,8 +634,8 @@ AsyncLazy\<T>를 개발했습니다.
 원래 유형은 그의 블로그 ( bit.ly/dEN178 ) 에 설명되어 있으며  
 업데이트 된 버전은 내 AsyncEx 라이브러리 ( nitoasyncex.codeplex.com ) 에서 사용할 수 있다 .
 - 마지막으로, 때때로 비동기 준비 데이터 구조가 필요합니다.  
-TPL Dataflow는 비동기식 생산자 / 소비자 대기열처럼 작동하는 BufferBlock <T>를 제공합니다.  
-또는 AsyncEx는 BlockingCollection <T>의 비동기 버전 인 AsyncCollection <T>를 제공합니다.
+TPL Dataflow는 비동기식 생산자 / 소비자 대기열처럼 작동하는 BufferBlock\<T>를 제공합니다.  
+또는 AsyncEx는 BlockingCollection <T>의 비동기 버전 인 AsyncCollection\<T>를 제공합니다.
 
 
 
