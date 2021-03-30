@@ -1,6 +1,6 @@
 ---
 title: async/await_3 Excention 2
-date: 1111-11-11 11:11:11 +0900
+date: 2021-03-31 12:00:00 +0900
 categories: [Grind, C#]
 tags: [c#]
 seo:
@@ -43,7 +43,7 @@ seo:
     ```
     - 예상 가능한 결과로  
     호출은 button event => SyncExceptions() =>  ThrowException() 으로,   
-    Exceptions은 ThrowException() => SyncExceptions() => button event로 
+    Exceptions은 ThrowException() => SyncExceptions() => button event로  
     잘 타고 온다. 항상 보던 당연한 결말.
   
 - 위 방식을 async로 바꿔해본다.
@@ -82,7 +82,7 @@ seo:
     ```
     - 바뀐점은 ThrowException()가 async로 된것, 또 하지말라던 void로 한것.
     - 호출은 button event => AsyncExceptions() => ThrowException()으로 동일,  
-    Exception은 throw new InvalidOperationException(); 에서 멈춘다.
+    Exception은 throw new InvalidOperationException(); 에서 멈춘다.  
     저 라인에서 throw를 못한다.
 
 - 그럼 void가 아니라면??
@@ -120,7 +120,7 @@ seo:
     }
     ```
     - 위 ASAW_4_async_1과의 차이점은 void에서 Task가 된것.
-    - 호출 순서야 같은데 이번엔 throw new InvalidOperationException();에서 
+    - 호출 순서야 같은데 이번엔 throw new InvalidOperationException();에서  
     Exception도 안잡히고 끝난다. 아무런 반응이 없다.
     - 이 전 async/await_3 excention 1에서 말하는 The exception is never caught here!  
     은 Exception이 잡히건 말건 해당 try/catch는 절대 안들어온다는 뜻인것같다.
@@ -214,9 +214,10 @@ seo:
     수정했는데 되는거 보면 Task에 뭔가 있겠지?
 ## so...
 - 결과를 보면 async 함수들은 Task를 이용해 그 안에 정보를 넘기는듯하다.  
-근데 return이 Task니까 당연한건가..  
-그래서 void return의 경우 .. 넘길 수 없어서 그 선에서 끝내는건가??  
-무튼 return되는 Task에는 Exception까지 있는것같은데 다시,  
+근데 return이 Task니까 당연한건가 싶은데  
+data적인return 외에도 method적인 측면에서 실행 결과까지.  
+그래서 void return의 경우.. 넘길 수 없어서 그 선에서 끝내는건가??  
+- 무튼 return되는 Task에는 Exception까지 있는것같은데 다시,  
 async/await_3 excention 2 의 Avoid Async Void 를 보면  
 
         Async void 메서드는 오류 처리 의미가 다르다.  
@@ -239,4 +240,5 @@ exception의 최종 목적지이면 상관이 없어보임.
 - [Async 쓸까말까 및 주의할 점](https://www.youtube.com/watch?v=HkLhKyoh3sI)
 - [async void가 안좋은 이유](https://www.youtube.com/watch?v=-tzfIeZGL5o)
 - [async 메서드의 void 반환 타입 사용에 대하여](https://www.sysnet.pe.kr/2/0/11414)
+- [C# 컴파일러 대신 직접 구현하는 비동기(async/await) 코드](https://www.sysnet.pe.kr/2/0/11351)
 - [async void 메서드의 예외는 정말 Fire & forget 일까?](https://m.blog.naver.com/PostView.nhn?blogId=vactorman&logNo=221180404572&proxyReferer=https:%2F%2Fwww.google.com%2F)
