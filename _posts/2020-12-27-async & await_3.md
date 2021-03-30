@@ -1,6 +1,6 @@
 ---
-title: async/await_3 excention 1
-date: 2020-09-30 18:00:00 +0900
+title: async/await_3 Excention 1
+date: 2021-03-30 18:00:00 +0900
 categories: [Grind, C#]
 tags: [c#]
 seo:
