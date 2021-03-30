@@ -643,5 +643,5 @@ TPL Dataflow는 비동기식 생산자 / 소비자 대기열처럼 작동하는 
 [^footnote1]: [Async/Await - Best Practices in Asynchronous Programming](https://docs.microsoft.com/en-us/archive/msdn-magazine/2013/march/async-await-best-practices-in-asynchronous-programming)  
 [^footnote2]: [stephen cleary](https://blog.stephencleary.com/)  
 [^footnote3]: [AsyncLazy](https://devblogs.microsoft.com/pfxteam/asynclazyt/)  
-[^footnote4]: [AsyncLazy<T> Class](https://docs.microsoft.com/en-us/dotnet/api/microsoft.visualstudio.threading.asynclazy-1?view=visualstudiosdk-2019)  
+[^footnote4]: [AsyncLazy\<T> Class](https://docs.microsoft.com/en-us/dotnet/api/microsoft.visualstudio.threading.asynclazy-1?view=visualstudiosdk-2019)  
 [^footnote5]: [StephenCleary/AsyncEx](https://github.com/StephenCleary/AsyncEx)  
