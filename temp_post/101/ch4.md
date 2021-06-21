@@ -73,6 +73,30 @@ else:
 ```
 
 # 3  기초문법(클래스와 객체, 생성자, self)
+- ex
+    ```python
+  class Stock:  # Stock class
+    def __init__(self, stock_name, stock_price, stock_rate):  # __init__: '생성자'(특별한 함수) 라고 한다. 클래스의 객체를 만들 때 자동으로 실행이 된다.
+        self.name = stock_name  # 인스턴스변수 : self.name, self.price, self.rate를 인스턴스 변수라고 한다.
+        self.price = stock_price
+        self.rate = stock_rate
+  
+  item1 = Stock('삼성전자', 60900, 3.5) # =인스턴스 생성, 할당
+
+  ```
+## class 
+- 알고있는 그거
+- tab 으로 구분은 기본인듯?
+
+## 생성자
+- init 자동생성으로 저 모양이 됨
+- init 말고 몇개 더 있던데??
+
+## self
+- 위 에서 self에는 item1이 들어감
+- 생성될 인스턴스를 넣어준다는 의미같은데  
+이러면 아닌경우가 있으니까 이렇게 만드는거아님?
+
 # 4  기초문법(클래스와 메서드)
 # 5  기초문법(모듈과 패키지)
 # 6  데이터베이스 연동하기
