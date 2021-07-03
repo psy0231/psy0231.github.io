@@ -4,7 +4,7 @@ date: 2021-03-31 12:00:00 +0900
 categories: [Grind, C#]
 tags: [c#]
 seo:
-  date_modified: 1111-11-11 11:11:11 +0900
+  date_modified: 2021-07-03 12:49:33 +0900
 ---
 
 ## about exception of void return.
