@@ -6,6 +6,7 @@ tags: [c#]
 seo:
   date_modified: 1111-11-11 11:11:11 +0900
 ---
+
 ## about exception of void return.
 - 쉽게, sync에서 먼저.
     ```c#
