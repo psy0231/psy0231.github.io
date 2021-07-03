@@ -221,13 +221,14 @@ data적인return 외에도 method적인 측면에서 실행 결과까지.
 - 무튼 return되는 Task에는 Exception까지 있는것같은데 다시,  
 async/await_3 excention 2 의 Avoid Async Void 를 보면  
 
-        Async void 메서드는 오류 처리 의미가 다르다.  
-        비동기 작업 또는 비동기 Task\<T> 메서드에서 예외가 throw되면  
-        해당 예외가 캡처되어 Task 개체에 배치함.  
-        async void 메서드를 사용하면 Task 개체가 없으므로  
-        async void 메서드에서 throw 된 모든 예외는  
-        async void 메서드가 시작될 때 활성화 된 SynchronizationContext에서 직접 발생.  
-        다음은 비동기 void 메서드에서 throw 된 exception을 catch못한 경우. 
+    >Async void 메서드는 오류 처리 의미가 다르다.  
+    비동기 작업 또는 비동기 Task\<T> 메서드에서 예외가 throw되면  
+    해당 예외가 캡처되어 Task 개체에 배치함.  
+    async void 메서드를 사용하면 Task 개체가 없으므로  
+    async void 메서드에서 throw 된 모든 예외는  
+    async void 메서드가 시작될 때 활성화 된 SynchronizationContext에서 직접 발생.  
+    다음은 비동기 void 메서드에서 throw 된 exception을 catch못한 경우. 
+    
     이 말이 이제 이해가 감.
 
 - 그럼 event를 제외하고 async void를 쓰지 말라했는데  
