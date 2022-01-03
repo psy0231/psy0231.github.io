@@ -1,26 +1,33 @@
 ---
 title: Text and Typography
+author:
+  name: Cotes Chung
+  link: https://github.com/cotes2020
 date: 2019-08-08 11:33:00 +0800
 categories: [Blogging, Demo]
 tags: [typography]
-seo:
-  date_modified: 2020-01-04 17:05:41 +0800
+math: true
+mermaid: true
+image:
+  src: /commons/devices-mockup.png
+  width: 800
+  height: 500
 ---
 
-This Jekyll template totally compatible with Markdown syntax. Now, let's take a look for the text and typography in this theme.
+This post is to show Markdown syntax rendering on [**Chirpy**](https://github.com/cotes2020/jekyll-theme-chirpy/fork), you can also use it as an example of writing. Now, let's start looking at text and typography.
+
 
 ## Titles
+---
+# H1 - heading
 
-***
-# H1
+<h2 data-toc-skip>H2 - heading</h2>
 
-<h2 data-toc-skip>H2</h2>
+<h3 data-toc-skip>H3 - heading</h3>
 
-<h3 data-toc-skip>H3</h3>
-
-#### H4
-
-***
+<h4>H4 - heading</h4>
+---
+<br>
 
 ## Paragraph
 
@@ -36,39 +43,118 @@ Beside the lake, beneath the trees,
 
 Fluttering and dancing in the breeze.
 
+## Lists
+
+### Ordered list
+
+1. Firstly
+2. Secondly
+3. Thirdly
+
+### Unordered list
+
+- Chapter
+  - Section
+    - Paragraph
+
+### Task list
+
+- [ ] TODO
+- [x] Completed
+- [ ] Defeat COVID-19
+  - [x] Vaccine production
+  - [ ] Economic recovery
+  - [ ] People smile again
+
+### Description list
+
+Sun
+: the star around which the earth orbits
+
+Moon
+: the natural satellite of the earth, visible by reflected light from the sun
+
 ## Block Quote
 
 > This line to shows the Block Quote.
 
 ## Tables
 
-|Company|Contact|Country|
-|:---|:--|---:|
-|Alfreds Futterkiste | Maria Anders | Germany
-|Island Trading | Helen Bennett | UK
-|Magazzini Alimentari Riuniti | Giovanni Rovelli | Italy
+| Company                      | Contact          | Country |
+|:-----------------------------|:-----------------|--------:|
+| Alfreds Futterkiste          | Maria Anders     | Germany |
+| Island Trading               | Helen Bennett    | UK      |
+| Magazzini Alimentari Riuniti | Giovanni Rovelli | Italy   |
 
-## Link
+## Links
 
-[http://127.0.0.1:4000](http://127.0.0.1:4000)
-
+<http://127.0.0.1:4000>
 
 ## Footnote
 
-Click the hook will locate the footnote[^footnote].
+Click the hook will locate the footnote[^footnote], and here is another footnote[^fn-nth-2].
 
+## Images
 
-## Image
+- Default (with caption)
 
-![Desktop View]({{ "/assets/img/sample/mockup.png" | relative_url }})
+![Desktop View](/posts/20190808/mockup.png){: width="972" height="589" }
+_Full screen width and center alignment_
 
+<br>
+
+- Shadow
+
+![Window shadow](/posts/20190808/window.png){: .shadow width="1548" height="864" style="max-width: 90%" }
+_shadow effect (visible in light mode)_
+
+<br>
+
+- Left aligned
+
+![Desktop View](/posts/20190808/mockup.png){: width="972" height="589" style="max-width: 70%" .normal}
+
+<br>
+
+- Float to left
+
+  ![Desktop View](/posts/20190808/mockup.png){: width="972" height="589" style="max-width: 200px" .left}
+  "A repetitive and meaningless text is used to fill the space. A repetitive and meaningless text is used to fill the space. A repetitive and meaningless text is used to fill the space. A repetitive and meaningless text is used to fill the space. A repetitive and meaningless text is used to fill the space. A repetitive and meaningless text is used to fill the space. A repetitive and meaningless text is used to fill the space. A repetitive and meaningless text is used to fill the space. A repetitive and meaningless text is used to fill the space. A repetitive and meaningless text is used to fill the space. A repetitive and meaningless text is used to fill the space. A repetitive and meaningless text is used to fill the space."
+
+<br>
+
+- Float to right
+
+  ![Desktop View](/posts/20190808/mockup.png){: width="972" height="589" style="max-width: 200px" .right}
+  "A repetitive and meaningless text is used to fill the space. A repetitive and meaningless text is used to fill the space. A repetitive and meaningless text is used to fill the space. A repetitive and meaningless text is used to fill the space. A repetitive and meaningless text is used to fill the space. A repetitive and meaningless text is used to fill the space. A repetitive and meaningless text is used to fill the space. A repetitive and meaningless text is used to fill the space. A repetitive and meaningless text is used to fill the space. A repetitive and meaningless text is used to fill the space. A repetitive and meaningless text is used to fill the space. A repetitive and meaningless text is used to fill the space."
+
+<br>
+
+## Mermaid SVG
+
+```mermaid
+ gantt
+  title  Adding GANTT diagram functionality to mermaid
+  apple :a, 2017-07-20, 1w
+  banana :crit, b, 2017-07-23, 1d
+  cherry :active, c, after b a, 1d
+```
+
+## Mathematics
+
+The mathematics powered by [**MathJax**](https://www.mathjax.org/):
+
+$$ \sum_{n=1}^\infty 1/n^2 = \frac{\pi^2}{6} $$
+
+When $a \ne 0$, there are two solutions to $ax^2 + bx + c = 0$ and they are
+
+$$ x = {-b \pm \sqrt{b^2-4ac} \over 2a} $$
 
 ## Inline code
 
 This is an example of `Inline Code`.
 
-
-## Code Snippet
+## Code block
 
 ### Common
 
@@ -81,79 +167,30 @@ This is a common code snippet, without syntax highlight and line number.
 #### Console
 
 ```console
-$ date
-Sun Nov  3 15:11:12 CST 2019
-```
-
-
-#### Terminal
-
-```terminal
 $ env |grep SHELL
 SHELL=/usr/local/bin/bash
 PYENV_SHELL=bash
 ```
 
-#### Ruby
-
-```ruby
-def sum_eq_n?(arr, n)
-  return true if arr.empty? && n == 0
-  arr.product(arr).reject { |a,b| a == b }.any? { |a,b| a + b == n }
-end
-```
-
 #### Shell
 
-```shell
+```bash
 if [ $? -ne 0 ]; then
     echo "The command was not successful.";
     #do the needful / exit
 fi;
 ```
 
-#### Liquid
+### Specific filename
 
-{% raw %}
-```liquid
-{% if product.title contains 'Pack' %}
-  This product's title contains the word Pack.
-{% endif %}
+```sass
+@import
+  "colors/light-typography",
+  "colors/dark-typography"
 ```
-{% endraw %}
-
-#### HTML
-
-```html
-<div class="sidenav">
-  <a href="#contact">Contact</a>
-  <button class="dropdown-btn">Dropdown
-    <i class="fa fa-caret-down"></i>
-  </button>
-  <div class="dropdown-container">
-    <a href="#">Link 1</a>
-    <a href="#">Link 2</a>
-    <a href="#">Link 3</a>
-  </div>
-  <a href="#contact">Search</a>
-</div>
-```
-
-**Horizontal Scrolling**
-
-```html
-<div class="panel-group">
-  <div class="panel panel-default">
-    <div class="panel-heading" id="{{ category_name }}">
-      <i class="far fa-folder"></i>
-      <p>This is a very long long long long long long long long long long long long long long long long long long long long long line.</p>
-      </a>
-    </div>
-  </div>
-</div>
-```
-
+{: file='_sass/jekyll-theme-chirpy.scss'}
 
 ## Reverse Footnote
 
-[^footnote]: The footnote source.
+[^footnote]: The footnote source
+[^fn-nth-2]: The 2nd footnote source

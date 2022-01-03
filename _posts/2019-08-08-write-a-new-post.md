@@ -1,15 +1,19 @@
 ---
 title: Writing a New Post
+author:
+  name: Cotes Chung
+  link: https://github.com/cotes2020
 date: 2019-08-08 14:10:00 +0800
 categories: [Blogging, Tutorial]
 tags: [writing]
-seo:
-  date_modified: 2020-03-02 03:56:32 +0800
+render_with_liquid: false
 ---
+
+This post will guide you how to write a post on _Chirpy_ theme. Even if you have previous experience with Jekyll, this article is worth reading, because many features require specific variables to be set.
 
 ## Naming and Path
 
-Create a new file named with the format `YYYY-MM-DD-title.md` then put it into `_post` of the root directory.
+Create a new file named `YYYY-MM-DD-TITLE.EXTENSION` and put it in the `_posts` of the root directory. Please note that the `EXTENSION` must be one of `md` and `markdown`. If you want to save time of creating files, please consider using the plugin [`Jekyll-Compose`](https://github.com/jekyll/jekyll-compose) to accomplish this.
 
 ## Front Matter
 
@@ -24,55 +28,35 @@ tags: [TAG]     # TAG names should always be lowercase
 ---
 ```
 
-> **Note**: The posts' ***layout*** has been set to `post` by default, so there is no need to add the variable ***layout*** in Front Matter block.
+> **Note**: The posts' _layout_ has been set to `post` by default, so there is no need to add the variable _layout_ in the Front Matter block.
 
-- **Timezone of date**
+### Timezone of Date
 
-    In order to accurately record the release date of a post, you should not only setup the `timezone` of `_config.yml` but also provide the the post's timezone in field `date` of its Front Matter block. Format: `+/-TTTT`, e.g. `+0800`.
+In order to accurately record the release date of a post, you should not only set up the `timezone` of `_config.yml` but also provide the post's timezone in variable `date` of its Front Matter block. Format: `+/-TTTT`, e.g. `+0800`.
 
-- **Categories and Tags**
+### Categories and Tags
 
-    The `categories` of each post is designed to contain up to two elements, and the number of elements in `tag` can be zero or infinite.
+The `categories` of each post are designed to contain up to two elements, and the number of elements in `tags` can be zero to infinity. For instance:
 
-    The list of posts belonging to the same category/tag is recorded on a separate page. The number of such *category*/*tag* type pages is equal to the number of `categories`/`tags` for all posts, they must match perfectly. 
-
-    let's say there is a post with front matter:
 ```yaml
 categories: [Animal, Insect]
-tags: bee
+tags: [bee]
 ```
+### Author Information
 
-    then we should have two *category* type pages placed in folder `categories` of root and one *tag* type page placed in folder `tags`  of root:
-```terminal
-jekyll-theme-chirpy
-├── categories
-│   ├── animal.html
-│   └── tutorial.html
-├── tags
-│   └── bee.html
-```
-    
-    and the content of a *category* type page is
+The author information of the post usually does not need to be filled in the _Front Matter_ , they will be obtained from variables `social.name` and the first entry of `social.links` of the configuration file by default. But you can also override it as follows:
+
 ```yaml
 ---
-layout: category
-title: CATEGORY_NAME        # e.g. Insect
-category: CATEGORY_NAME     # e.g. Insect
+author:
+  name: Full Name
+  link: https://example.com
 ---
 ```
-
-    the content of a *tag* type page is
-```yml
-layout: tag
-title: TAG_NAME             # e.g. bee
-category: TAG_NAME          # e.g. bee
-```
-
-    With the increasing number of posts, the number of categories and tags will increase several times!  If we still manually create these *category*/*tag* type files, it will obviously be a super time-consuming job, and it is very likely to miss some of them(i.e. when you click on the missing `category` or `tag` link from a post or somewhere, it will complain to you '404'). The good news is that we got a lovely script tool to finish the pages creation stuff: `tools/init.sh`. See it [here]({{ "/posts/getting-started/#option-1-built-by-github-pages" | relative_url }}).
 
 ## Table of Contents
 
-By default, the **T**able **o**f **C**ontents (TOC) is displayed on the right panel of the post. If you want to turn it off globally, go to `_config.yml` and set the variable `toc` to `false`. If you want to turn off TOC for specific post, add the following to post's [Front Matter](https://jekyllrb.com/docs/front-matter/):
+By default, the **T**able **o**f **C**ontents (TOC) is displayed on the right panel of the post. If you want to turn it off globally, go to `_config.yml` and set the value of variable `toc` to `false`. If you want to turn off TOC for a specific post, add the following to the post's [Front Matter](https://jekyllrb.com/docs/front-matter/):
 
 ```yaml
 ---
@@ -80,10 +64,9 @@ toc: false
 ---
 ```
 
-
 ## Comments
 
-Similar to TOC, the [Disqus](https://disqus.com/) comments is loaded by default in each post, and the global switch is defined by variable `comments` in file `_config.yml` . If you want to close the comment for specific post, add the following to the **Front Matter** of the post:
+Similar to TOC, the [Disqus](https://disqus.com/) comments are loaded by default in each post, and the global switch is defined by variable `comments` in file `_config.yml` . If you want to close the comment for a specific post, add the following to the **Front Matter** of the post:
 
 ```yaml
 ---
@@ -91,34 +74,220 @@ comments: false
 ---
 ```
 
+## Mathematics
+
+For website performance reasons, the mathematical feature won't be loaded by default. But it can be enabled by:
+
+```yaml
+---
+math: true
+---
+```
+
+## Mermaid
+
+[**Mermaid**](https://github.com/mermaid-js/mermaid) is a great diagrams generation tool. To enable it on your post, add the following to the YAML block:
+
+```yaml
+---
+mermaid: true
+---
+```
+
+Then you can use it like other markdown languages: surround the graph code with ```` ```mermaid ```` and ```` ``` ````.
+
+## Images
+
+### Preview image
+
+If you want to add an image to the top of the post contents, specify the attribute `src`, `width`, `height`, and `alt` for the image:
+
+```yaml
+---
+image:
+  src: /path/to/image/file
+  width: 1000   # in pixels
+  height: 400   # in pixels
+  alt: image alternative text
+---
+```
+
+Except for `alt`, all other options are necessary, especially the `width` and `height`, which are related to user experience and web page loading performance. Later section ["Image size"](#image-size) will also mention this.
+
+Starting from _Chirpy v5.0.0_, the attributes `height` and `width` support abbreviations: `height` → `h`, `width` → `w`.
+
+
+### Image caption
+
+Add italics to the next line of an image，then it will become the caption and appear at the bottom of the image:
+
+```markdown
+![img-description](/path/to/image)
+_Image Caption_
+```
+{: .nolineno}
+
+### Image size
+
+In order to prevent the page content layout from shifting when the image is loaded, we should set the width and height for each image:
+
+```markdown
+![Desktop View](/assets/img/sample/mockup.png){: width="700" height="400" }
+```
+{: .nolineno}
+
+Starting from _Chirpy v5.0.0_, `height` and `width` support abbreviations (`height` → `h`, `width` → `w`). The following example has the same effect as the above:
+
+```markdown
+![Desktop View](/assets/img/sample/mockup.png){: w="700" h="400" }
+```
+{: .nolineno}
+
+### Image position
+
+By default, the image is centered, but you can specify the position by using one of the classes `normal`, `left`, and `right`. For example:
+
+- **Normal position**
+
+  Image will be left aligned in below sample:
+
+  ```markdown
+  ![Desktop View](/assets/img/sample/mockup.png){: .normal }
+  ```
+  {: .nolineno}
+
+- **Float to the left**
+
+  ```markdown
+  ![Desktop View](/assets/img/sample/mockup.png){: .left }
+  ```
+  {: .nolineno}
+
+- **Float to the right**
+
+  ```markdown
+  ![Desktop View](/assets/img/sample/mockup.png){: .right }
+  ```
+  {: .nolineno}
+
+> **Limitation**: Once the position of the image is specified, the image caption should not be added.
+
+### Image shadow
+
+The screenshots of the program window can be considered to show the shadow effect, and the shadow will be visible in the `light` mode:
+
+```markdown
+![Desktop View](/assets/img/sample/mockup.png){: .shadow }
+```
+{: .nolineno}
+
+### CDN URL
+
+If you host the images on the CDN, you can save the time of repeatedly writing the CDN URL by assigning the variable `img_cdn` of `_config.yml` file:
+
+```yaml
+img_cdn: https://cdn.com
+```
+{: file='_config.yml' .nolineno}
+
+Once `img_cdn` is assigned, the CDN URL will be added to the path of all images (images of site avatar and posts) starting with `/`.
+
+For instance, when using images:
+
+```markdown
+![The flower](/path/to/flower.png)
+```
+{: .nolineno}
+
+The parsing result will automatically add the CDN prefix `https://cdn.com` before the image path:
+
+```html
+<img src="https://cdn.com/path/to/flower.png" alt="The flower">
+```
+{: .nolineno}
+
+### Image path
+
+When a post contains many images, it will be a time-consuming task to repeatedly define the path of the images. To solve this, we can define this path in the YAML block of the post:
+
+```yml
+---
+img_path: /img/path/
+---
+```
+{: .nolineno }
+
+And then, the image source of Markdown can write the file name directly:
+
+```md
+![The flower](flower.png)
+```
+{: .nolineno }
+
+The output will be:
+
+```html
+<img src="/img/path/flower.png" alt="The flower">
+```
+{: .nolineno }
+
+## Pinned Posts
+
+You can pin one or more posts to the top of the home page, and the fixed posts are sorted in reverse order according to their release date. Enable by:
+
+```yaml
+---
+pin: true
+---
+```
 
 ## Code Block
 
-Markdown symbols <code class="highlighter-rouge">```</code> can easily create a code block as following examples.
+Markdown symbols ```` ``` ```` can easily create a code block as follows:
 
 ```
-This is a common code snippet, without syntax highlight and line number.
+This is a plaintext code snippet.
 ```
 
-## Specific Language
+### Specifying Language
 
-Using <code class="highlighter-rouge">```Language</code> you will get code snippets with line Numbers and syntax highlight.
+Using ```` ```{language} ```` you will get a code block with syntax highlight:
 
-> **Note**: The Jekyll style `{% raw %}{%{% endraw %} highlight LANGUAGE {% raw %}%}{% endraw %}` or `{% raw %}{%{% endraw %} highlight LANGUAGE linenos {% raw %}%}{% endraw %}` are not allowed to be used in this theme !
-
+````markdown
 ```yaml
-# Yaml code snippet
-items:
-    - part_no:   A4786
-      descrip:   Water Bucket (Filled)
-      price:     1.47
-      quantity:  4
+key: value
 ```
+````
 
-#### Liquid codes
+> **Limitation**: The Jekyll style `highlight` tag is not compatible with this theme.
 
-If you want to display the **Liquid** snippet, surround the liquid code with `{% raw %}{%{% endraw %} raw {%raw%}%}{%endraw%}` and `{% raw %}{%{% endraw %} endraw {%raw%}%}{%endraw%}` .
+### Line Number
 
+By default, all languages except `plaintext`, `console`, and `terminal` will display line numbers. When you want to hide the line number of the code block, you can append `{: .nolineno}` at the next line:
+
+````markdown
+```shell
+echo 'No more line numbers!'
+```
+{: .nolineno}
+````
+
+### Specifying the Filename
+
+You may have noticed that the code language will be displayed on the left side of the header of the code block. If you want to replace it with the file name, you can add the attribute `file` to achieve this:
+
+````markdown
+```shell
+# content
+```
+{: file="path/to/file" }
+````
+
+### Liquid Codes
+
+If you want to display the **Liquid** snippet, surround the liquid code with `{% raw %}` and `{% endraw %}`:
+
+````markdown
 {% raw %}
 ```liquid
 {% if product.title contains 'Pack' %}
@@ -126,7 +295,10 @@ If you want to display the **Liquid** snippet, surround the liquid code with `{%
 {% endif %}
 ```
 {% endraw %}
+````
+
+Or adding `render_with_liquid: false` (Requires Jekyll 4.0 or higher) to the post's YAML block.
 
 ## Learn More
-For more knowledge about Jekyll posts, visit the [Jekyll Docs: Posts](https://jekyllrb.com/docs/posts/).
 
+For more knowledge about Jekyll posts, visit the [Jekyll Docs: Posts](https://jekyllrb.com/docs/posts/).
