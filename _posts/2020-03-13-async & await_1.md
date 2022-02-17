@@ -2,7 +2,7 @@
 title: async/await_1 (sync/async, block/non-block)
 date: 2020-03-13 15:00:00 +0900
 categories: [Grind, C#]
-tags: [c#, sync_async, block_non-block]
+tags: [c#, sync_async, block_non-block, asynchronous]
 seo:
   date_modified: 2020-10-09 21:26:17 +0900
 ---

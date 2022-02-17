@@ -2,7 +2,7 @@
 title: async/await_3 Excention 1
 date: 2021-03-30 18:00:00 +0900
 categories: [Grind, C#]
-tags: [c#]
+tags: [c#, asynchronous]
 seo:
   date_modified: 2021-03-30 14:27:12 +0900
 ---
