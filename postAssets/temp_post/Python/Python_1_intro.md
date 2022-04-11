@@ -146,5 +146,67 @@ c -> java -> C# -> python 순서로 배울 기회가 있었는데
 - 해석상 틀릴 수 있는건 한국인이기때문임.
 
 ## PEP 8 – Style Guide for Python Code
+- 여긴 필요한것만 하고 넘어감.
 
-- 중괄호({,})가 없고 들여쓰기로 씀. 세미콜론(;)도 없음.
+### Introduction
+- 규칙의 추가, 언어자체가 변함에 따라  
+이 지침도 변할 수 있음. 
+- 프로젝트에서 말하는 지침이 있으면  
+그걸 먼저 적용함.
+### A Foolish Consistency is the Hobgoblin of Little Minds
+- 어리석은 일관성은 하남자 특이다.
+- 코드는 쓰는것보다 읽는횟수가 더 많다.  
+- 이 문서에서 중요하게 생각하는것은 코드의 일관성.  
+궁극적인 목적은 PEP 20 - 7의 가독성.
+- 이 문서를 무시해도 되는 특정 상황이 있는데 
+  - 이 지침을 따르면 코드가 더 어려워질때
+  - 다른 코드와의 일관성을 해칠때
+  - 이전 가이드에 따라 적성되었거나,  
+  권장하는 기능을 지원하지 않는  
+  이전 버전과 호환을 유지해야하는 경우
+
+### Code lay-out
+- 들여쓰기 
+  - 레벨당 4 공백.
+    - 이게 얼마전에 본건데,  
+    탭도 4공백, 스페이스 4번도 4공백인데  
+    환경에 따라 둘이 달라지는 경우가 있다함.  
+    그래서 4공백으로 박아넣은듯. 
+  ```python
+  # Correct:
+  # Aligned with opening delimiter.
+  foo = long_function_name(var_one, var_two,
+                          var_three, var_four)
+
+  # Add 4 spaces (an extra level of indentation) to distinguish arguments from the rest.
+  def long_function_name(
+          var_one, var_two, var_three,
+          var_four):
+      print(var_one)
+
+  # Hanging indents should add a level.
+  foo = long_function_name(
+      var_one, var_two,
+      var_three, var_four)
+  
+  ```
+  
+  ```python
+  # Wrong:
+
+  # Arguments on first line forbidden when not using vertical alignment.
+  foo = long_function_name(var_one, var_two,
+      var_three, var_four)
+
+  # Further indentation required as indentation is not distinguishable.
+  def long_function_name(
+      var_one, var_two, var_three,
+      var_four):
+      print(var_one)
+  ```
+### String Quotes
+### Whitespace in Expressions and Statements
+### When to use trailing commas
+### Comments
+### Naming Conventions
+### Programming Recommendations
