@@ -8,13 +8,13 @@ categories: [Grind, Python]
 tags: [python]
 ---
 
-## python
+## 1. python
 - 올해 목표 중 하였고 늦기전에 후딱 하는걸로.
 - 진행중인 다른 프로젝트 주 언어이기도 하고 좀 관심이 가서.
 - 쓰다 보니까 이 전 경험에 비춰봤을 때 다른점들을 적는 경향이 있음.
 - 아마... 항상 그렇듯 자세히 쓸 것같진않다.  
 알고싶은걸 알게된것만큼 쓸듯하다.
-## 특징
+## 2. 특징
 - 고급언어, 인터프리터 방식 언어
   - 고급언어는 좀더 사람에게 친숙한
   - 인터프리터방식은 한줄한줄 해석실행.  
@@ -64,28 +64,41 @@ c -> java -> C# -> python 순서로 배울 기회가 있었는데
   파이선으로 호로록 하는게 많아지고  
   그러다보니 사용 빈도가 계속 불어나는것같다.
 - 해서 생산성이 좋음.
-- 근데 느림다함. (아직 여기까진 모르겠음.)
+- 근데 느리다함. (아직 여기까진 모르겠음.)
 
 
-## PEP
+## 3. PEP
 - 여기 정보가 많다. 참고하자.
 - https://peps.python.org/#
 - 다음 몇 개만 보고 넘어간다.
-### PEP 1 – PEP Purpose and Guidelines
+### 3.1 PEP 1 – PEP Purpose and Guidelines
 - What is a PEP?
   ```
-  PEP stands for Python Enhancement Proposal. A PEP is a design document providing information to the Python community, or describing a new feature for Python or its processes or environment. The PEP should provide a concise technical specification of the feature and a rationale for the feature.
+  PEP stands for Python Enhancement Proposal.  
+  A PEP is a design document providing information to the Python community,  
+  or describing a new feature for Python or its processes or environment.  
+  The PEP should provide a concise technical specification  
+  of the feature and a rationale for the feature.
 
-  We intend PEPs to be the primary mechanisms for proposing major new features, for collecting community input on an issue, and for documenting the design decisions that have gone into Python. The PEP author is responsible for building consensus within the community and documenting dissenting opinions.
+  We intend PEPs to be the primary mechanisms  
+  for proposing major new features,  
+  for collecting community input on an issue,  
+  and for documenting the design decisions that have gone into Python.  
+  The PEP author is responsible  
+  for building consensus within the community and documenting dissenting opinions.
 
-  Because the PEPs are maintained as text files in a versioned repository, their revision history is the historical record of the feature proposal. This historical record is available by the normal git commands for retrieving older revisions, and can also be browsed on [GitHub](https://github.com/python/peps).
+  Because the PEPs are maintained as text files in a versioned repository,  
+  their revision history is the historical record of the feature proposal.  
+  This historical record is available by the normal git commands  
+  for retrieving older revisions,  
+  and can also be browsed on [GitHub](https://github.com/python/peps).
   ```
   -  Python 커뮤니티에 정보를 제공하거나  
   Python 또는 Python의 프로세스 또는  
   환경에 대한 새로운 기능을 설명하는 design document(? 설계문서?). 
   - 라는데 아무튼 그냥 다 넣은 문서인듯.
 
-### PEP 20 – The Zen of Python
+### 3.2 PEP 20 – The Zen of Python
 - zen은 '선' 이라는데 뭔지 모르겠다.  
   - 마음을 가다듬고 정신을 통일하여  
   무아정적(無我靜寂)의 경지에 도달하는 정신 집중의 수행(修行) 방법.  
@@ -142,71 +155,6 @@ c -> java -> C# -> python 순서로 배울 기회가 있었는데
 19. Namespaces are one honking great idea -- let's do more of those!
     - Namespaces는 좋은 아이디어다. 더 써라.
 
+- 근데 이 내용 그냥 보편적으로 적용해도 좋은 내용인것같다.
 - import this하면 이 내용이 나옴.
 - 해석상 틀릴 수 있는건 한국인이기때문임.
-
-## PEP 8 – Style Guide for Python Code
-- 여긴 필요한것만 하고 넘어감.
-
-### Introduction
-- 규칙의 추가, 언어자체가 변함에 따라  
-이 지침도 변할 수 있음. 
-- 프로젝트에서 말하는 지침이 있으면  
-그걸 먼저 적용함.
-### A Foolish Consistency is the Hobgoblin of Little Minds
-- 어리석은 일관성은 하남자 특이다.
-- 코드는 쓰는것보다 읽는횟수가 더 많다.  
-- 이 문서에서 중요하게 생각하는것은 코드의 일관성.  
-궁극적인 목적은 PEP 20 - 7의 가독성.
-- 이 문서를 무시해도 되는 특정 상황이 있는데 
-  - 이 지침을 따르면 코드가 더 어려워질때
-  - 다른 코드와의 일관성을 해칠때
-  - 이전 가이드에 따라 적성되었거나,  
-  권장하는 기능을 지원하지 않는  
-  이전 버전과 호환을 유지해야하는 경우
-
-### Code lay-out
-- 들여쓰기 
-  - 레벨당 4 공백.
-    - 이게 얼마전에 본건데,  
-    탭도 4공백, 스페이스 4번도 4공백인데  
-    환경에 따라 둘이 달라지는 경우가 있다함.  
-    그래서 4공백으로 박아넣은듯. 
-  ```python
-  # Correct:
-  # Aligned with opening delimiter.
-  foo = long_function_name(var_one, var_two,
-                          var_three, var_four)
-
-  # Add 4 spaces (an extra level of indentation) to distinguish arguments from the rest.
-  def long_function_name(
-          var_one, var_two, var_three,
-          var_four):
-      print(var_one)
-
-  # Hanging indents should add a level.
-  foo = long_function_name(
-      var_one, var_two,
-      var_three, var_four)
-  
-  ```
-  
-  ```python
-  # Wrong:
-
-  # Arguments on first line forbidden when not using vertical alignment.
-  foo = long_function_name(var_one, var_two,
-      var_three, var_four)
-
-  # Further indentation required as indentation is not distinguishable.
-  def long_function_name(
-      var_one, var_two, var_three,
-      var_four):
-      print(var_one)
-  ```
-### String Quotes
-### Whitespace in Expressions and Statements
-### When to use trailing commas
-### Comments
-### Naming Conventions
-### Programming Recommendations
