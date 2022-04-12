@@ -394,4 +394,77 @@ tags: [python]
       ```
 
 ### Naming Conventions
+- python lib도 지금 영망이라함.
+- 다만 이후 작성은 이 방법을 따르는기로.
+
+- Overriding Principle
+  - API에서 public으로 보이는 이름은  
+  구현보다는 사용법을 반영한다.
+
+- Descriptive: Naming Styles
+  - 일반적으로 쓰이는거 다 상관없음
+    - b(단일 소문자)
+    - B(단일 대문자)
+    - lowercase
+    - lower_case_with_underscores
+    - UPPERCASE
+    - UPPER_CASE_WITH_UNDERSCORES
+    - CapitalizedWords(CapWords / CamelCase / StudlyCaps)
+      - 이 때 두문자어는 모든 문자를 대문자로 힌디.  
+      ex) HTTPServerError와 HttpServerError중 전자.
+    - mixedCase(CapitalizedWords와 다름)
+    - Capitalized_Words_With_Underscores(혼종)
+  - 이 뒤 내용은 ...아마 나중에 필요하면..
+
+- Prescriptive: Naming Convention
+  - Names to Avoid
+    - 'l'(소문자 el), 'O'(대문자 oh), 'I'(대문자 eye)등  
+    글꼴에 따라 1,0,l과 구별이 힘들어지는 문자를  
+    단일 문자 변수 이름으로 하지 않는게 좋음.
+  - ASCII Compatibility
+    - 표준 라이브러리에서 사용되는 식별자는  
+    PEP 3131에 따라 ASCII와 호환되어야 함.
+  - Package and Module Names
+    - 모듈은 모두 소문자로 된 짧은 이름으로한다.  
+    가독성을 위해 모듈 이름에 밑줄을 쓸 수 있다.  
+    - 패키지또한 소문자로 된 짧은 이름으로 한다.  
+    여기는 밑줄 사용은 권장되지 않는다.  
+    - C 또는 C++로 작성된 확장 모듈이  
+    더 높은 수준(예: 더 많은 객체 지향) 인터페이스를 제공하는  
+    파이썬 모듈을 동반하는 경우,  
+    C/C++ 모듈은 선행 밑줄(예: _socket)을 갖는다.
+
+  - Class Names
+    - 일반적으로 CapWords를 따름.
+    - 인터페이스가 문서화되고  
+    주로 호출가능으로 사용되는 경우에는  
+    함수와 같은 규칙이 사용될 수 있다.
+    - 내장함수에는 별도 규칙을 적용. 
+      - 단일 또는 두 단어.
+      - CapWords는 예외 이름 및 기본 제공 상수에만 사용.
+  - Type Variable Names
+    - 자료형 변수(PEP484에 도입)의 이름은  
+    일반적으로 CapWords를 사용  
+    ex)T, AnyStr, Num.  
+    - 공변 / 반공변 동작을 선언하는데 사용되는 변수에는  
+    _co나 _contra접미사를 추가하는 것이 좋다.
+      ```python
+      from typing import TypeVar
+
+      VT_co = TypeVar('VT_co', covariant=True)
+      KT_contra = TypeVar('KT_contra', contravariant=True)
+      ```
+  - Exception Names
+    - 예외는 클래스가 될 수 있기 때문에  
+    클래스 규칙이 적용된다.  
+    하지만, 접미사 "Error"를 붙인다.
+
+  - Global Variable Names
+    - 
+  - Function and Variable Names
+  - Function and Method Arguments
+  - Method Names and Instance Variables
+  - Constants
+  - Designing for Inheritance
+
 ### Programming Recommendations
