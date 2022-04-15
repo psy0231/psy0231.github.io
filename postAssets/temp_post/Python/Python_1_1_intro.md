@@ -1,5 +1,5 @@
 ---
-title: Python 1 Intro
+title: Python 1 Intro 2
 author:
   name: owner
   link: https://github.com/psy0231
