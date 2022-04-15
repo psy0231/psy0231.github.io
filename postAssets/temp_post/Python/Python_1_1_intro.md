@@ -9,7 +9,9 @@ tags: [python]
 ---
 
 ## PEP 8 – Style Guide for Python Code
-- 여긴 필요한것만 하고 넘어감.
+- 코드 쓰는방법까지만 얼추 알면  
+본격젹으로 시작해도 될거라 생각해서  
+여기까지 쓰는거로.
 
 ### Introduction
 - 규칙의 추가, 언어자체가 변함에 따라  
