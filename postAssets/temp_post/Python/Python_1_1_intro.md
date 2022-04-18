@@ -37,16 +37,18 @@ tags: [python]
     탭도 4공백, 스페이스 4번도 4공백인데  
     환경에 따라 둘이 달라지는 경우가 있다함.  
     그래서 4공백으로 박아넣은듯. 
-  - 내용을 연결된 줄로 작성할 때 4 space는 선택사항이지만  
-  연속된 줄을 알 수 있도록 들여써주어야 하며  
-  내용으로 인한 들여쓰기 레벨보다는 더 들여써야함.
+  - 내용을 연결된 줄로 작성할 때  
+  4 space는 선택사항이지만  
+  연속된 줄을 알 수 있도록 들여써야 하며  
+  내용으로 인한 들여쓰기 레벨보다 더 들여써야함.
     ```python
     # Correct:
     # Aligned with opening delimiter.
     foo = long_function_name(var_one, var_two,
                             var_three, var_four)
 
-    # Add 4 spaces (an extra level of indentation) to distinguish arguments from the rest.
+    # Add 4 spaces (an extra level of indentation) 
+    # to distinguish arguments from the rest.
     def long_function_name(
             var_one, var_two, var_three,
             var_four):
@@ -62,7 +64,8 @@ tags: [python]
     ```python
     # Wrong:
 
-    # Arguments on first line forbidden when not using vertical alignment.
+    # Arguments on first line forbidden 
+    # when not using vertical alignment.
     foo = long_function_name(var_one, var_two,
         var_three, var_four)
 
@@ -72,7 +75,7 @@ tags: [python]
         var_four):
         print(var_one)
     ```
-  - if의 경우 "if ("로 인해 4space가 만들어지며  
+  - if의 경우 ```if (```로 인해 4space가 만들어지며  
   조건이 길어져 내려쓸 때 본문 블록과 겹쳐 애매해지는데  
   주석을 넣거나 더 들여쓴다.
     ```python
@@ -96,7 +99,7 @@ tags: [python]
           and that_is_another_thing):
         do_something()
     ```
-  - 닫는기호 "]" , ")" , "}" 등은  
+  - 닫는기호 ```] , ) , }``` 등은  
   첫번째 요소라인에 두거나 암튼 대충 두셈 
     ```python
     my_list = [
@@ -124,11 +127,10 @@ tags: [python]
   - 2도 space로 통일을 권장함.
 
 - Maximum Line Length
-  - 최대 79자로 한다.
+  - 라인당 최대 79자로 한다.
   - 구조적 제약이 적은 독스트링 또는 주석등의  
-  긴 텍스트 블록의 경우  
-  줄 길이는 72자로 제한되어야 합니다.
-  - 위에 쓴 암시적 줄 바꿈을 잘 쓰던가 "\"를 쓰던가.
+  긴 텍스트 블록의 경우는 72자로 제한.
+  - 위에 쓴 암시적 줄 바꿈을 잘 쓰던가 ```\```를 쓰던가.
     - 이 판단은 적절한거로 알아서.
 - Should a line break before or after a binary operator?
   ```python
@@ -156,7 +158,7 @@ tags: [python]
   - 클래스 내의 메서드는 한 개 
   - 관련 기능의 그룹을 구분하기 위해  
   빈 줄을 드물게 쓸 수 있음.   
-   (e.g. a set of dummy implementations)
+  (e.g. a set of dummy implementations)
   - 논리적 섹션을 나타내기 위해  
   함수 안에서 드물게 사용함
   - Python accepts the control-L  
@@ -180,11 +182,10 @@ tags: [python]
   - 한줄에 쓰기 금지
     ```python
     Yes:
-
     import os
     import sys
+    
     No:
-
     import sys, os
     ```
   - 이건 가능 
@@ -202,9 +203,9 @@ tags: [python]
     - 일반적으로 읽기 쉽다.
     - import 시스템이 잘못 구성되어 있어도  
     최소한 오류메시지라도 더 잘 제공함.
-    - 단, 명료한 상대적 import는 절대적 import의  
-    대안으로 허용될 수 있다. (절대경로 지정이  
-    더 길어질 경우 등.)
+    - 단, 명료한 상대적 import는  
+    절대적 import의 대안으로 허용될 수 있다.  
+    (절대경로 지정이 더 길어질 경우 등.)
     - 표준 라이브러리 코드는  
     복잡한 패키지 레이아웃을 피하고  
     Absolute imports 사용.
@@ -213,7 +214,7 @@ tags: [python]
   - 몰라 여긴.
 
 ### String Quotes
-- "" 나 '' 나 상관없음
+- ```""``` 나 ```''``` 나 상관없음
 - 근데 문자열 중간에 포함할때  
 안쓴 나머지 문자를 쓰는걸 권장.
   ```python
@@ -249,7 +250,8 @@ tags: [python]
     ```
     - 널널하게 쓰는게 좋담서...
   - 슬라이스에서 콜론은 이항 연산자처럼 작동하며  
-  양쪽에 동일한 양을 쓴다. (가장 낮은 우선 순위의 연산자로 처리).  
+  양쪽에 동일한 양을 쓴다.  
+  (가장 낮은 우선 순위의 연산자로 처리).  
   확장 슬라이스에서는 두 콜론에 동일한 간격을 쓴다.  
   예외: 슬라이스 매개변수가 생략되면 공백 생략.
     ```python
@@ -259,12 +261,14 @@ tags: [python]
     ham[lower+offset : upper+offset]
     ham[: upper_fn(x) : step_fn(x)], ham[:: step_fn(x)]
     ham[lower + offset : upper + offset]
+    
     # Wrong:
     ham[lower + offset:upper + offset]
     ham[1: 9], ham[1 :9], ham[1:9 :3]
     ham[lower : : upper]
     ham[ : upper]
     ```
+  
   - 함수 / 인덱싱 / 슬라이싱과 괄호 사이
     ```python
     # Correct:
@@ -277,6 +281,7 @@ tags: [python]
     # Wrong:
     dct ['key'] = lst [index]
     ```
+  
   - 할당 할 때 변수이름 자리맞춤
     ```python
     # Correct:
@@ -369,7 +374,7 @@ tags: [python]
 
 - 여러 문장으로 된 주석에서는  
 마지막 문장을 제외하고  
-문장 끝 마침표 뒤에 두 개의 공백을 사용해야 합니다.
+문장 끝 마침표 뒤에 두 개의 공백을 둔다.
 
 - 다른 사용자가 명확하고 쉽게 이해할 수 있어야 함.
 
@@ -396,7 +401,7 @@ tags: [python]
       ```
 
 ### Naming Conventions
-- python lib도 지금 영망이라함.
+- python lib도 지금 엉망이라함.
 - 다만 이후 작성은 이 방법을 따르는기로.
 
 - Overriding Principle
