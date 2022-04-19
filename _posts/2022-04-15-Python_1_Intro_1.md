@@ -135,6 +135,7 @@ tags: [python]
   - 라고하는데? 일종의 기본 이념?  
   같은거라 생각하면 될듯.
   - 아래 19개가 그 내용.
+
 1. Beautiful is better than ugly.
     - 못생긴것보다 이쁜게 좋다.
 2. Explicit is better than implicit.
