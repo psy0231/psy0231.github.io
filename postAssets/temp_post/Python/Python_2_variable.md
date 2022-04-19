@@ -71,8 +71,8 @@ class, method또한 object로 취급할 수 있다는것은
 | multiplication  |    *   |  5*3 |    15 |
 | division(float) |    /   |  5/3 | 1.667 |
 | division(int)   |   //   | 5//3 |     1 |
-| module(??)      |    %   |  5%3 |     2 |
-| modulo          |   **   | 5**3 |   125 |
+| modulo          |    %   |  5%3 |     2 |
+| power           |   **   | 5**3 |   125 |
 
 - power이 math가 아니라 내장임.
 - 나누기 졀과는 실수나 정수 선택 할 수 있음.
