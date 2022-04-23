@@ -208,3 +208,6 @@ it may be a good idea.
 - 아무튼 깔끔, 명확, 단순 이 주 키워드인것같다. 
 - import this하면 이 내용이 나옴.
 - 해석이 틀릴 수 있는건 한국인이기때문임.
+
+## 참고
+- [pythontutor](https://pythontutor.com/)
