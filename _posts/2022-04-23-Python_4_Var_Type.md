@@ -3,7 +3,7 @@ title: Python 4 - Variable & Data Type 2
 author:
   name: owner
   link: https://github.com/psy0231
-date: 2022-04-22 00:00:00 +0900
+date: 2022-04-24 00:00:00 +0900
 categories: [Grind, Python]
 tags: [python, variable, data type]
 ---
