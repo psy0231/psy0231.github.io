@@ -180,6 +180,171 @@ print(str3)
   차이점은 만약 찾는 문자열이 없는 경우  
   find는 -1반환, index는 exception
 
+## string - 처리
+- 다양한 함수들의 향연..
+- 이름, 쓰는거 간략히 하고  
+만약 쓰게된다면 세부 옵션은  
+그때 찾는게 나을듯.
+
+  | name         |                         |
+  | ------------ | ----------------------- |
+  | capitalize   | 첫글자'만' 대문자로     |
+  | casefold     | 전체 소문자( > lower)   |
+  | center       | 중앙 정렬               |
+  | count        | 해당 글자 수            |
+  | encode       | 인코딩                  |
+  | endswith     | 끝문자 확인             |
+  | expandtabs   | 탭 공간 수 조정         |
+  | find         | 문자 시작 index         |
+  | format       | 포맷팅                  |
+  | format_map   | foramt비슷              |
+  | index        | 문자 시작 index         |
+  | isalnum      | alph & num              |
+  | isalpha      | only alph               |
+  | isdecimal    | 숫자                    |
+  | isdigit      | 숫자                    |
+  | isidentifier | 유효한 이름 검사        |
+  | islower      | 소문자인지 검사         |
+  | isnumeric    | 숫자                    |
+  | isprintable  | 출력 가능한지           |
+  | isspace      | 빈공간                  |
+  | istitle      | title형식인지           |
+  | isupper      | 대문자만 있는지         |
+  | join         | 구분자 문자열로 결합    |
+  | ljust        | 왼쪽정렬                |
+  | lower        | 소문자로                |
+  | lstrip       | 왼쪽 공백 제거          |
+  | maketrans    | 대체 문자로 변환        |
+  | partition    | 기준 문자로 분할        |
+  | replace      | 대체 문자열             |
+  | removeprefix | 시작문자 제거           |
+  | removesuffix | 끝문자 제거             |
+  | rfind        | 문자열 마지막 위치      |
+  | rindex       | 문자열 마지막 위치      |
+  | rjust        | 오른정렬                |
+  | rpartition   | 뒤에서 기준 문자로 분할 |
+  | rsplit       | 뒤부터 문자열 분할      |
+  | rstrip       | 오른쪽 공백 제거        |
+  | split        | 문자열 분할             |
+  | splitlines   | 줄바꿈기준 분할         |
+  | startswith   | 시작문자 확인           |
+  | strip        | 앞뒤 공백 제거          |
+  | swapcase     | 대소문자 변경           |
+  | title        | 제목 형식               |
+  | translate    | maketrans를 str로       |
+  | upper        | 대문자로                |
+  | zfill        | 빈공간 0으로            |
+
+  - isdecimal() ≤ isdigit() ≤ isnumeric()
+  - find랑 index는 문자(열)을 찾아주는데  
+  차이점은 만약 찾는 문자열이 없는 경우  
+  find는 -1반환, index는 exception
+
+```python
+string = "The quick brown fox jumps over the lazy dog"
+
+print("{0:12} : {1}".format( str.capitalize.__name__ , string.capitalize()))
+print("{0:12} : {1}".format( str.casefold.__name__ , string.casefold()))
+print("{0:12} : {1}".format( str.center.__name__ , string.center(50, "*")))
+print("{0:12} : {1}".format( str.count.__name__ , string.count("o")))
+print("{0:12} : {1}".format( str.encode.__name__ , string.encode()))
+print("{0:12} : {1}".format( str.endswith.__name__ , string.endswith("dog")))
+print("{0:12} : {1}".format( str.expandtabs.__name__ , string.expandtabs(40)))
+print("{0:12} : {1}".format( str.find.__name__ , string.find("fox")))
+print("{0:12} : {1}".format( str.format.__name__ , string.format()))
+print("{0:12} : {1}".format( str.format_map.__name__ , string.format_map({"name": "John"})))
+
+print("{0:12} : {1}".format( str.index.__name__ , string.index("fox")))
+print("{0:12} : {1}".format( str.isalnum.__name__ , string.isalnum()))
+print("{0:12} : {1}".format( str.isalpha.__name__ , string.isalpha()))
+print("{0:12} : {1}".format( str.isdecimal.__name__ , string.isdecimal()))
+print("{0:12} : {1}".format( str.isdigit.__name__ , string.isdigit()))
+print("{0:12} : {1}".format( str.isidentifier.__name__ , string.isidentifier()))
+print("{0:12} : {1}".format( str.islower.__name__ , string.islower()))
+print("{0:12} : {1}".format( str.isnumeric.__name__ , string.isnumeric()))
+print("{0:12} : {1}".format( str.isprintable.__name__ , string.isprintable()))
+print("{0:12} : {1}".format( str.isspace.__name__ , string.isspace()))
+
+print("{0:12} : {1}".format( str.istitle.__name__ , string.istitle()))
+print("{0:12} : {1}".format( str.isupper.__name__ , string.isupper()))
+print("{0:12} : {1}".format( str.join.__name__ , string.join(["a", "b", "c"])))
+print("{0:12} : {1}".format( str.ljust.__name__ , string.ljust(50, "*")))
+print("{0:12} : {1}".format( str.lower.__name__ , string.lower()))
+print("{0:12} : {1}".format( str.lstrip.__name__ , string.lstrip("The")))
+print("{0:12} : {1}".format( str.maketrans.__name__ , string.maketrans("abc", "xyz")))
+print("{0:12} : {1}".format( str.partition.__name__ , string.partition("fox")))
+print("{0:12} : {1}".format( str.replace.__name__ , string.replace("fox", "cat")))
+print("{0:12} : {1}".format( str.removeprefix.__name__ , string.removeprefix("The")))
+
+print("{0:12} : {1}".format( str.removesuffix.__name__ , string.removesuffix("dog")))
+print("{0:12} : {1}".format( str.rfind.__name__ , string.rfind("fox")))
+print("{0:12} : {1}".format( str.rindex.__name__ , string.rindex("fox")))
+print("{0:12} : {1}".format( str.rjust.__name__ , string.rjust(50, "*")))
+print("{0:12} : {1}".format( str.rpartition.__name__ , string.rpartition("fox")))
+print("{0:12} : {1}".format( str.rsplit.__name__ , string.rsplit(" ")))
+print("{0:12} : {1}".format( str.rstrip.__name__ , string.rstrip("dog")))
+print("{0:12} : {1}".format( str.split.__name__ , string.split(" ")))
+print("{0:12} : {1}".format( str.splitlines.__name__ , string.splitlines()))
+print("{0:12} : {1}".format( str.startswith.__name__ , string.startswith("The")))
+
+print("{0:12} : {1}".format( str.strip.__name__ , string.strip("The")))
+print("{0:12} : {1}".format( str.swapcase.__name__ , string.swapcase()))
+print("{0:12} : {1}".format( str.title.__name__ , string.title()))
+print("{0:12} : {1}".format( str.translate.__name__ , string.translate(string.maketrans("abc", "xyz"))))
+print("{0:12} : {1}".format( str.upper.__name__ , string.upper()))
+print("{0:12} : {1}".format( str.zfill.__name__ , string.zfill(50)))
+```
+
+```
+capitalize   : The quick brown fox jumps over the lazy dog
+casefold     : the quick brown fox jumps over the lazy dog
+center       : ***The quick brown fox jumps over the lazy dog****
+count        : 4
+encode       : b'The quick brown fox jumps over the lazy dog'
+endswith     : True
+expandtabs   : The quick brown fox jumps over the lazy dog
+find         : 16
+format       : The quick brown fox jumps over the lazy dog
+format_map   : The quick brown fox jumps over the lazy dog
+index        : 16
+isalnum      : False
+isalpha      : False
+isdecimal    : False
+isdigit      : False
+isidentifier : False
+islower      : False
+isnumeric    : False
+isprintable  : True
+isspace      : False
+istitle      : False
+isupper      : False
+join         : aThe quick brown fox jumps over the lazy dogbThe quick brown fox jumps over the lazy dogc
+ljust        : The quick brown fox jumps over the lazy dog*******
+lower        : the quick brown fox jumps over the lazy dog
+lstrip       :  quick brown fox jumps over the lazy dog
+maketrans    : {97: 120, 98: 121, 99: 122}
+partition    : ('The quick brown ', 'fox', ' jumps over the lazy dog')
+replace      : The quick brown cat jumps over the lazy dog
+removeprefix : quick brown fox jumps over the lazy dog
+removesuffix : The quick brown fox jumps over the lazy
+rfind        : 16
+rindex       : 16
+rjust        : *******The quick brown fox jumps over the lazy dog
+rpartition   : ('The quick brown ', 'fox', ' jumps over the lazy dog')
+rsplit       : ['The', 'quick', 'brown', 'fox', 'jumps', 'over', 'the', 'lazy', 'dog']
+rstrip       : The quick brown fox jumps over the lazy
+split        : ['The', 'quick', 'brown', 'fox', 'jumps', 'over', 'the', 'lazy', 'dog']
+splitlines   : ['The quick brown fox jumps over the lazy dog']
+startswith   : True
+strip        :  quick brown fox jumps over the lazy dog
+swapcase     : tHE QUICK BROWN FOX JUMPS OVER THE LAZY DOG
+title        : The Quick Brown Fox Jumps Over The Lazy Dog
+translate    : The quizk yrown fox jumps over the lxzy dog
+upper        : THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG
+zfill        : 0000000The quick brown fox jumps over the lazy dog
+```
+
+
 ## string - format
 
 - 이쪽은 나중에 입출력할때 자주씀.
