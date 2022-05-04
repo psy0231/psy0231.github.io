@@ -125,7 +125,7 @@ print(temp(1, 2))
   <class 'str'> <class 'tuple'>
   a : b
   a : c
-  <class 'int'> <class 'tuple'>
+  <class 'int'> <class 'tuple'> 
   ```
   
 
