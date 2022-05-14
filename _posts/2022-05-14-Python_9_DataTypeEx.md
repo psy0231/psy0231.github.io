@@ -70,7 +70,7 @@ data type, collection에서
   | Mapping         | dict(mutable)        |
   
     
-- 이 내용은 [Built-in Types]([https://docs.python.org/3/library/stdtypes.html#](https://docs.python.org/3/library/stdtypes.html#)) 를 참조하는데  
+- 이 내용은 [Built-in Types](https://docs.python.org/3/library/stdtypes.html#) 를 참조하는데  
 잘보면 내용이 조금 다른 부분이 있긴함
 - 다만, 내가 한 정리는 대충 한거니까  
 저 문서를 항상 참조해야함.
