@@ -5,7 +5,7 @@ author:
   link: https://github.com/psy0231
 date: 2022-08-31 12:00:00  +0900
 categories: [Grind, Stub]
-tags: [virtualization, docker ]
+tags: [virtualization, docker, hypervisor ]
 ---
 
 ## init
@@ -117,22 +117,22 @@ HW, Hypervisor가 여전히 영어를 쓰고있을떄
 하드웨어에서 3번째 수준으로 실행된다.
     
     ```
-     |                  |
-     |    OS   |   OS   |
-     |                  |
-     +------------------+
-     |                  |
-     |    HYPERVISOR    |
-     |                  |
-     +------------------+
-     |                  |
-     |        OS        |
-     |                  |
-     +------------------+
-     |                  |
-     |      H / W       |
-     |                  |
-           Type2
+    |                  |
+    |    OS   |   OS   |
+    |                  |
+    +------------------+
+    |                  |
+    |    HYPERVISOR    |
+    |                  |
+    +------------------+
+    |                  |
+    |        OS        |
+    |                  |
+    +------------------+
+    |                  |
+    |      H / W       |
+    |                  |
+            Type2
     
     ```
     
@@ -187,16 +187,12 @@ container의 생성, 삭제가 쉽고
 다른 컨테이너에서 동일하게 먹히지 않는다.  
 서로 격리된 환경이기때문에.
 
-## etc
-
-- 
 
 ## Docker
-
 - 컨테이너 기반의 가상화 도구.
 - 가상화 설명으로 서론이 길었던건 위 한줄 이해를 위해..  
 - 그림으로 보면 `type2`랑 비슷한 모양일것같은데  
-hypervisor가 docker로 ,  최상층 os가 container로.  
+hypervisor가 docker로, 최상층 os가 container로.  
     
     ```
     |                       |
@@ -216,3 +212,133 @@ hypervisor가 docker로 ,  최상층 os가 container로.
     |                       |
             docker
     ```
+    이렇지 않을까 싶다.
+- docker for windows를 설치할 떄  
+두가지 설치 가능한방법이 있는데  
+wsl2를 이용한 방법과 Hyper-V를 이용한 방법.  
+wsl2를 추천한다고 써있음. 
+
+## etc
+> 뇌피셜 공간.  
+> 및 풀리지 않은 의문점들.
+
+- 시작에 docker, wsl과 연관있다 했는데  
+정확한건 잘 모르겠고 찾을때  
+이렇다더라 한게 있었는데  
+굳이 필요한 내용은 아닌것같음.
+### wsl1 - wsl2
+  - 좋은 비유는 아니지만 굳이 해보자면  
+  wsl1은 type2같은 형태,  
+  wsl2는 type1같은 형태의 구조.  
+  
+    좋은 비유가 아니라고 한건 wsl1로  
+    사실은 api 방식이었나 했는데 컷.
+
+  - wsl2에서 아래깔린 hypervisor는  
+  hyper-v로 윈도우에서 type1로  
+  제공되는 hypervisor라고 한다.
+  - 아무튼 wsl, wsl2를 써보면  
+  성능은 wsl2가 좋다고 하는데  
+  체감상은 vmware쓰다가 이거쓰면  
+  그저 신세계임.
+  - 다만 확연히 느낄 수 있는점은  
+  wsl1에서는 network, file등  
+  신경쓸게 딱히 없었는데  
+  내 기억속엔 그럼.  
+  다시 보기 귀찮으니까 컷  
+  wsl2는 network가 내부망처럼 동작하고  
+  file을 직접 까볼수 없게된것 등  
+  ($wsl로 보면 되는데 컷.)
+
+    암튼 미묘하게 다른데   
+    wsl2은 커널을 공유하게되는 형태로 되면서  
+    이런 구조를 갖게되는경우  
+    보안상의 이유로 가상환경과  
+    실제 host환경사이 벽이 쳐지는것같음.  
+    docker도 그렇고.
+
+### in windows
+- 윈도우에서 기능 켜기/끄기를 보면  
+관련되어 보이는게 몇개 보임.
+  - Hyper-V
+  - linux용 windows 하위 시스템
+  - 가상 머신 플렛폼
+  - windows 하이퍼바이저 플렛폼
+  - windows 샌드박스
+- 이 중에 사용중인 기능은  
+`linux용 windows 하위 시스템`,  
+`windows 샌드박스`, `가상 머신 플렛폼`
+- 여기서부터 잘 모르겠는데  
+내가 실제 쓰는건 wsl, win sandbox,  
+win docker가 있음.  
+그러면 hyper-v가 사용중일줄 알았는데  
+막상보니 그렇지 않음.  
+또 가상 머신 플렛폼이 껴있음..
+- 생각해보면 wsl2설치 과정에서 명령어가  
+  ```
+  dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+  dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+  ```
+  이 두개였음 .  
+  애초에 hyper-v는 필요 없었나?
+- win sandbox는 어떤걸 쓰는거임?
+
+- **hyper-v** : 
+
+  Microsoft의 hypervisor
+
+- **virtual machine platform** : 
+
+  hypervisor를 계속 지원하는  
+  덜 강력한(?) Hyper-V.  
+  VMP는 WSL2에 대한 요구사항.  
+  App-V 또는 MSI를위한 MSX 애플리케이션  
+  패키지를 생성하는 데 사용될 수 있음.
+
+- **Windows Hypervisor Platform** :
+
+  Windows hypervisor에서  
+  가상화 소프트웨어가 실행되도록 설정.  
+  
+  전체 Hyper-V 없이도  
+  가상화된 애플리케이션(App-V 같은)을  
+  windows에서 실행할 수 있다.  
+  
+  타사 개발자가 Hyper-V를 사용하기 위해  
+  사용할 수 있는 API스택.  
+  
+  타사 가상화 스택 및 애플리케이션을 위한  
+  확장 사용자 모드 API를 추가하여  
+  hypervisor 수준에서  
+  파티션을 생성, 관리하고  
+  파티션에 대한 메모리 매핑을 구성하며,  
+  가상 프로세서의 실행을 생성하고 제어.
+  
+  Oracle VirtualBox, Docker 및  
+  QEMU가 이러한 프로젝트의 예.
+
+- **Windows Subsystem For Linux** : 
+
+  Windows 내에서 Linux 명령을 실행.
+
+- 여기저기서 적당히 짜집어다가 적음  
+- 관련 문서는 ms 가상화 문서에서.  
+- 또 찾다보니까 나오던데  
+hyper-v를 이용해 linux를 돌리면  
+내가 지금 쓰는 wsl이랑 많이 다름.  
+wsl보다 그게 진짜 os통으로 올라가는 느낌?  
+  
+  hyper-v를 쓰면 vm류를 못쓴다하던데  
+  난 잘 쓰고있음.  
+  이 외에도 몇가지 불편한게 있다던데    
+  난 그런게 없는거 보니  
+  wsl이 hyper-v에서 쓰던걸  
+  vmp로 바꾸고 지금 처럼 된게 아닌가 싶음.
+
+- 암튼 여긴 정리할건 아니고  
+정리 될것같지도 않고  
+쓴것도 애매한것도 많고  
+다시 볼일이 있겠나 싶음.
+
+## 참고
+- [가상화 문서](https://docs.microsoft.com/en-us/virtualization/)
