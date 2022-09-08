@@ -5,7 +5,7 @@ author:
   link: https://github.com/psy0231
 date: 2022-08-31 12:00:00  +0900
 categories: [Grind, Stub]
-tags: [virtualization, docker, hypervisor ]
+tags: [virtualization, docker, hypervisor, wsl ]
 ---
 
 ## init
