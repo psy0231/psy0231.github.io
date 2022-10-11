@@ -254,33 +254,43 @@ print(f(2))
   라던가, 
 
 - 특정 method는 별개의 method가 필요한데  
-  ```python
-  target =  [ 'baa   ','a', ' asdf ', '   ba']
-  print(sorted(target, key=lambda x : len(x.strip())))
-  ```
-  ```python
-  ['a', '   ba', 'baa   ', ' asdf ']
-  ```
-  - 이런거..  
-  - target의 각 item을 lambda로 새로 계산하고  
-  결과를 기준으로 새로 정렬됨.
-  
-  ```python
-  a = filter(lambda x: x % 2, range(10))
-  print(list(a))
+  - sorted
+    ```python
+    target =  [ 'baa   ','a', ' asdf ', '   ba']
+    print(sorted(target, key=lambda x : len(x.strip())))
+    ```
+    ```python
+    ['a', '   ba', 'baa   ', ' asdf ']
+    ```
+    target의 각 item을 lambda로 새로 계산하고  
+    결과를 기준으로 새로 정렬됨.
+  - filter
+    ```python
+    a = filter(lambda x: x % 2, range(10))
+    print(list(a))
 
-  # def mtd(x):
-  #     if x % 2 == 0:
-  #         return False
-  #     else:
-  #         return True
+    # def mtd(x):
+    #     if x % 2 == 0:
+    #         return False
+    #     else:
+    #         return True
 
-  # a = filter(mtd, range(10))
-  # print(list(a))
-  ```
-  ```python
-  [1, 3, 5, 7, 9]
-  ```
-  - lambda 안쓰는경우 주석처럼됨.
-  - 이거랑 비슷한게  
-  map, reduce 등등..
+    # a = filter(mtd, range(10))
+    # print(list(a))
+    ```
+    ```python
+    [1, 3, 5, 7, 9]
+    ```
+    - lambda 안쓰는경우 주석처럼됨.
+    - function에 true인 item만 return
+  - map
+    ```python
+    a = [1, 2, 3, 4, 5]
+    f = lambda x : x*2
+    res = map(f,a)
+    print(list(res))
+    ```
+    ```python
+    [2,4,6,8,10]
+    ```
+    각 item에 function 적용 후 return
