@@ -15,8 +15,8 @@ tags: [method, function, argument, parameter, statement, expression]
 
 | name       | discription                 |
 | ---------- | --------------------------- |
-| Method     | 실행 가능한 코드 조각        |
-| Function   | class안에 있는 function     |
+| Function   | 실행 가능한 코드 조각        |
+| Method     | class안에 있는 function     |
 
 ## Argument / Parameter
 
