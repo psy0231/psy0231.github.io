@@ -1,5 +1,5 @@
 ---
-title: async/await_2
+title: 10. async/await_2
 date: 2020-12-24 18:00:00 +0900
 categories: [Grind, C#]
 tags: [c#, asynchronous]
@@ -63,9 +63,11 @@ Windows 앱에서 async 및 await와 함께 사용할 수 있는
 ### 위 예제 순서
 1. 호출하는 메서드는   
 GetUrlContentLengthAsync 비동기 메서드를 호출 후 대기.
+
 2. GetUrlContentLengthAsync는 HttpClient 인스턴스를 만들고  
 GetStringAsync 비동기 메서드를 호출하여  
 웹 사이트의 내용을 문자열로 다운로드.
+
 3. GetStringAsync에서 특정 작업이 발생하여 진행이 일시 중단.  
 웹 사이트에서 다운로드 또는  
 다른 차단 작업을 수행할 때까지 기다려야 할 수 있음.  
@@ -83,13 +85,16 @@ GetStringAsync 비동기 메서드를 호출하여
     작업은 작업이 완료 될 때  
     실제 문자열 값을 생성하겠다는 약속과 함께  
     GetStringAsync 호출에 대한 진행중인 프로세스를 나타냄.
+    
 4. getStringTask가 아직 대기되지 않았으므로  
 즉, 아직 await가 쓰이지 않았으므로  
 GetUrlContentLengthAsync가  
 GetStringAsync의 최종 결과에 무관한 다른 작업 가능.  
 이 경우는 DoIndependentWork()이 수행되는것.
+
 5. DoIndependentWork는 작업을 수행하고  
 호출자에게 반환하는 동기 메서드.
+
 6. GetUrlContentLengthAsync에는 더이상  
 getStringTask의 결과 없이 수행할 수 있는 작업이 없음.  
 다음으로 GetUrlContentLengthAsync는  
@@ -119,6 +124,7 @@ getStringTask의 결과 없이 수행할 수 있는 작업이 없음.
     결과에 의존하지 않는 다른 작업을 수행할 수 있음.  
     호출하는 메서드는 GetUrlContentLengthAsync를 기다리고 있으며  
     GetUrlContentLengthAsync는 GetStringAsync를 기다리고 있음.
+
 7. GetStringAsync가 완료되고 문자열 결과를 생성.  
 GetStringAsync를 호출할 경우  
 문자열 결과가 예상대로 반환되지 않는다.  
@@ -127,6 +133,7 @@ GetStringAsync를 호출할 경우
 메서드의 완료를 나타내는 작업인 getStringTask에 저장.  
 await 연산자가 getStringTask에서 결과를 검색 하고  
 결과를 contents에 할당.
+
 8. GetUrlContentLengthAsync에 문자열 결과가 있는 경우  
 메서드가 문자열 길이를 계산.  
 그런 다음 GetUrlContentLengthAsync 작업도 완료되고  
@@ -761,15 +768,15 @@ Task, Task\<TResult>, ValueTask, ValueTask\<TResult> 인데
     심지어 교착 상태가 발생할 수도 있음.  
     ConfigureAwait에 대한 자세한 내용은 ConfigureAwait FAQ를 참조.
 - 상태 저장 코드 작성 분량 감소
-    - 전역 개체의 상태나 특정 메서드의 실행이 아닌  
-    메서드의 반환 값에만 의존.  
-    그 이유로는    
-        - 코드를 더 쉽게 추론할 수 있다.
-        - 코드를 더 쉽게 테스트할 수 있다.
-        - 비동기 및 동기 코드를 훨씬 더 쉽게 혼합할 수 있다.
-        - 일반적으로 함께 경합 상태를 피할 수 있다.
-        - 반환 값에 의존하면 비동기 코드를 간단히 조정할 수 있다.
-        - (이점) 이 방법은 실제로 종속성 주입에도 잘 작동.
+  - 전역 개체의 상태나 특정 메서드의 실행이 아닌  
+  메서드의 반환 값에만 의존.  
+  그 이유로는    
+    - 코드를 더 쉽게 추론할 수 있다.
+    - 코드를 더 쉽게 테스트할 수 있다.
+    - 비동기 및 동기 코드를 훨씬 더 쉽게 혼합할 수 있다.
+    - 일반적으로 함께 경합 상태를 피할 수 있다.
+    - 반환 값에 의존하면 비동기 코드를 간단히 조정할 수 있다.
+    - (이점) 이 방법은 실제로 종속성 주입에도 잘 작동.
 - 권장되는 목적은 코드에서 완전하거나  
 거의 완전한 참조 투명성을 달성하는 것.  
 이렇게 하면 확실히 예측 가능하고,  
@@ -791,7 +798,7 @@ Task, Task\<TResult>, ValueTask, ValueTask\<TResult> 인데
 [^footnote3]: [What do the terms “CPU bound” and “I/O bound” mean?](https://stackoverflow.com/questions/868568/what-do-the-terms-cpu-bound-and-i-o-bound-mean)  
 [^footnote4]: [Futures and promises](https://en.wikipedia.org/wiki/Futures_and_promises)  
 [^footnote5]: [async 및 await를 사용한 비동기 프로그래밍](https://docs.microsoft.com/ko-kr/dotnet/csharp/programming-guide/concepts/async/)  
-[^footnote6]: [비동기 반환 형식(C#)](https://docs.microsoft.com/ko-kr/dotnet/csharp/programming-guide/concepts/async/async-return-types)
+[^footnote6]: [비동기 반환 형식(C#)](https://docs.microsoft.com/ko-kr/dotnet/csharp/programming-guide/concepts/async/async-return-types)  
 [^footnote8]: [작업 목록 취소(C#)](https://docs.microsoft.com/ko-kr/dotnet/csharp/programming-guide/concepts/async/cancel-an-async-task-or-a-list-of-tasks)    
 [^footnote9]: [일정 기간 이후 비동기 작업 취소(C#)](https://docs.microsoft.com/ko-kr/dotnet/csharp/programming-guide/concepts/async/cancel-async-tasks-after-a-period-of-time)  
 [^footnote10]: [완료되면 비동기 작업 처리(C#)](https://docs.microsoft.com/ko-kr/dotnet/csharp/programming-guide/concepts/async/start-multiple-async-tasks-and-process-them-as-they-complete?pivots=dotnet-6-0)  

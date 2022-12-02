@@ -1,5 +1,5 @@
 ---
-title: Delegate, Event
+title: 15. Delegate, Event
 date: 2021-10-01 12:00:00 +0900
 categories: [Grind, C#]
 tags: [c#]
