@@ -9,21 +9,21 @@ seo:
 ## intro
 
 - method의 parameter에 대해.
-- ref / out에서 계속 확장됨..
-- params, ref, out, in이 주요내용.
+- `ref` / `out`에서 계속 확장됨..
+- `params`, `ref`, `out`, `in`이 주요내용.
 
 ---
 
 ## params
 
-- paramters를 가변개수의 변수가 있다고 지정.
+- parameter를 가변개수의 변수가 있다고 지정.
 - 1차원 배열만 가능
 - `params`뒤에는 추가로 parameter추가가 안됨.  
 앞에는 상관없음.
 - `param`키워드는 선언시 하나만 쓸 수 있음.
 - `,`로 구별해 넣으면 알아서 들어감.  
 배열로 넣으면 그거 통으로 들어감(차원이 안늘어남)
-- 
+- ex
   ```csharp
   class Params
   {
@@ -81,7 +81,7 @@ parameter에 전달한다.
   - reference type은 값으로 , 참조로 전달하는경우  
   약간 차이가 있음.
 
-### ****Pass a value type by value****
+### Pass a value type by value
 
 - value type을 value로 넘김
 - 호출된 method가  
@@ -92,7 +92,7 @@ parameter를 할당해
 parameter에서 참조하는 개체의  
 상태를 수정하는 경우  
 변경 내용은 호출자에서 표시되지 않음.
-- 
+- ex
   ```csharp
   int n = 5;
   System.Console.WriteLine("The value before calling the method: {0}", n);
@@ -119,7 +119,7 @@ parameter에서 참조하는 개체의
   ```
     
 
-### ****Pass a value type by reference****
+### Pass a value type by reference
 
 - value type을 reference로 넘김
 - 호출된 method가  
@@ -132,7 +132,7 @@ parameter를  할당해
 parameter에서 참조하는 개체의  
 상태를 수정하는 경우  
 변경 내용은 호출자에서 표시됨.
-- 
+- ex
   ```csharp
   int n = 5;
   System.Console.WriteLine("The value before calling the method: {0}", n);
@@ -158,7 +158,7 @@ parameter에서 참조하는 개체의
   */
   ```
 
-### ****Pass a reference type by value****
+### Pass a reference type by value
 
 - reference type을 value로 넘김
 - 호출된 method가  
@@ -169,7 +169,7 @@ parameter를 할당해
 parameter에서 참조하는 개체의   
 상태를 수정하는 경우  
 변경 사항은 호출자에게 표시됨.
-- 
+- ex
   ```csharp
   int[] arr = { 1, 4, 5 };
   System.Console.WriteLine("Inside Main, before calling the method, the first element is: {0}", arr[0]);
@@ -196,7 +196,7 @@ parameter에서 참조하는 개체의
   새 배열을 참조하게됨.  
   이 때부터는 전달받았던 arr에 영향을 주지 않음.
 
-### ****Pass a reference type by reference****
+### Pass a reference type by reference
 
 - reference type를 reference로 넘김
 - 호출된 method가  
@@ -205,9 +205,9 @@ parameter를 할당해
 변경 내용은 호출자에서 표시됨.
 - 호출된 method가  
 parameter에서 참조하는 개체의  
-상태를 수정하는 경우
+상태를 수정하는 경우  
 변경 내용이 호출자에서 표시됨.
-- 
+- ex
   ```csharp
   int[] arr = { 1, 4, 5 };
   System.Console.WriteLine("Inside Main, before calling the method, the first element is: {0}", arr[0]);
@@ -297,7 +297,7 @@ readonly의 경우 수정을 못하게하는 특성일 때
   - 메서드로 전달되는 list는 수정가능  
   외부 원본도 변경.
   - 메서드에서 전달받은 list를 새로 할당 불가.
-    - `// pArray = new List<int>{ -3, -1, -2, -3, -4 };`이 부분이문제.
+    - `// pArray = new ...`이 부분이문제.
     - error CS8331: 읽기 전용 변수이므로  
     변수 'in List<int>'에 할당할 수 없음.
 - 값형식을 `in`으로 전달하는 경우에도 변경불가였음  
@@ -322,7 +322,7 @@ readonly의 경우 수정을 못하게하는 특성일 때
   `readonly ref struct`를 선언.
   - 선언에서 `ref struct` 필드가 참조임을 선언.
 
-### ****참조로 argument 전달****
+### 참조로 argument 전달
 
 - 값이아닌 참조로 전달.
 - method 정의, 호출시 명시적으로 사용해야함.
@@ -496,7 +496,7 @@ method가 값을 참조로 반환하는 개체 상태에 반영.
   ```
     
 
-### ****Ref readonly 로컬****
+### Ref readonly 로컬
 
 - 참조 읽기 전용 로컬은  
 해당 시그니처에 `ref readonly`가 있고  
@@ -506,7 +506,7 @@ method가 값을 참조로 반환하는 개체 상태에 반영.
 `ref` 속성을 변수와 `readonly` 결합.  
 변수는 할당된 스토리지에 대한 별칭이며 수정할 수 없음.
 
-### ****ref 필드****
+### ref 필드
 
 - `ref struct`유형에서 `ref`필드를 선언할 수 있다.  
 `ref` 필드는 참조가 참조하는 객체보다 오래 지속되지 않도록  
@@ -530,7 +530,7 @@ method가 값을 참조로 반환하는 개체 상태에 반영.
 
 ---
 
-## ****out****
+## out
 
 - `ref`와 대부분 비슷함.
 - `out` 인수로 전달되는 변수는  
@@ -539,7 +539,7 @@ method 호출에서 전달되기 전에
 호출된 method는 반환되기 전에  
 값을 할당해야 한다.
 
-### ****out 매개 변수 선언****
+### out 매개 변수 선언
 
 - `out`은여러 값을 반환하기 위한 일반적인 방법.  
 비슷하게 튜플이 있음.  
@@ -548,7 +548,7 @@ method 호출에서 전달되기 전에
 method return 전에 out은 받은 parameter할당이  
 강제적이기때문에 여기 나온듯
 
-### ****out 인수를 사용하여 메서드 호출****
+### out 인수를 사용하여 메서드 호출
 
 - out는 parameter로 전달할 때 초기화가 필요 없었음.
   
@@ -621,15 +621,13 @@ method return 전에 out은 받은 parameter할당이
 - 확장 메서드에서 각각의 제한사항..
 
 ### 차이점
-- 
+
   |             |    in   |   ref   | out |
   | ----------- | ------- | ------- | --- |
   | 키워드 명시  |   선택  |   필수  | 필수 |
   |    초기화    | 전달 전 | 전달 전 | 함수 안 |
   |     수정    |   불가  |  가능   | 필수 |
-```markdown
 
-```
 
 ---
 
