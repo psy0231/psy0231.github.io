@@ -75,8 +75,11 @@ OFFICIAL OK가 끝에 다시 써있다.
   Error response from daemon: manifest for kasmweb/centos-7-desktop:latest not found: manifest unknown: manifest unknown
   ```
   
-  - 이런경우 `docker pull kasmweb/centos-7-desktop:1.12.0`같이    
-  tag를 명시하면되는데 terminal에서 확인하는게 좀 복잡함.
+  - 이런경우 tag를 명시하면되는데  
+  terminal에서 tag를 찾는게 좀 복잡함.  
+  아무튼, 위같은 경우는  
+  `docker pull kasmweb/centos-7-desktop:1.12.0`
+  
   - terminal에서 하더라도  
   docker hub에서 읽어오는거라    
   그냥 해당 hub페이지 드가서 보는게 편함

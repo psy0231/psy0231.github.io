@@ -40,7 +40,7 @@ apt install docker.io
 
 - 일단은 가벼움.
   
-  방식 특성상 hw vitualization보다 훨씬.
+  hw vitualization type2 보다 훨씬.
 - 편의성이 있는데  
 
   image만 받아서 바로 실행 가능한 점으로  
@@ -84,8 +84,8 @@ os와 kernel을 공유하면서
   그래도 linux용 sw만 있는건 또 맞는것같음.
 - 태생적으로 cli가 더 적합해서  
 gui앱은 좀 힘든것같다.  
-근데 서버는 서버고  
-외부에서는 web이나 다른식으로 하는게 보통이지 않음?
+근데 서버는 서버고 외부에서는 web이나  
+다른식으로 하는게 보통이지 않음?
 
 ---
 
@@ -129,14 +129,16 @@ image나 같은 image로 부터 나온
 - 모든 container는 host os와 kernel을 공유한다.  
 다만 위에 설명에 있듯  
 각 container끼리는 영향을 주지 않음.
-- kernel공유, container의  격리 와 같은 특성은  
+- kernel공유, container의 격리 같은 특성은  
 os vitualization에서 기인함.
 
 ### Image - Container
 
 - Image를 설치한다는 느낌이 아니고   
-`Class instance = new Class();`이느낌에 가까움  
-`image container = new image();`이렇게.
+`Class instance = new Class();`  
+이느낌에 가까움.  
+`image container = new image();`  
+이렇게.
 - class가 image, instance가 container인데   
 instance(container)의 변화가  
 class(image)에 영향이 없는건 비슷함.
