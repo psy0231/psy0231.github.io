@@ -199,6 +199,51 @@ container 생성, 시작, 정지, 삭제.
 
 ---
 
+## COMMAND
+
+- docker을 처음에 쓰면서  
+가벼운 vmware정도로 생각하고 썼는데  
+실제로 centos를 실행해보면 
+바로 종료된다.
+- vmware등의 가상화 프로그램과 차이점인데  
+docker은 os자체를 실행하는게 아니라  
+그 환경을 빌려 application layer에서  
+격리된 환경을 만들고 실행한다.   
+이 실행하는것이 정확히는 '명령어'이다.
+- container가 실행되면  
+주어진 환경에서 명령어를 실행했고  
+그 결과를 보여줬던것.  
+실행한 명령어는 COMMAND에 있다.
+- centos는 "/bin/bash" 였고  
+이 전에 tomcat같은 경우  
+"catalina.sh run"등등.  
+이 중 tomcat은 실행 후 동작하고 있었는데  
+서비스 형태로 동작하는것들이 이런듯하다.  
+db, 웹서버등이 이경우.
+- image에 기본적으로 실행할  
+command가 적혀있는데 변경도 가능함.  
+run을 보면 끝에 arg를 전달할 수 있었는데
+  
+  ```docker
+  docker run centos:latest ps
+  
+  PID TTY          TIME CMD
+    1 ?        00:00:00 ps
+  ```
+  
+  이 경우 
+  
+  ```docker
+  docker ps -a
+
+  CONTAINER ID   IMAGE                       COMMAND                  CREATED          STATUS                      PORTS     NAMES
+  be1ea0bdedf3   centos:latest               "ps"                     52 seconds ago   Exited (0) 50 seconds ago             wizardly_lamarr
+  ```
+  
+  COMMAND가 바꿘걸 확인할 수 있다.
+
+---
+
 ## Outro
 
 - container의 생성, 시작, 정지, 삭제는  
