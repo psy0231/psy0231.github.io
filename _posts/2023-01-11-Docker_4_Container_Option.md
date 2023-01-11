@@ -444,8 +444,8 @@ container가 삭제되면
 - container의 data는 필요하다면  
 기본적으로 volume으로 관리되는데  
 보통 container랑 생사를 같이함.
-- 이 volume를 조정해 data를  
-container 외부에 저장하면서 
+- 이 volume을 조정해 data를  
+container 외부에 저장하면서  
 container에 상관없이  
 data를 영속적으로 보존할 수 있다.
 - 부가적으로 container끼리  
