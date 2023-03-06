@@ -98,24 +98,25 @@ class별 구분으로 보면
     └─ bool
   ─ float
   ─ complex
-  ─ Collection
-    ├─ Mapping
-    │  └─ MutableMapping
-    │     └─ dict
-    ├─ Sequence
-    │  ├─ str
-    │  ├─ memoryview
-    │  ├─ tuple
-    │  ├─ MutableSequence
-    │  │  └─ list
-    │  ├─ ByteString
-    │  │  └─ bytes
-    │  └─ MutableSequence, ByteString
-    │     └─ bytearray
-    └─ AbstractSet
-       ├─ frozenset
-       └─ MutableSet
-          └─ set
+  ─ Iterable
+    └─ Collection
+       ├─ Mapping
+       │  └─ MutableMapping
+       │     └─ dict
+       ├─ Sequence
+       │  ├─ str
+       │  ├─ memoryview
+       │  ├─ tuple
+       │  ├─ MutableSequence
+       │  │  └─ list
+       │  ├─ ByteString
+       │  │  └─ bytes
+       │  └─ MutableSequence, ByteString
+       │     └─ bytearray
+       └─ AbstractSet
+          ├─ frozenset
+          └─ MutableSet
+             └─ set
   ```
 
 - 해당 type함수로 초기화할수도 있고,  
