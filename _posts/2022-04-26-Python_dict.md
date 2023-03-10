@@ -58,9 +58,11 @@ value에 대한 update는
 
 |||
 | --- |--- |
-| [list(dict)](#listdict) | [dict.items()](#dictitems) |
+| [dict[key]](#dictkey) |[dict.pop(key[, default])](#dictpopkey-default) |
 
-### list(dict)
+
+### list
+- `list(dict)`
 - `list`로 type cast된 새 list반환.
 - key만 반영됨
 
@@ -73,8 +75,8 @@ print(test)
 [1,2,3]
 ```
 
-### len(dict)
-
+### len
+- len(dict)
 - dict의 item의 수
 
 ```python
