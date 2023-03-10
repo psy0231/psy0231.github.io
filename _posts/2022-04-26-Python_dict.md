@@ -58,11 +58,19 @@ value에 대한 update는
 
 |||
 | --- |--- |
+| [list(dict)](#listdict) | [dict.items()](#dictitems) |
+| [len(dict)](#lendict) |[dict.keys()](#dictkeys) |
 | [dict[key]](#dictkey) |[dict.pop(key[, default])](#dictpopkeydefault) |
+| [dict[key]=value](#dictkey--value) |[dict.popitem()](#dictpopitem) |
+| [del dict[key]](#del-dictkey) |[reversed(dict)](#reverseddict) |
+| [key (not) in dict](#key-not-in-dict) | [dict.setdefauilt(key[, default])](#dictsetdefaultkeydefault) |
+| [iter(dict)](#iterdict) |[dict.update([other])](#dictupdateother) |
+| [dict.clear()](#dictclear) |[dict.values()](#dictvalues) |
+| [dict.copy()](#dictcopy) |[dict \| other](#dict--other) |
+| [fromkeys(iterable, [, value])](#fromkeysiterablevalue) |[dict \|= oather](#dict--other-1) |
+| [dict.get(key[, default])](#dictgetkeydefault) |
 
-
-### list
-- `list(dict)`
+### list(dict)
 - `list`로 type cast된 새 list반환.
 - key만 반영됨
 
@@ -75,8 +83,7 @@ print(test)
 [1,2,3]
 ```
 
-### len
-- len(dict)
+### len(dict)
 - dict의 item의 수
 
 ```python
@@ -87,8 +94,7 @@ print(len(data))
 3
 ```
 
-### dict\[key\]
-
+### dict[key]
 - key에 해당하는 value를 반환.
 - key가 없으면 KeyError
 
@@ -108,7 +114,6 @@ value1
 KeyError 문제를 해결할 수 있음.
 
 ### dict[key] = value
-
 - dict[key] 를 value 로 설정
 - 이미 key가 있으면 update,  
 없으면 insert
@@ -158,7 +163,7 @@ print(data)
 
 - dict의 얕은복사
 
-### fromkeys(iterable, [, value])
+### fromkeys(iterable,[,value])
 
 - iterable을 key로 하고   
 value를 갖는 새 dict를 반환.
@@ -208,7 +213,7 @@ dict 생성 이후에 수정하면
   type inheritance에 쓴적있음.
   
 
-### dict.get(key[, default])
+### dict.get(key[,default])
 
 - key에 해당하는 value반환.
 
@@ -250,7 +255,7 @@ dict_items([(1, 'value1'), (2, 'value2'), (3, 'value3')])
 
 - dict의 key view를 반환.
 
-### dict.pop(key\[,default\])
+### dict.pop(key[,default])
 
 - key에 해당하는 value반환.
 
@@ -278,7 +283,7 @@ LIFO순서 보장은 3.7이상
 - same as `reversed(d.keys())`
 - iter의 반대
 
-### dict.setdefault(key[, default])
+### dict.setdefault(key[,default])
 
 - key가 있으면 해당 value반환
 - 없으면 key insert하고  
