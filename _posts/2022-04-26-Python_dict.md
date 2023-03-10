@@ -130,7 +130,7 @@ print(data)
 {1: True, 2: 'value2', 3: 'value3', 4: 'new value'}
 ```
 
-### del dict[key]
+### del dict\[key\]
 
 - key에 해당하는 item삭제  
 key가 없으면 KeyError
