@@ -94,7 +94,7 @@ print(len(data))
 3
 ```
 
-### dict[key]
+### dict\[key\]
 - key에 해당하는 value를 반환.
 - key가 없으면 KeyError
 
