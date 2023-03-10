@@ -56,19 +56,7 @@ value에 대한 update는
 
 ## Method
 
-|||
-| --- |--- |
-| [list(dict)](#listdict) | [dict.items()](#dictitems) |
-| [len(dict)](#lendict) |[dict.keys()](#dictkeys) |
-| [dict[key]](#dictkey) |[dict.pop(key[, default])](#dictpopkey-default) |
-| [dict[key]=value](#dictkey--value) |[dict.popitem()](#dictpopitem) |
-| [del dict[key]](#del-dictkey) |[reversed(dict)](#reverseddict) |
-| [key (not) in dict](#key-not-in-dict) | [dict.setdefauilt(key[, default])](#dictsetdefaultkey-default) |
-| [iter(dict)](#iterdict) |[dict.update([other])](#dictupdateother) |
-| [dict.clear()](#dictclear) |[dict.values()](#dictvalues) |
-| [dict.copy()](#dictcopy) |[dict \| other](#dict--other) |
-| [fromkeys(iterable, [, value])](#fromkeysiterable--value) |[dict \|= oather](#dict--other-1) |
-| [dict.get(key[, default])](#dictgetkey-default) |
+
 
 ### list(dict)
 - `list`로 type cast된 새 list반환.
