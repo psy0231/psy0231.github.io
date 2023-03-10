@@ -1,0 +1,6 @@
+- git show-branch --list
+- git log --graph --pretty=oneline --abbrev-commit
+- git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset%n' --abbrev-commit --date=relative --branches
+- git log --graph --simplify-by-decoration --pretty=format:'%d' --all
+- git log --graph --oneline --decorate --all
+- git log --graph --all --format='%C(cyan dim) %p %Cred %h %C(white dim) %s %Cgreen(%cr)%C(cyan dim) <%an>%C(bold yellow)%d%Creset'

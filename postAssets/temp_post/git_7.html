@@ -1,0 +1,58 @@
+<h2 id="branch">branch</h2>
+<ul>
+  <li>이건 복사본을 만든다라고 생각하면된다.</li>
+  <li>예를들어 git를 쓰지 않을 경우
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre>  $ ls
+  proj_2020-01-01
+  proj_2020-01-02
+  proj_2020-01-03
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>이렇게 쓸텐데 대충 commit 선에서 하나로 정리된다 쳐도</li>
+  <li>이 복사본을 branc로 씀.</li>
+  <li>head는 스냅삿 직후 point라 했음 branch 는 그상태를 복사함.</li>
+  <li>사실 내부사정은 잘 모르겠는데 위처럼 같은파일 계속 복사하는 저꼬라지는 절대 아님.</li>
+  <li>몇몇 잘 쓰는 사람들 보면 commit는 짤끔하고 이건 체걔적으로 쓰는 느낌.</li>
+  <li>왜 필요할까?<br />
+사실 잘 모름근데, commit로만 작업하면 직선적임. 이건 작업 방향이 다채로워짐 또는 그러기 쉬움.</li>
+</ul>
+
+<h2 id="생성--checkout---제거">생성- checkout - 제거</h2>
+
+<h2 id="merge">merge</h2>
+
+<h2 id="merge---option">merge - option</h2>
+
+<h2 id="commit-정리">commit 정리.</h2>
+<ul>
+  <li>다시한번, save pooint임.</li>
+  <li>각 commit는 message를 남겨 뭘 했나 쓸 수 있다.
+    <ul>
+      <li>일일이 프로젝트를 열어 변화를 확인하는 멍청한짓은 안해도됨.</li>
+      <li>git log 정도 선에서 컷.(나중에 diff도)</li>
+    </ul>
+  </li>
+  <li>근데 한 commit은 어느선이 적당한가를 물어본적이 있었는데 잘 모르겠다 했다.
+    <ul>
+      <li>정확히는 잘 모른다가 아니라 그때그떄 다르다? 이느낌이었음.</li>
+      <li>많이 하다보면 알게된다, pm의 입맛에 따라 달라진다. 정도.</li>
+      <li>그래서 PR reject 사유에 a,b commit는 합치고 c는 c,c_1로 나눠서 다시 PR주세요 같은 요청도 있었음</li>
+    </ul>
+  </li>
+  <li>이 point들을 잘 이용해서 작업을 되돌릴수도, 작업 자체를 없앨수도있었고 이에대한 기록들을 선택적으로 가져갈수도 있었다.
+    <ul>
+      <li>그래서 유명한 프로젝트같은거 들어가서 commit을 처음으로 돌려보면 그 프로젝트의 처음을 볼 수 있다.??</li>
+      <li>또, 예를들어 하나 큰 class 를 만들었던 commit하나 있다치면, 이걸 기능별로 2개로 나누고 commit로 이에따라 둘로 다시 쪼개던가 하더라.</li>
+      <li>자잘한 수정이 많이 일어난 부분은 commit 서너개 다 합치거나..</li>
+    </ul>
+  </li>
+  <li>근데 … 말그대로 save point라면, 이걸 직접 control하는게 옳은가?
+    <ul>
+      <li>git reset –hard HEAD~1 하려던걸 실수로 git reset –hard HEAD~12하면?</li>
+    </ul>
+  </li>
+</ul>

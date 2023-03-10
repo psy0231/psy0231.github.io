@@ -1,0 +1,678 @@
+<h2 id="mlnet-알고리즘을-선택하는-방법">ML.NET 알고리즘을 선택하는 방법</h2>
+<ul>
+  <li>각 ML.NET 작업에는 선택할 수 있는 여러 학습 알고리즘이 있습니다.</li>
+  <li>선택할 알고리즘은 사용자가 해결하려고 하는 문제, 데이터 특징, 사용 가능한 컴퓨팅 및 스토리지 리소스에 따라 좌우됩니다.</li>
+  <li>기계 학습 모델을 학습하는 것은 반복적인 프로세스입니다.<br />
+가장 적합한 것을 찾기 위해 여러 알고리즘을 시도해봐야 합니다.</li>
+  <li>알고리즘은 기능에서 작동합니다.<br />
+기능은 입력 데이터에서 계산된 숫자 값으로,<br />
+기계 학습 알고리즘에 최적의 입력입니다.</li>
+  <li>하나 이상의 데이터 변형을 사용하여 원시 입력 데이터를 기능을 변환합니다.</li>
+  <li>예를 들어, 텍스트 데이터는 단어 수와 단어 조합 수 세트로 변환됩니다.</li>
+  <li>데이터 변형을 사용하여 기능이 원시 데이터 형식에서 추출된 후에는 기능화 되었다고 합니다.</li>
+  <li>기능화된 텍스트 또는 기능화된 이미지 데이터를 예로 들 수 있습니다.</li>
+</ul>
+
+<h2 id="트레이너--알고리즘--작업">트레이너 = 알고리즘 + 작업</h2>
+<ul>
+  <li>알고리즘은 모델 을 생성하기 위해 실행하는 수학입니다.<br />
+다른 알고리즘은 다른 특징의 모델을 생성합니다.</li>
+  <li>ML.NET을 사용하여 동일한 알고리즘을 다른 작업에 적용할 수 있습니다.
+    <ul>
+      <li>예를 들어<br />
+  확률적 이중 좌표 상승법(Stochastic Descent Coordinate Ascent)을 
+  이진 분류, 다중 클래스 분류, 회귀에 사용할 수 있습니다.</li>
+      <li>차이점은<br />
+  작업에 맞추기 위해 알고리즘의 출력이 해석되는 방식에 있습니다.</li>
+    </ul>
+  </li>
+  <li>각 알고리즘/작업 조합에 대해 ML.NET은 학습 알고리즘을 실행하고 해석을 수행하는 구성 요소를 제공합니다. 이러한 구성 요소를 트레이너라고 합니다.
+    <ul>
+      <li>예를 들어 SdcaRegressionTrainer는<br />
+  회귀 작업에 적용된 StochasticDualCoordinatedAscent<br />
+  알고리즘을 사용합니다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="선형-알고리즘">선형 알고리즘</h2>
+<ul>
+  <li>선형 알고리즘은 입력 데이터의 선형 조합과<br />
+가중치 세트로부터 점수를 계산하는 모델을 생성합니다.</li>
+  <li>가중치는 학습 중 추정된 모델의 매개 변수입니다.</li>
+  <li>선형 알고리즘은 선형적으로 분리 가능한 기능에 잘 작동합니다.</li>
+  <li>선형 알고리즘으로 학습하기 전에 기능을 정규화해야 합니다.<br />
+이를 통해 하나의 기능이 다른 기능에 비해 결과에 더 많은 영향을 끼치지 않게 해줍니다.</li>
+  <li>일반적으로 선형 알고리즘은<br />
+스케일링 가능하고 빠르며 학습하기 쉽고 예측이 편리합니다.</li>
+  <li>기능의 수와 대략적으로 학습 데이터 세트의 크기로 규모가 조정됩니다.</li>
+  <li>선형 알고리즘은 학습 데이터에 여러 개의 통로를 만듭니다.<br />
+데이터 세트가 메모리에 적합할 경우<br />
+트레이너를 추가하기 전에<br />
+ML.NET 파이프라인에 캐시 검사점을 추가하면<br />
+학습을 보다 빨리 실행할 수 있습니다.</li>
+</ul>
+
+<h3 id="평균-퍼셉트론averaged-perceptron">평균 퍼셉트론(Averaged perceptron)</h3>
+<ul>
+  <li>
+    <p>텍스트 분류에 가장 적합합니다.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>트레이너</th>
+          <th>Task</th>
+          <th>ONNX내보내기기능</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>AveragedPerceptronTrainer</td>
+          <td>이진분류</td>
+          <td>예</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ul>
+
+<h3 id="확률적-이중-좌표-상승">확률적 이중 좌표 상승</h3>
+<ul>
+  <li>
+    <p>좋은 기본 성능에는 튜닝이 필요하지 않습니다.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>트레이너</th>
+          <th>Task</th>
+          <th>ONNX내보내기기능</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>SdcaLogisticRegressionBinaryTrainer</td>
+          <td>이진 분류</td>
+          <td>예</td>
+        </tr>
+        <tr>
+          <td>SdcaNonCalibratedBinaryTrainer</td>
+          <td>이진 분류</td>
+          <td>예</td>
+        </tr>
+        <tr>
+          <td>SdcaMaximumEntropyMulticlassTrainer</td>
+          <td>다중 클래스 분류</td>
+          <td>예</td>
+        </tr>
+        <tr>
+          <td>SdcaNonCalibratedMulticlassTrainer</td>
+          <td>다중 클래스 분류</td>
+          <td>예</td>
+        </tr>
+        <tr>
+          <td>SdcaRegressionTrainer</td>
+          <td>재발</td>
+          <td>예</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ul>
+
+<h3 id="l-bfgs">L-BFGS</h3>
+<ul>
+  <li>기능 수가 클 경우에 사용합니다.</li>
+  <li>
+    <p>로지스틱 회귀 분석 학습 통계를 생성하지만,<br />
+AveragedPerceptronTrainer처럼 스케일링되지 않습니다.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>트레이너</th>
+          <th>Task</th>
+          <th>ONNX내보내기기능</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>LbfgsLogisticRegressionBinaryTrainer</td>
+          <td>이진 분류</td>
+          <td>예</td>
+        </tr>
+        <tr>
+          <td>LbfgsMaximumEntropyMulticlassTrainer</td>
+          <td>다중 클래스 분류</td>
+          <td>예</td>
+        </tr>
+        <tr>
+          <td>LbfgsPoissonRegressionTrainer</td>
+          <td>재발</td>
+          <td>예</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ul>
+
+<h3 id="기호-확률적-경사-하강법symbolic-stochastic-gradient-descent">기호 확률적 경사 하강법(Symbolic stochastic gradient descent)</h3>
+<ul>
+  <li>가장 빠르고 가장 정확한 선형 이진 분류 트레이너입니다.</li>
+  <li>
+    <p>여러 프로세서에 맞게 잘 스케일링됩니다.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>트레이너</th>
+          <th>Task</th>
+          <th>ONNX내보내기기능</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>SymbolicSgdLogisticRegressionBinaryTrainer</td>
+          <td>이진 분류</td>
+          <td>예</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ul>
+
+<h3 id="온라인-그라데이션-하강">온라인 그라데이션 하강</h3>
+<ul>
+  <li>
+    <p>손실 함수를 선택하고<br />
+시간의 흐름에 따라 표시된 벡터의 평균을 사용하여<br />
+가중치 벡터를 업데이트하는 옵션을 사용하여<br />
+표준(비일괄 처리) 확률적 그라데이션 하강을 구현합니다.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>트레이너</th>
+          <th>Task</th>
+          <th>ONNX내보내기기능</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>OnlineGradientDescentTrainer</td>
+          <td>재발</td>
+          <td>예</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ul>
+
+<h2 id="의사결정-트리-알고리즘">의사결정 트리 알고리즘</h2>
+<ul>
+  <li>의사결정 트리 알고리즘은 일련의 의사결정을 포함한 모델을 생성합니다(데이터 값을 통해 효과적으로 흐름 차트).</li>
+  <li>이 유형의 알고리즘을 사용하기 위해<br />
+기능이 선형적으로 구분 가능해야 할 필요는 없습니다.<br />
+그리고 기능 벡터의 개별 값이<br />
+의사결정 프로세스에서 독립적으로 사용되므로<br />
+기능을 일반화할 필요가 없습니다.</li>
+  <li>의사결정 트리 알고리즘은 일반적으로 매우 정확합니다.</li>
+  <li>일반화 가법 모델(Generalized Additive Model, GAM)을 제외한 세 모델은 기능 수가 클 경우 설명 가능성이 부족할 수 있습니다.</li>
+  <li>의사결정 트리 알고리즘은 더 많은 리소스를 사용하며<br />
+선형 알고리즘처럼 규모 조정은 안 됩니다.</li>
+  <li>이 알고리즘은 메모리에 적합할 수 있는 데이터 세트에서 잘 작용합니다.</li>
+  <li>부스팅된 의사결정 트리는 작은 트리의 모음으로,<br />
+각 트리는 입력 데이터를 채점하고<br />
+더 나은 점수를 얻을 수 있도록 이 점수를 다음 트리에 계속 전달하며<br />
+모음의 각 트리는 이전 트리에서 개선됩니다.</li>
+</ul>
+
+<h3 id="가벼운-경사-부스팅-머신light-gradient-boosted-machine-lgbm">가벼운 경사 부스팅 머신(Light gradient boosted machine, LGBM)</h3>
+<ul>
+  <li>
+    <p>이진 분류 트리 트레이너 중 가장 빠르고 정확하며 튜닝 성능이 뛰어납니다.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>트레이너</th>
+          <th>Task</th>
+          <th>ONNX내보내기기능</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>LightGbmBinaryTrainer</td>
+          <td>이진 분류</td>
+          <td>예</td>
+        </tr>
+        <tr>
+          <td>LightGbmMulticlassTrainer</td>
+          <td>다중 클래스 분류</td>
+          <td>예</td>
+        </tr>
+        <tr>
+          <td>LightGbmRegressionTrainer</td>
+          <td>재발</td>
+          <td>예</td>
+        </tr>
+        <tr>
+          <td>LightGbmRankingTrainer</td>
+          <td>순위</td>
+          <td>예</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ul>
+
+<h3 id="빠른-트리fast-tree">빠른 트리(Fast tree)</h3>
+<ul>
+  <li>기능화된 이미지 데이터에 사용합니다.</li>
+  <li>
+    <p>불균형된 데이터에 유연하며 튜닝 성능이 뛰어납니다.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>트레이너</th>
+          <th>Task</th>
+          <th>ONNX내보내기기능</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>FastTreeBinaryTrainer</td>
+          <td>이진 분류</td>
+          <td>예</td>
+        </tr>
+        <tr>
+          <td>FastTreeRegressionTrainer</td>
+          <td>재발</td>
+          <td>예</td>
+        </tr>
+        <tr>
+          <td>FastTreeTweedieTrainer</td>
+          <td>재발</td>
+          <td>예</td>
+        </tr>
+        <tr>
+          <td>FastTreeRankingTrainer</td>
+          <td>순위</td>
+          <td>예</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ul>
+
+<h3 id="빠른-포레스트fast-forest">빠른 포레스트(Fast forest)</h3>
+<ul>
+  <li>
+    <p>노이즈가 많은 데이터와 잘 작동합니다.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>트레이너</th>
+          <th>Task</th>
+          <th>ONNX내보내기기능</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>FastForestBinaryTrainer</td>
+          <td>이진 분류</td>
+          <td>예</td>
+        </tr>
+        <tr>
+          <td>FastForestRegressionTrainer</td>
+          <td>재발</td>
+          <td>예</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ul>
+
+<h3 id="일반화된-가법-모델generalized-additive-model-gam">일반화된 가법 모델(Generalized additive model, GAM)</h3>
+<ul>
+  <li>
+    <p>트리 알고리즘과 잘 작동하지만,<br />
+설명 가능성이 우선인 문제에 가장 적합합니다.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>트레이너</th>
+          <th>Task</th>
+          <th>ONNX내보내기기능</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>GamBinaryTrainer</td>
+          <td>이진 분류</td>
+          <td>예</td>
+        </tr>
+        <tr>
+          <td>GamRegressionTrainer</td>
+          <td>재발</td>
+          <td>예</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ul>
+
+<h2 id="행렬-인수-분해matrix-factorization">행렬 인수 분해(Matrix factorization）</h2>
+<h3 id="행렬-인수-분해">행렬 인수 분해</h3>
+<ul>
+  <li>
+    <p>권장 사항의 협업 필터링에 사용됩니다.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>트레이너</th>
+          <th>Task</th>
+          <th>ONNX내보내기기능</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>MatrixFactorizationTrainer</td>
+          <td>권장</td>
+          <td>예</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ul>
+
+<h3 id="필드-인식-인수-분해-머신">필드 인식 인수 분해 머신</h3>
+<ul>
+  <li>
+    <p>대규모 데이터 세트의 스파스 범주 데이터에 가장 적합합니다.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>트레이너</th>
+          <th>Task</th>
+          <th>ONNX내보내기기능</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>FieldAwareFactorizationMachineTrainer</td>
+          <td>이진 분류</td>
+          <td>예</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ul>
+
+<h2 id="메타-알고리즘">메타 알고리즘</h2>
+<ul>
+  <li>이진 트레이너에서 다중 클래스 트레이너를 만드는 트레이너.<br />
+아래에 사용.
+    <ul>
+      <li>AveragedPerceptronTrainer,</li>
+      <li>LbfgsLogisticRegressionBinaryTrainer,</li>
+      <li>SymbolicSgdLogisticRegressionBinaryTrainer,</li>
+      <li>LightGbmBinaryTrainer,</li>
+      <li>FastTreeBinaryTrainer,</li>
+      <li>FastForestBinaryTrainer,</li>
+      <li>GamBinaryTrainer</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="one-vs-one">One-Vs-One</h3>
+<ul>
+  <li>이 다중 클래스 분류자는<br />
+각 클래스에 대해 하나의 이진 분류자를 학습하여<br />
+해당 클래스를 다른 모든 클래스와 구별합니다.</li>
+  <li>
+    <p>분류할 클래스 수에 따라 규모가 제한됩니다.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>트레이너</th>
+          <th>Task</th>
+          <th>ONNX내보내기기능</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>OneVersusAllTrainer</td>
+          <td>다중 클래스 분류</td>
+          <td>예</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ul>
+
+<h3 id="쌍별-결합pairwise-coupling">쌍별 결합(Pairwise coupling)</h3>
+<ul>
+  <li>이 다중 클래스 분류자는<br />
+각 쌍의 클래스에서 이진 분류 알고리즘을 학습합니다.</li>
+  <li>
+    <p>두 클래스의 각 조합을 학습해야 하므로<br />
+클래스 수에 따라 규모 조정이 제한적입니다.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>트레이너</th>
+          <th>Task</th>
+          <th>ONNX내보내기기능</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>PairwiseCouplingTrainer</td>
+          <td>다중 클래스 분류</td>
+          <td>예</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ul>
+
+<h2 id="k-평균k-means">K-평균(K-means)</h2>
+<ul>
+  <li>
+    <p>클러스터링에 사용됩니다.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>트레이너</th>
+          <th>Task</th>
+          <th>ONNX내보내기기능</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>KMeansTrainer</td>
+          <td>Clustering</td>
+          <td>예</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ul>
+
+<h2 id="주성분-분석principal-component-analysis">주성분 분석(Principal component analysis)</h2>
+<ul>
+  <li>
+    <p>변칙 검색에 사용됩니다.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>트레이너</th>
+          <th>Task</th>
+          <th>ONNX내보내기기능</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>RandomizedPcaTrainer</td>
+          <td>변칙 탐지</td>
+          <td>예</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ul>
+
+<h2 id="naive-bayes">Naive Bayes</h2>
+<ul>
+  <li>
+    <p>기능이 독립적이고 학습 데이터 세트가 작을 때<br />
+이 다중 클래스 분류 알고리즘을 사용합니다.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>트레이너</th>
+          <th>Task</th>
+          <th>ONNX내보내기기능</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>NaiveBayesMulticlassTrainer</td>
+          <td>다중 클래스 분류</td>
+          <td>예</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ul>
+
+<h2 id="사전-트레이너prior-trainer">사전 트레이너(Prior Trainer）</h2>
+<ul>
+  <li>다른 트레이너의 성과를 기준치로 삼기 위해<br />
+이 이진 분류 알고리즘을 사용합니다.</li>
+  <li>
+    <p>효과를 발휘하려면 다른 트레이너의 메트릭이<br />
+사전 트레이너보다 더 좋아야 합니다.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>트레이너</th>
+          <th>Task</th>
+          <th>ONNX내보내기기능</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>PriorTrainer</td>
+          <td>이진 분류</td>
+          <td>예</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ul>
+
+<h2 id="지원-벡터-머신">지원 벡터 머신</h2>
+<ul>
+  <li>SVM(지원 벡터 머신)은 매우 널리 사용되며<br />
+연구 주제로도 활용되는 지도 학습 모델 클래스로서,<br />
+선형 및 비선형 분류 작업에서 사용할 수 있습니다.</li>
+  <li>최근에는 대규모 학습 집합에 맞게<br />
+효율적으로 확장할 수 있도록<br />
+이러한 모델을 최적화하는 방식과 관련된 연구가<br />
+집중적으로 진행되었습니다.</li>
+</ul>
+
+<h3 id="선형-svm">선형 SVM</h3>
+<ul>
+  <li>부울 레이블이 지정된 데이터에 대해 학습된 선형 이진 분류 모델을 사용하여 대상을 예측합니다.</li>
+  <li>
+    <p>확률적 그라데이션 하강 단계와 프로젝션 단계를 왔다 갔다 합니다.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>트레이너</th>
+          <th>Task</th>
+          <th>ONNX내보내기기능</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>LinearSvmTrainer</td>
+          <td>이진 분류</td>
+          <td>예</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ul>
+
+<h3 id="로컬-심층-svm">로컬 심층 SVM</h3>
+<ul>
+  <li>비선형 이진 분류 모델을 사용하여 대상을 예측합니다.</li>
+  <li>예측 시간 비용을 줄입니다.</li>
+  <li>
+    <p>예측 비용은 허용 가능한 분류 정확도의 손실이 있는 상태로<br />
+선형이 아니라 학습 집합의 크기에 따라 대수적으로 증가합니다.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>트레이너</th>
+          <th>Task</th>
+          <th>ONNX내보내기기능</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>LdSvmTrainer</td>
+          <td>이진 분류</td>
+          <td>예</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ul>
+
+<h2 id="최소자승법">최소자승법</h2>
+<ul>
+  <li>OLS(최소자승법)는 선형 회귀 분석에서<br />
+가장 일반적으로 사용되는 기법 중 하나입니다.</li>
+  <li>실제 값에서 예측선까지 거리의 제곱 합으로 오류를 계산하고<br />
+제곱 오차를 최소화하여 모델을 적합하게 하는 손실 함수를 나타냅니다.</li>
+  <li>
+    <p>이 방법에서는 입력과 종속 변수 간에<br />
+강력한 선형 관계가 있다고 가정합니다.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>트레이너</th>
+          <th>Task</th>
+          <th>ONNX내보내기기능</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>OlsTrainer</td>
+          <td>재발</td>
+          <td>예</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ul>

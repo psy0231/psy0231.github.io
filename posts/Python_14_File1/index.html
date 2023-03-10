@@ -1,0 +1,365 @@
+<!DOCTYPE html><html lang="en" mode="dark" ><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><meta name="day-prompt" content="days ago"><meta name="hour-prompt" content="hours ago"><meta name="minute-prompt" content="minutes ago"><meta name="justnow-prompt" content="just now"><meta name="generator" content="Jekyll v4.2.1" /><meta property="og:title" content="Python 14 - File 1" /><meta property="og:locale" content="en" /><meta name="description" content="File I/O" /><meta property="og:description" content="File I/O" /><link rel="canonical" href="https://psy0231.github.io/posts/Python_14_File1/" /><meta property="og:url" content="https://psy0231.github.io/posts/Python_14_File1/" /><meta property="og:site_name" content="Null Section" /><meta property="og:type" content="article" /><meta property="article:published_time" content="2022-06-23T01:00:00+09:00" /><meta name="twitter:card" content="summary" /><meta property="twitter:title" content="Python 14 - File 1" /><meta name="twitter:site" content="@twitter_username" /><meta name="google-site-verification" content="google_meta_tag_verification" /> <script type="application/ld+json"> {"description":"File I/O","headline":"Python 14 - File 1","dateModified":"2022-06-23T01:00:00+09:00","datePublished":"2022-06-23T01:00:00+09:00","url":"https://psy0231.github.io/posts/Python_14_File1/","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://psy0231.github.io/posts/Python_14_File1/"},"@context":"https://schema.org"}</script><title>Python 14 - File 1 | Null Section</title><link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon-16x16.png"><link rel="manifest" href="/assets/img/favicons/site.webmanifest"><link rel="shortcut icon" href="/assets/img/favicons/favicon.ico"><meta name="apple-mobile-web-app-title" content="Null Section"><meta name="application-name" content="Null Section"><meta name="msapplication-TileColor" content="#da532c"><meta name="msapplication-config" content="/assets/img/favicons/browserconfig.xml"><meta name="theme-color" content="#ffffff"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"><link rel="dns-prefetch" href="https://fonts.gstatic.com"><link rel="preconnect" href="https://www.google-analytics.com" crossorigin="use-credentials"><link rel="dns-prefetch" href="https://www.google-analytics.com"><link rel="preconnect" href="https://www.googletagmanager.com" crossorigin="anonymous"><link rel="dns-prefetch" href="https://www.googletagmanager.com"><link rel="preconnect" href="https://cdn.jsdelivr.net"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.11.2/css/all.min.css"><link rel="stylesheet" href="/assets/css/style.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@1.0.1/dist/bootstrap-toc.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/magnific-popup@1.1.0/dist/magnific-popup.min.css"> <script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script><body data-spy="scroll" data-target="#toc"><div id="sidebar" class="d-flex flex-column align-items-end" lang="en"><div class="profile-wrapper text-center"><div id="avatar"> <a href="/" alt="avatar" class="mx-auto"> </a></div><div class="site-title mt-3"> <a href="/">Null Section</a></div><div class="site-subtitle font-italic">nothing here.</div></div><ul class="w-100"><li class="nav-item"> <a href="/" class="nav-link"> <i class="fa-fw fas fa-home ml-xl-3 mr-xl-3 unloaded"></i> <span>HOME</span> </a><li class="nav-item"> <a href="/categories/" class="nav-link"> <i class="fa-fw fas fa-stream ml-xl-3 mr-xl-3 unloaded"></i> <span>CATEGORIES</span> </a><li class="nav-item"> <a href="/tags/" class="nav-link"> <i class="fa-fw fas fa-tag ml-xl-3 mr-xl-3 unloaded"></i> <span>TAGS</span> </a><li class="nav-item"> <a href="/archives/" class="nav-link"> <i class="fa-fw fas fa-archive ml-xl-3 mr-xl-3 unloaded"></i> <span>ARCHIVES</span> </a><li class="nav-item"> <a href="/about/" class="nav-link"> <i class="fa-fw fas fa-info-circle ml-xl-3 mr-xl-3 unloaded"></i> <span>ABOUT</span> </a></ul><div class="sidebar-bottom mt-auto d-flex flex-wrap justify-content-center align-items-center"> <a href="https://github.com/psy0231" aria-label="github" target="_blank" rel="noopener"> <i class="fab fa-github"></i> </a> <a href="https://twitter.com/twitter_username" aria-label="twitter" target="_blank" rel="noopener"> <i class="fab fa-twitter"></i> </a> <a href=" javascript:location.href = 'mailto:' + ['psy0231','gmail.com'].join('@')" aria-label="email" > <i class="fas fa-envelope"></i> </a> <a href="/feed.xml" aria-label="rss" > <i class="fas fa-rss"></i> </a></div></div><div id="topbar-wrapper" class="row justify-content-center topbar-down"><div id="topbar" class="col-11 d-flex h-100 align-items-center justify-content-between"> <span id="breadcrumb"> <span> <a href="/"> Home </a> </span> <span>Python 14 - File 1</span> </span> <i id="sidebar-trigger" class="fas fa-bars fa-fw"></i><div id="topbar-title"> Post</div><i id="search-trigger" class="fas fa-search fa-fw"></i> <span id="search-wrapper" class="align-items-center"> <i class="fas fa-search fa-fw"></i> <input class="form-control" id="search-input" type="search" aria-label="search" autocomplete="off" placeholder="Search..."> <i class="fa fa-times-circle fa-fw" id="search-cleaner"></i> </span> <span id="search-cancel" >Cancel</span></div></div><div id="main-wrapper"><div id="main"><div class="row"><div id="core-wrapper" class="col-12 col-lg-11 col-xl-8"><div class="post pl-1 pr-1 pl-sm-2 pr-sm-2 pl-md-4 pr-md-4"><h1 data-toc-skip>Python 14 - File 1</h1><div class="post-meta text-muted"><div> By <em> <a href="https://twitter.com/username">SooyongPark</a> </em></div><div class="d-flex"><div> <span> Posted <em class="timeago" date="2022-06-23 01:00:00 +0900" data-toggle="tooltip" data-placement="bottom" title="Thu, Jun 23, 2022, 1:00 AM +0900" >Jun 23, 2022</em> </span> <span class="readtime" data-toggle="tooltip" data-placement="bottom" title="2632 words"> <em>14 min</em> read</span></div></div></div><div class="post-content"><h2 id="file-io">File I/O<a href="#file-io" class="anchor"><i class="fas fa-hashtag"></i></a></h2></h2><ul><li>전에 I/O에서 짧게 썼었는데<br /> 찾아보니까 좀 많이 나와서<br /> 전반적으로 다시 써봄</ul><hr /><h2 id="open--close">open / close<a href="#open--close" class="anchor"><i class="fas fa-hashtag"></i></a></h2></h2><h3 id="open">open<a href="#open" class="anchor"><i class="fas fa-hashtag"></i></a></h3></h3><ul><li><p>open자체는 많은데</p><div class="language-python highlighter-rouge"><div class="code-header"> <span label-text="Python"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre><td class="rouge-code"><pre><span class="nb">open</span><span class="p">(</span><span class="nb">file</span><span class="p">:</span> <span class="n">_OpenFile</span><span class="p">,</span> <span class="n">mode</span><span class="p">:</span> <span class="n">OpenTextMode</span> <span class="o">=</span> <span class="p">...,</span> <span class="n">buffering</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="p">...,</span> <span class="n">encoding</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="bp">None</span> <span class="o">=</span> <span class="p">...,</span> <span class="n">errors</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="bp">None</span> <span class="o">=</span> <span class="p">...,</span> <span class="n">newline</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="bp">None</span> <span class="o">=</span> <span class="p">...,</span> <span class="n">closefd</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="p">...,</span> <span class="n">opener</span><span class="p">:</span> <span class="n">_Opener</span> <span class="o">|</span> <span class="bp">None</span> <span class="o">=</span> <span class="p">...)</span> <span class="o">-&gt;</span> <span class="n">TextIOWrapper</span>
+<span class="nb">open</span><span class="p">(</span><span class="nb">file</span><span class="p">:</span> <span class="n">_OpenFile</span><span class="p">,</span> <span class="n">mode</span><span class="p">:</span> <span class="n">OpenBinaryMode</span><span class="p">,</span> <span class="n">buffering</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">encoding</span><span class="p">:</span> <span class="bp">None</span> <span class="o">=</span> <span class="p">...,</span> <span class="n">errors</span><span class="p">:</span> <span class="bp">None</span> <span class="o">=</span> <span class="p">...,</span> <span class="n">newline</span><span class="p">:</span> <span class="bp">None</span> <span class="o">=</span> <span class="p">...,</span> <span class="n">closefd</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="p">...,</span> <span class="n">opener</span><span class="p">:</span> <span class="n">_Opener</span> <span class="o">|</span> <span class="bp">None</span> <span class="o">=</span> <span class="p">...)</span> <span class="o">-&gt;</span> <span class="n">FileIO</span>
+<span class="nb">open</span><span class="p">(</span><span class="nb">file</span><span class="p">:</span> <span class="n">_OpenFile</span><span class="p">,</span> <span class="n">mode</span><span class="p">:</span> <span class="n">OpenBinaryModeUpdating</span><span class="p">,</span> <span class="n">buffering</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">...,</span> <span class="n">encoding</span><span class="p">:</span> <span class="bp">None</span> <span class="o">=</span> <span class="p">...,</span> <span class="n">errors</span><span class="p">:</span> <span class="bp">None</span> <span class="o">=</span> <span class="p">...,</span> <span class="n">newline</span><span class="p">:</span> <span class="bp">None</span> <span class="o">=</span> <span class="p">...,</span> <span class="n">closefd</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="p">...,</span> <span class="n">opener</span><span class="p">:</span> <span class="n">_Opener</span> <span class="o">|</span> <span class="bp">None</span> <span class="o">=</span> <span class="p">...)</span> <span class="o">-&gt;</span> <span class="n">BufferedRandom</span>
+<span class="nb">open</span><span class="p">(</span><span class="nb">file</span><span class="p">:</span> <span class="n">_OpenFile</span><span class="p">,</span> <span class="n">mode</span><span class="p">:</span> <span class="n">OpenBinaryModeWriting</span><span class="p">,</span> <span class="n">buffering</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">...,</span> <span class="n">encoding</span><span class="p">:</span> <span class="bp">None</span> <span class="o">=</span> <span class="p">...,</span> <span class="n">errors</span><span class="p">:</span> <span class="bp">None</span> <span class="o">=</span> <span class="p">...,</span> <span class="n">newline</span><span class="p">:</span> <span class="bp">None</span> <span class="o">=</span> <span class="p">...,</span> <span class="n">closefd</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="p">...,</span> <span class="n">opener</span><span class="p">:</span> <span class="n">_Opener</span> <span class="o">|</span> <span class="bp">None</span> <span class="o">=</span> <span class="p">...)</span> <span class="o">-&gt;</span> <span class="n">BufferedWriter</span>
+<span class="nb">open</span><span class="p">(</span><span class="nb">file</span><span class="p">:</span> <span class="n">_OpenFile</span><span class="p">,</span> <span class="n">mode</span><span class="p">:</span> <span class="n">OpenBinaryModeReading</span><span class="p">,</span> <span class="n">buffering</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">...,</span> <span class="n">encoding</span><span class="p">:</span> <span class="bp">None</span> <span class="o">=</span> <span class="p">...,</span> <span class="n">errors</span><span class="p">:</span> <span class="bp">None</span> <span class="o">=</span> <span class="p">...,</span> <span class="n">newline</span><span class="p">:</span> <span class="bp">None</span> <span class="o">=</span> <span class="p">...,</span> <span class="n">closefd</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="p">...,</span> <span class="n">opener</span><span class="p">:</span> <span class="n">_Opener</span> <span class="o">|</span> <span class="bp">None</span> <span class="o">=</span> <span class="p">...)</span> <span class="o">-&gt;</span> <span class="n">BufferedReader</span>
+<span class="nb">open</span><span class="p">(</span><span class="nb">file</span><span class="p">:</span> <span class="n">_OpenFile</span><span class="p">,</span> <span class="n">mode</span><span class="p">:</span> <span class="n">OpenBinaryMode</span><span class="p">,</span> <span class="n">buffering</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="p">...,</span> <span class="n">encoding</span><span class="p">:</span> <span class="bp">None</span> <span class="o">=</span> <span class="p">...,</span> <span class="n">errors</span><span class="p">:</span> <span class="bp">None</span> <span class="o">=</span> <span class="p">...,</span> <span class="n">newline</span><span class="p">:</span> <span class="bp">None</span> <span class="o">=</span> <span class="p">...,</span> <span class="n">closefd</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="p">...,</span> <span class="n">opener</span><span class="p">:</span> <span class="n">_Opener</span> <span class="o">|</span> <span class="bp">None</span> <span class="o">=</span> <span class="p">...)</span> <span class="o">-&gt;</span> <span class="n">BinaryIO</span>
+<span class="nb">open</span><span class="p">(</span><span class="nb">file</span><span class="p">:</span> <span class="n">_OpenFile</span><span class="p">,</span> <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">buffering</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="p">...,</span> <span class="n">encoding</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="bp">None</span> <span class="o">=</span> <span class="p">...,</span> <span class="n">errors</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="bp">None</span> <span class="o">=</span> <span class="p">...,</span> <span class="n">newline</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="bp">None</span> <span class="o">=</span> <span class="p">...,</span> <span class="n">closefd</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="p">...,</span> <span class="n">opener</span><span class="p">:</span> <span class="n">_Opener</span> <span class="o">|</span> <span class="bp">None</span> <span class="o">=</span> <span class="p">...)</span> <span class="o">-&gt;</span> <span class="n">IO</span>
+</pre></table></code></div></div><p>다 볼것같진 않고..</p><div class="language-python highlighter-rouge"><div class="code-header"> <span label-text="Python"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre><span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">'test.txt'</span><span class="p">,</span> <span class="s">'r'</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s">'utf-8'</span><span class="p">)</span>
+</pre></table></code></div></div><p>보통은 이렇게 씀.</p><li>맨 먼저 파일 위치.<li><p>다음은 OpenTextMode를 명시하는데</p><div class="table-wrapper"><table><thead><tr><th>Character<th>Meaning<tbody><tr><td>‘r’<td>읽기(기본값)<tr><td>‘w’<td>쓰기. 파일 무조건 새로생성<tr><td>‘x’<td>생성. 이미 존재하는 경우 exception<tr><td>‘a’<td>쓰기. 존재하는 경우 파일 끝에 추가<tr><td>‘b’<td>바이너리 모드<tr><td>‘t’<td>텍스트 모드(기본값)<tr><td>’+’<td>읽기, 쓰기</table></div><p>모드중 하나 선택하고 <code class="language-plaintext highlighter-rouge">+</code>는 선택</p><p>기본은 명시 안하면 자동임.<br /> 따라서 <code class="language-plaintext highlighter-rouge">open(filepass)</code>만 하면<br /> text로 read만.</p><li>다음은 인코딩을 쓴다.</ul><h3 id="close">close<a href="#close" class="anchor"><i class="fas fa-hashtag"></i></a></h3></h3><div class="language-python highlighter-rouge"><div class="code-header"> <span label-text="Python"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre><span class="n">f</span><span class="p">.</span><span class="n">close</span><span class="p">()</span> 
+</pre></table></code></div></div><p>끝나면 꼭 닫도록하자.</p><hr /><h2 id="rread">r(read)<a href="#rread" class="anchor"><i class="fas fa-hashtag"></i></a></h2></h2><ul><li>읽기. <code class="language-plaintext highlighter-rouge">'r'</code>로 연다.<li>읽는 방법으로<br /> read(), readline(), readlines()가 있다.</ul><h3 id="read">read()<a href="#read" class="anchor"><i class="fas fa-hashtag"></i></a></h3></h3><ul><li><p>파일 전체를 str로 읽는다.</p><div class="language-python highlighter-rouge"><div class="code-header"> <span label-text="Python"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre><span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="p">.</span><span class="n">read</span><span class="p">())</span>
+</pre></table></code></div></div><div class="language-python highlighter-rouge"><div class="code-header"> <span label-text="Python"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre><td class="rouge-code"><pre><span class="mi">1111111111</span>
+<span class="mi">2222222222</span>
+<span class="mi">3333333333</span>
+<span class="mi">4444444444</span>
+<span class="mi">5555555555</span>
+</pre></table></code></div></div><li><p>읽어올 size를 지정할 수 있다.</p><div class="language-python highlighter-rouge"><div class="code-header"> <span label-text="Python"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre><span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="p">.</span><span class="n">read</span><span class="p">(</span><span class="mi">15</span><span class="p">))</span>
+</pre></table></code></div></div><div class="language-python highlighter-rouge"><div class="code-header"> <span label-text="Python"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre><td class="rouge-code"><pre><span class="mi">1111111111</span>
+<span class="mi">2222</span>
+</pre></table></code></div></div><p>주의할점은 <code class="language-plaintext highlighter-rouge">\n</code>도 포함된 숫자임.</p><p>따라서 각 줄 끝에있는 <code class="language-plaintext highlighter-rouge">\n</code>을 생각해야함.</p><p>읽어서 나온 str의 길이라<br /> 한글도 한글자는 1로 쳐줌.<br /> 이 방식이 아마 <code class="language-plaintext highlighter-rouge">b</code>모드에서는 다를것같은데<br /> 일단 넘어감.</p><li><p>읽은 후 다시 읽을 때<br /> 이 전 읽은 위치부터 시작</p><div class="language-python highlighter-rouge"><div class="code-header"> <span label-text="Python"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre><td class="rouge-code"><pre><span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="p">.</span><span class="n">read</span><span class="p">(</span><span class="mi">15</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="p">.</span><span class="n">read</span><span class="p">(</span><span class="mi">15</span><span class="p">))</span>
+</pre></table></code></div></div><div class="language-python highlighter-rouge"><div class="code-header"> <span label-text="Python"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre><td class="rouge-code"><pre><span class="mi">1111111111</span>
+<span class="mi">2222</span>
+<span class="mi">222222</span>
+<span class="mi">33333333</span>
+</pre></table></code></div></div><li><p>read자체는 그리 어려울게 없어보이는데<br /> 위에 쓴 몇가지 이유들때문에<br /> 주의할필요가 있어보임.</p></ul><h3 id="readline">readline()<a href="#readline" class="anchor"><i class="fas fa-hashtag"></i></a></h3></h3><ul><li><p>파일 한줄을 읽어 str로 반환</p><div class="language-python highlighter-rouge"><div class="code-header"> <span label-text="Python"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre><span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="p">.</span><span class="n">readline</span><span class="p">())</span>
+</pre></table></code></div></div><div class="language-python highlighter-rouge"><div class="code-header"> <span label-text="Python"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre><span class="mi">1111111111</span>
+</pre></table></code></div></div><li><p>역시 size를 지정할 수 있음</p><div class="language-python highlighter-rouge"><div class="code-header"> <span label-text="Python"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre><span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="p">.</span><span class="n">readline</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+</pre></table></code></div></div><div class="language-python highlighter-rouge"><div class="code-header"> <span label-text="Python"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre><span class="mi">111</span>
+</pre></table></code></div></div><p>해당 line에서의 size인데<br /> line size보다 큰 수가 들어가는경우<br /> 그냥 다 읽어오고<br /> 이후 readline에는 영향이 없음.</p><p>readline는 해당 line를 다 읽어오고<br /> 받아볼 buffer크기를 지정한다고 하면<br /> 이해가 빠를듯</p><li>역시 읽은 후 다시 읽을 때<br /> 이 전 위치부터 시작.<li><p>한줄만 읽기때문에 전체를 읽을라면</p><div class="language-python highlighter-rouge"><div class="code-header"> <span label-text="Python"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre><td class="rouge-code"><pre><span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+    <span class="n">line</span> <span class="o">=</span> <span class="n">f</span><span class="p">.</span><span class="n">readline</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">line</span><span class="p">:</span>
+        <span class="k">break</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s">''</span><span class="p">)</span>
+</pre></table></code></div></div><p>이렇게 해야함.</p></ul><h3 id="readlines">readlines()<a href="#readlines" class="anchor"><i class="fas fa-hashtag"></i></a></h3></h3><ul><li><p>파일을 line별로 읽어<br /> str list로 반환</p><div class="language-python highlighter-rouge"><div class="code-header"> <span label-text="Python"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre><span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="p">.</span><span class="n">readlines</span><span class="p">())</span>
+</pre></table></code></div></div><div class="language-python highlighter-rouge"><div class="code-header"> <span label-text="Python"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre><span class="p">[</span><span class="s">'1111111111</span><span class="se">\n</span><span class="s">'</span><span class="p">,</span> <span class="s">'2222222222</span><span class="se">\n</span><span class="s">'</span><span class="p">,</span> <span class="s">'3333333333</span><span class="se">\n</span><span class="s">'</span><span class="p">,</span> <span class="s">'4444444444</span><span class="se">\n</span><span class="s">'</span><span class="p">,</span> <span class="s">'5555555555'</span><span class="p">]</span>
+</pre></table></code></div></div><li><p>해서, 제일 좋은방법아닐까싶음.</p><div class="language-python highlighter-rouge"><div class="code-header"> <span label-text="Python"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre><td class="rouge-code"><pre><span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">.</span><span class="n">readlines</span><span class="p">():</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s">''</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">])</span>
+</pre></table></code></div></div><div class="language-python highlighter-rouge"><div class="code-header"> <span label-text="Python"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre><td class="rouge-code"><pre><span class="mi">1111111111</span>
+<span class="mi">11</span>
+<span class="mi">2222222222</span>
+<span class="mi">22</span>
+<span class="mi">3333333333</span>
+<span class="mi">33</span>
+<span class="mi">4444444444</span>
+<span class="mi">44</span>
+<span class="mi">555555555555</span>
+</pre></table></code></div></div></ul><h3 id="note-1">Note 1<a href="#note-1" class="anchor"><i class="fas fa-hashtag"></i></a></h3></h3><ul><li>read하는 방법 3가지 모두<br /> 한번 읽으면 다음은 그 뒤부터 읽는다.<li>쉽게, header같은게 위치를 갖고 돌다다니면서<br /> 그 위치를 읽는다고 보면 됨.<li>따라서 파일을 한번 끝까지 읽으면<br /> 다시 처음으로 가서 읽을 수 없다.<li>아직까진.</ul><hr /><h2 id="wwrite">w(write)<a href="#wwrite" class="anchor"><i class="fas fa-hashtag"></i></a></h2></h2><ul><li><code class="language-plaintext highlighter-rouge">w</code>로 연다.<li>단순히 <code class="language-plaintext highlighter-rouge">r</code>로 열면 쓰기가 안된다.<li>파일이 없으면 새로 만드는데 주의할점은 이미 파일이 있어도<br /> 해당 파일 이름으로 새로 만든다.</ul><h3 id="write">write()<a href="#write" class="anchor"><i class="fas fa-hashtag"></i></a></h3></h3><div class="language-python highlighter-rouge"><div class="code-header"> <span label-text="Python"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre><td class="rouge-code"><pre><span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">'test.txt'</span><span class="p">,</span> <span class="s">'w'</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s">'utf-8'</span><span class="p">)</span>
+
+<span class="n">f</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="s">'Hello, world!</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span>
+
+<span class="n">slist</span> <span class="o">=</span> <span class="p">[</span><span class="s">'1</span><span class="se">\n</span><span class="s">'</span><span class="p">,</span> <span class="s">'2</span><span class="se">\n</span><span class="s">'</span><span class="p">,</span> <span class="s">'3</span><span class="se">\n</span><span class="s">'</span><span class="p">,</span> <span class="s">'4</span><span class="se">\n</span><span class="s">'</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">slist</span><span class="p">:</span>
+  <span class="n">f</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+</pre></table></code></div></div><p>test.txt에는</p><div class="language-python highlighter-rouge"><div class="code-header"> <span label-text="Python"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre><td class="rouge-code"><pre><span class="n">Hello</span><span class="p">,</span> <span class="n">world</span><span class="err">!</span>
+<span class="mi">1</span>
+<span class="mi">2</span>
+<span class="mi">3</span>
+<span class="mi">4</span>
+</pre></table></code></div></div><p>일단, <code class="language-plaintext highlighter-rouge">w</code>로만 생성한다고 하고,<br /> 한번 열린(생성한) 파일에서는<br /> write는 append로 동작하는것처럼 보임.</p><p>그러니까 <code class="language-plaintext highlighter-rouge">open</code>에서 새 파일이 만들어지고<br /> 이후 write는 append처럼 보이는데<br /> 쓰는 위치는 무조건 마지막에 쓴 위치기 때문.<br /> 이게 open직후에는 그냥 처음으로.<br /> 위에서 <code class="language-plaintext highlighter-rouge">for</code>을 보면.</p><h3 id="writelines">writelines()<a href="#writelines" class="anchor"><i class="fas fa-hashtag"></i></a></h3></h3><ul><li><p>readlines를 반대로<br /> str list를 file에 써준다.</p><div class="language-python highlighter-rouge"><div class="code-header"> <span label-text="Python"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre><td class="rouge-code"><pre><span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">'test.txt'</span><span class="p">,</span> <span class="s">'w'</span><span class="p">)</span>
+<span class="n">line</span> <span class="o">=</span> <span class="s">'string</span><span class="se">\n</span><span class="s">'</span>
+<span class="n">lines</span> <span class="o">=</span> <span class="p">[</span><span class="s">'string1</span><span class="se">\n</span><span class="s">'</span><span class="p">,</span> <span class="s">'string2</span><span class="se">\n</span><span class="s">'</span><span class="p">,</span> <span class="s">'string3</span><span class="se">\n</span><span class="s">'</span><span class="p">]</span>
+  
+<span class="n">f</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+  
+<span class="n">f</span><span class="p">.</span><span class="n">writelines</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
+</pre></table></code></div></div><div class="language-python highlighter-rouge"><div class="code-header"> <span label-text="Python"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre><td class="rouge-code"><pre><span class="n">string</span>
+<span class="n">string1</span>
+<span class="n">string2</span>
+<span class="n">string3</span>
+</pre></table></code></div></div></ul><h3 id="node-2">Node 2<a href="#node-2" class="anchor"><i class="fas fa-hashtag"></i></a></h3></h3><ul><li>read와 마찬가지로 header가 있다고 하고,<br /> 동작때마다 header의 위치에 적고 뒤로 밀려난다.<li>append로 동작하는건 아니지만 일단<br /> 여기에서 그렇게 보이는건 이런이유때문.<li>따라서 파일을 읽고 쓰는 모든 작업은<br /> header가 움직이면서 그 자리에 작업하고<br /> 그만큼 뒤로 밀려나는식이라고 보여진다.<li>이 특성은 모든 read/write에 적용되기때문에<br /> 이걸 염두해야 좀 보기 편할거임.</ul><hr /><h2 id="aappend">a(append)<a href="#aappend" class="anchor"><i class="fas fa-hashtag"></i></a></h2></h2><ul><li><code class="language-plaintext highlighter-rouge">a</code>로 연다.<li>파일이 없음면 새로 만드는데<br /> <code class="language-plaintext highlighter-rouge">w</code>랑 다른점은<br /> 이미 파일이 있으면 생성하지 않는다.<li><p>쓰는 방법도 <code class="language-plaintext highlighter-rouge">write()</code>이고,<br /> 쓰는 위치도 똑같다…<br /> 는 같은함수니까…</p><div class="language-python highlighter-rouge"><div class="code-header"> <span label-text="Python"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre><td class="rouge-code"><pre><span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">'test.txt'</span><span class="p">,</span> <span class="s">'a'</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s">'utf-8'</span><span class="p">)</span>
+  
+<span class="n">f</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="s">'Hello, world!</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span>
+  
+<span class="n">f</span><span class="p">.</span><span class="n">close</span><span class="p">()</span>
+  
+<span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">'test.txt'</span><span class="p">,</span> <span class="s">'a'</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s">'utf-8'</span><span class="p">)</span>
+  
+<span class="n">slist</span> <span class="o">=</span> <span class="p">[</span><span class="s">'1</span><span class="se">\n</span><span class="s">'</span><span class="p">,</span> <span class="s">'2</span><span class="se">\n</span><span class="s">'</span><span class="p">,</span> <span class="s">'3</span><span class="se">\n</span><span class="s">'</span><span class="p">,</span> <span class="s">'4</span><span class="se">\n</span><span class="s">'</span><span class="p">]</span>
+  
+<span class="n">f</span><span class="p">.</span><span class="n">writelines</span><span class="p">(</span><span class="n">slist</span><span class="p">)</span>
+</pre></table></code></div></div><p>test.txt에는</p><div class="language-python highlighter-rouge"><div class="code-header"> <span label-text="Python"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre><td class="rouge-code"><pre><span class="n">Hello</span><span class="p">,</span> <span class="n">world</span><span class="err">!</span><span class="mi">1</span>
+<span class="mi">2</span>
+<span class="mi">3</span>
+<span class="mi">4</span>
+<span class="n">Hello</span><span class="p">,</span> <span class="n">world</span><span class="err">!</span><span class="mi">1</span>
+<span class="mi">2</span>
+<span class="mi">3</span>
+<span class="mi">4</span>
+</pre></table></code></div></div><p>이렇게 남음.</p></ul><hr /><h2 id="xexclusive-creation">x(Exclusive Creation)<a href="#xexclusive-creation" class="anchor"><i class="fas fa-hashtag"></i></a></h2></h2><ul><li><code class="language-plaintext highlighter-rouge">x</code>로 연다.<li>write mode인데<br /> 파일이 없는경우 생성하고<br /> 쓰기모드가 가능.<li>파일이 이미 있는경우 exception.<li>이미 파일이 있는경우 <br /> 체크하기위해?<li>append면 안됨?</ul><hr /><h2>+</h2><ul><li>기능을 추가한다.<li>이러나 저러나 OpenTextMode가 뭐가 오건<br /> read 또는 write였다.<li>앞에 썼던 기능에 <code class="language-plaintext highlighter-rouge">+</code>를 하면<br /> 반대기능이 생긴다. <br /> 다시말해 read랑 write가 가능해진다.<li>다만 처음 썼던 동작에 의해<br /> 파일을 생성하거나, 그대로 두거나 한다.</ul><h3 id="r">r+<a href="#r" class="anchor"><i class="fas fa-hashtag"></i></a></h3></h3><ul><li>read하고 쓰기모드인데<br /> read로 file을 열면<br /> header위치는 파일내용과 상관없이<br /> 맨 앞으로 된다.<li><p>따라서 단순히 read는<br /> 문제가 안된다.</p><div class="language-python highlighter-rouge"><div class="code-header"> <span label-text="Python"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre><td class="rouge-code"><pre><span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">'test.txt'</span><span class="p">,</span> <span class="s">'w'</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s">'utf-8'</span><span class="p">)</span>
+  
+<span class="n">f</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="s">'Hello, world!</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span>
+  
+<span class="n">f</span><span class="p">.</span><span class="n">close</span><span class="p">()</span>
+  
+<span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">'test.txt'</span><span class="p">,</span> <span class="s">'r+'</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s">'utf-8'</span><span class="p">)</span>
+  
+<span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="p">.</span><span class="n">read</span><span class="p">())</span>
+</pre></table></code></div></div><div class="language-python highlighter-rouge"><div class="code-header"> <span label-text="Python"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre><span class="n">Hello</span> <span class="n">World</span><span class="err">!</span>
+</pre></table></code></div></div><li><p>조금 다르게 해보자.</p><div class="language-python highlighter-rouge"><div class="code-header"> <span label-text="Python"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+</pre><td class="rouge-code"><pre><span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">'test.txt'</span><span class="p">,</span> <span class="s">'w'</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s">'utf-8'</span><span class="p">)</span>
+  
+<span class="n">f</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="s">'Hello, world!</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span>
+  
+<span class="n">f</span><span class="p">.</span><span class="n">close</span><span class="p">()</span>
+  
+<span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">'test.txt'</span><span class="p">,</span> <span class="s">'r+'</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s">'utf-8'</span><span class="p">)</span>
+  
+<span class="n">f</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="s">'Good!'</span><span class="p">)</span>
+  
+<span class="n">f</span><span class="p">.</span><span class="n">close</span><span class="p">()</span>
+  
+<span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">'test.txt'</span><span class="p">,</span> <span class="s">'r+'</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s">'utf-8'</span><span class="p">)</span>
+  
+<span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="p">.</span><span class="n">read</span><span class="p">())</span>
+</pre></table></code></div></div><div class="language-python highlighter-rouge"><div class="code-header"> <span label-text="Python"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre><span class="n">Good</span><span class="err">!</span> <span class="n">World</span><span class="err">!</span>
+</pre></table></code></div></div><ul><li>내용은 바뀔수 있다.<li>특이한건 <code class="language-plaintext highlighter-rouge">open</code>하고 별다른 조작없이<br /> <code class="language-plaintext highlighter-rouge">write</code>를 했는데 앞에부터 바뀜<li>이건 위에 썼던 열고난직후<br /> 파일 header의 위치에 관한 문제인데<br /> <code class="language-plaintext highlighter-rouge">r+</code>는 open후 파일 header가<br /> 파일의 맨 앞에 위치함.<br /> 이상태에서 <code class="language-plaintext highlighter-rouge">write</code>를 하니<br /> 그 위에 덮어쓰게됨.<li>이걸보면 <code class="language-plaintext highlighter-rouge">write</code>는 애초에<br /> header위치에 그냥 덮어쓰는거였음.<li><p>또 위에 코드에서<br /> <code class="language-plaintext highlighter-rouge">close()</code>를 안하고 바로 <code class="language-plaintext highlighter-rouge">read()</code>를 하면</p><div class="language-python highlighter-rouge"><div class="code-header"> <span label-text="Python"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre>  <span class="n">World</span><span class="err">!</span>
+</pre></table></code></div></div><p>가 나와서 Note2에서 쓴게 맞음.</p><li><p>다르게, <code class="language-plaintext highlighter-rouge">r+</code>상태에서<br /> <code class="language-plaintext highlighter-rouge">read()</code>를 하고 <code class="language-plaintext highlighter-rouge">write()</code>를 하면</p><div class="language-python highlighter-rouge"><div class="code-header"> <span label-text="Python"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre><span class="n">Hello</span> <span class="n">World</span><span class="err">!</span><span class="n">Good</span><span class="err">!</span>
+</pre></table></code></div></div><p>가 되었을 것이다.</p></ul></ul><h3 id="w">w+<a href="#w" class="anchor"><i class="fas fa-hashtag"></i></a></h3></h3><ul><li><p>이 경우 <code class="language-plaintext highlighter-rouge">r+</code>보다<br /> 알아보기 쉬운데<br /> w는 파일을 새로 만들기때문.</p><div class="language-python highlighter-rouge"><div class="code-header"> <span label-text="Python"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre><td class="rouge-code"><pre><span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">'test.txt'</span><span class="p">,</span> <span class="s">'w+'</span><span class="p">)</span>
+  
+<span class="n">f</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="s">'Good!'</span><span class="p">)</span>
+  
+<span class="n">f</span><span class="p">.</span><span class="n">close</span><span class="p">()</span>
+  
+<span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">'test.txt'</span><span class="p">,</span> <span class="s">'r'</span><span class="p">)</span>
+  
+<span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="p">.</span><span class="n">read</span><span class="p">())</span>
+</pre></table></code></div></div><div class="language-python highlighter-rouge"><div class="code-header"> <span label-text="Python"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre><span class="n">Good</span><span class="err">!</span>
+</pre></table></code></div></div><p>그래서 원래 파일에 뭐가 있었건<br /> 위 코드 결과는 무조건 저 하나만 나온다.</p></ul><h3 id="a">a+<a href="#a" class="anchor"><i class="fas fa-hashtag"></i></a></h3></h3><ul><li>기본적으로 파일 생성 기준은 <code class="language-plaintext highlighter-rouge">w</code>와 같은데<br /> 파일 header는 <code class="language-plaintext highlighter-rouge">open()</code>이후 파일의 맨 끝에 있다.<li><p>그래서 특이한점은<br /> a+는 읽기가 안된다.</p><p>정확히는 안되는것처럼 보인다.<br /> <code class="language-plaintext highlighter-rouge">open()</code>직후부터 header은 맨 뒤로가있고<br /> <code class="language-plaintext highlighter-rouge">write()</code>도 header을 뒤로 보내므로<br /> <code class="language-plaintext highlighter-rouge">read()</code>할 내용이 없기때문이다.</p></ul><h3 id="difference">difference<a href="#difference" class="anchor"><i class="fas fa-hashtag"></i></a></h3></h3><ul><li><code class="language-plaintext highlighter-rouge">+</code> 붙은 옵션에 따라 동작이 다르긴 했는데<br /> 결국엔 header같은게 돌아다니면서<br /> 해당 위치의 데이터를 읽어오는걸<br /> 볼 수 있었다.<li>최종적으로는 read, write이지만 세부적으로<br /> header의 위치에 따라 조금씩 차이나는점,<br /> <code class="language-plaintext highlighter-rouge">read()</code>, <code class="language-plaintext highlighter-rouge">write()</code>는 header의 위치를<br /> 계속해서 뒤로 밀어낸다는점이<br /> 주의할점으로 보인다.<li>header의 위치에 관해 조금더 보자.</ul><hr /><h2 id="tell">tell<a href="#tell" class="anchor"><i class="fas fa-hashtag"></i></a></h2></h2><ul><li><p>현재 header 위치를 알려준다.</p><div class="language-python highlighter-rouge"><div class="code-header"> <span label-text="Python"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre><td class="rouge-code"><pre><span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">'test.txt'</span><span class="p">,</span> <span class="s">'w'</span><span class="p">)</span>
+<span class="n">slist</span> <span class="o">=</span> <span class="p">[</span><span class="s">'a'</span><span class="p">,</span> <span class="s">'b'</span><span class="p">,</span> <span class="s">'c'</span><span class="p">,</span><span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">]</span>
+  
+<span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="p">.</span><span class="n">tell</span><span class="p">())</span>
+  
+<span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">slist</span><span class="p">:</span>
+    <span class="n">f</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="p">.</span><span class="n">tell</span><span class="p">())</span>
+</pre></table></code></div></div><div class="language-python highlighter-rouge"><div class="code-header"> <span label-text="Python"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre><td class="rouge-code"><pre><span class="mi">0</span>
+<span class="mi">1</span>
+<span class="mi">2</span>
+<span class="mi">3</span>
+<span class="mi">5</span>
+</pre></table></code></div></div><li>예생했던것처럼<br /> 시작은 0에서 write때마다<br /> 쓰는만큼 늘어난다.<br /> read도 같을것이다.<li>좀 특이한건 <code class="language-plaintext highlighter-rouge">\n</code>인데<br /> 보이지도 않으면서 2개를 먹음<br /> 쓸때 2글자긴하잖?<br /> 근데 읽을때는 1개로침?</ul><hr /><h2 id="seek">seek<a href="#seek" class="anchor"><i class="fas fa-hashtag"></i></a></h2></h2><ul><li>header을 움직인다.<li><p>설명엔</p><div class="language-python highlighter-rouge"><div class="code-header"> <span label-text="Python"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre><span class="p">(</span><span class="n">method</span><span class="p">)</span> <span class="n">seek</span><span class="p">:</span> <span class="p">(</span><span class="n">__cookie</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">__whence</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="p">...,</span> <span class="o">/</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span>
+</pre></table></code></div></div><p>이러는데 <code class="language-plaintext highlighter-rouge">__whence</code>는 binary에서만 된다</p><li><p>아무튼 header을 옮기고<br /> 그 위치부터 작업할 수 있다.</p><div class="language-python highlighter-rouge"><div class="code-header"> <span label-text="Python"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre><td class="rouge-code"><pre><span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">'test.txt'</span><span class="p">,</span> <span class="s">'w+'</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s">'utf-8'</span><span class="p">)</span>
+  
+<span class="n">f</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="s">'Hello, world!</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span>
+  
+<span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="p">.</span><span class="n">tell</span><span class="p">())</span>
+  
+<span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="p">.</span><span class="n">read</span><span class="p">())</span>
+  
+<span class="n">f</span><span class="p">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+  
+<span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="p">.</span><span class="n">tell</span><span class="p">())</span>
+  
+<span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="p">.</span><span class="n">read</span><span class="p">())</span>
+</pre></table></code></div></div><div class="language-python highlighter-rouge"><div class="code-header"> <span label-text="Python"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre><td class="rouge-code"><pre><span class="mi">15</span>
+  
+<span class="mi">0</span>
+<span class="n">Hello</span><span class="p">,</span> <span class="n">world</span><span class="err">!</span>
+</pre></table></code></div></div><p><code class="language-plaintext highlighter-rouge">open</code>-<code class="language-plaintext highlighter-rouge">write</code> 까지하면 당연히 <code class="language-plaintext highlighter-rouge">read</code>할 내용이 없음<br /> <code class="language-plaintext highlighter-rouge">seek</code>로 header를 옮기고 다시 읽을 수 있음.</p><li><p>다만, 이게 <code class="language-plaintext highlighter-rouge">a</code>일때 좀 특이한데</p><div class="language-python highlighter-rouge"><div class="code-header"> <span label-text="Python"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+</pre><td class="rouge-code"><pre><span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">'test.txt'</span><span class="p">,</span> <span class="s">'w'</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s">'utf-8'</span><span class="p">)</span>
+  
+<span class="n">f</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="s">'Hello, world!</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span>
+  
+<span class="n">f</span><span class="p">.</span><span class="n">close</span><span class="p">()</span>
+  
+<span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">'test.txt'</span><span class="p">,</span> <span class="s">'a+'</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s">'utf-8'</span><span class="p">)</span>
+  
+<span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="p">.</span><span class="n">tell</span><span class="p">())</span>
+  
+<span class="n">f</span><span class="p">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+  
+<span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="p">.</span><span class="n">tell</span><span class="p">())</span>
+  
+<span class="n">f</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="s">'Good!'</span><span class="p">)</span>
+  
+<span class="n">f</span><span class="p">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+  
+<span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="p">.</span><span class="n">read</span><span class="p">())</span>
+</pre></table></code></div></div><div class="language-python highlighter-rouge"><div class="code-header"> <span label-text="Python"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre><td class="rouge-code"><pre><span class="mi">15</span>
+<span class="mi">0</span>
+<span class="n">Hello</span><span class="p">,</span> <span class="n">world</span><span class="err">!</span>
+<span class="n">Good</span><span class="err">!</span>
+</pre></table></code></div></div><p>위에서보면 <code class="language-plaintext highlighter-rouge">seek</code>로 header를<br /> 처음으로 돌려놓고 <code class="language-plaintext highlighter-rouge">write</code>를 했는데<br /> 끝지점부터 쓰는걸 보면<br /> <code class="language-plaintext highlighter-rouge">append</code>는 <code class="language-plaintext highlighter-rouge">write</code>할 때<br /> header를 맨 끝으로 강제이동한다.<br /> 다만, <code class="language-plaintext highlighter-rouge">read</code>는 <code class="language-plaintext highlighter-rouge">seek</code> 위치부터.</p></ul></div><div class="post-tail-wrapper text-muted"><div class="post-meta mb-3"> <i class="far fa-folder-open fa-fw mr-1"></i> <a href='/categories/grind/'>Grind</a>, <a href='/categories/python/'>Python</a></div><div class="post-tags"> <i class="fa fa-tags fa-fw mr-1"></i> <a href="/tags/python/" class="post-tag no-text-decoration" >python</a> <a href="/tags/file/" class="post-tag no-text-decoration" >file</a> <a href="/tags/io/" class="post-tag no-text-decoration" >io</a></div><div class="post-tail-bottom d-flex justify-content-between align-items-center mt-3 pt-5 pb-2"><div class="license-wrapper"> This post is licensed under <a href="https://creativecommons.org/licenses/by/4.0/"> CC BY 4.0 </a> by the author.</div><div class="share-wrapper"> <span class="share-label text-muted mr-1">Share</span> <span class="share-icons"> <a href="https://twitter.com/intent/tweet?text=Python 14 - File 1 - Null Section&url=https://psy0231.github.io/posts/Python_14_File1/" data-toggle="tooltip" data-placement="top" title="Twitter" target="_blank" rel="noopener" aria-label="Twitter"> <i class="fa-fw fab fa-twitter"></i> </a> <a href="https://www.facebook.com/sharer/sharer.php?title=Python 14 - File 1 - Null Section&u=https://psy0231.github.io/posts/Python_14_File1/" data-toggle="tooltip" data-placement="top" title="Facebook" target="_blank" rel="noopener" aria-label="Facebook"> <i class="fa-fw fab fa-facebook-square"></i> </a> <a href="https://telegram.me/share?text=Python 14 - File 1 - Null Section&url=https://psy0231.github.io/posts/Python_14_File1/" data-toggle="tooltip" data-placement="top" title="Telegram" target="_blank" rel="noopener" aria-label="Telegram"> <i class="fa-fw fab fa-telegram"></i> </a> <i id="copy-link" class="fa-fw fas fa-link small" data-toggle="tooltip" data-placement="top" title="Copy link" title-succeed="Link copied successfully!"> </i> </span></div></div></div></div></div><div id="panel-wrapper" class="col-xl-3 pl-2 text-muted topbar-down"><div class="access"><div id="access-lastmod" class="post"><div class="panel-heading">Recent Update</div><ul class="post-content pl-0 pb-1 ml-1 mt-2"><li><a href="/posts/Python_dict/">dict</a><li><a href="/posts/Python_Var_Type/">Variable & Data Type</a><li><a href="/posts/Docker_4_Container_Option/">Docker 4 - Container Option</a><li><a href="/posts/Docker_3_Container/">Docker 3 - Container</a><li><a href="/posts/Docker_2_Image/">Docker 2 - Image</a></ul></div><div id="access-tags"><div class="panel-heading">Trending Tags</div><div class="d-flex flex-wrap mt-3 mb-1 mr-3"> <a class="post-tag" href="/tags/c/">c#</a> <a class="post-tag" href="/tags/python/">python</a> <a class="post-tag" href="/tags/docker/">docker</a> <a class="post-tag" href="/tags/git/">git</a> <a class="post-tag" href="/tags/asynchronous/">asynchronous</a> <a class="post-tag" href="/tags/data-type/">data type</a> <a class="post-tag" href="/tags/container/">container</a> <a class="post-tag" href="/tags/getting-started/">getting started</a> <a class="post-tag" href="/tags/io/">io</a> <a class="post-tag" href="/tags/logger/">logger</a></div></div></div><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@1.0.1/dist/bootstrap-toc.min.js"></script><div id="toc-wrapper" class="pl-0 pr-4 mb-5"><div class="panel-heading pl-3 pt-2 mb-2">Contents</div><nav id="toc" data-toggle="toc"></nav></div></div></div><div class="row"><div class="col-12 col-lg-11 col-xl-8"><div id="tail-wrapper" class="pl-1 pr-1 pl-sm-2 pr-sm-2 pl-md-4 pr-md-4"><div id="related-posts" class="mt-5 mb-2 mb-sm-4"><h3 class="pt-2 mt-1 mb-4 ml-1" data-toc-skip>Further Reading</h3><div class="card-deck mb-4"><div class="card"> <a href="/posts/Python_15_File2/"><div class="card-body"> <em class="timeago small" date="2022-07-13 01:00:00 +0900" >Jul 13, 2022</em><h3 class="pt-0 mt-1 mb-3" data-toc-skip>Python 15 - File 2</h3><div class="text-muted small"><p> intro 전에 그냥 넘어갔는데 file1에서 쓴 내용을 토대로하면 file내용 수정하는 과정이 쉽지 않다. write는 덮어쓴다. 이게 제일 불편한데 1 2 3 4 5 6 f = open(&#39;test.txt&#39;, &#39;w+&#39;, encoding=&#39;utf-8&#39;) f.write(&#39;Hello, world!\n&#39;) f.seek(0) ...</p></div></div></a></div><div class="card"> <a href="/posts/Python_5_IO/"><div class="card-body"> <em class="timeago small" date="2022-04-27 00:00:00 +0900" >Apr 27, 2022</em><h3 class="pt-0 mt-1 mb-3" data-toc-skip>Python 5 - IO</h3><div class="text-muted small"><p> Input input() 으로 해결 data = input() print(data) data = input(&quot;only numeric\n&quot;) print(type(data)) print(data) asdf asdf only numeric 1234 &amp;lt;class &#39;str&#39;&amp;gt; 1234 input으로 받는데 input에 필요한 문...</p></div></div></a></div><div class="card"> <a href="/posts/Python_16_Built_In_Functions/"><div class="card-body"> <em class="timeago small" date="2022-10-11 12:00:00 +0900" >Oct 11, 2022</em><h3 class="pt-0 mt-1 mb-3" data-toc-skip>Python 16 - Built-In Functions</h3><div class="text-muted small"><p> built-in function docs 내장함수라고도 하고 import없이 쓸 수 있는 method들 abs(x) 절댓값 1 2 3 4 5 6 7 i = -10 j = -13-4j k = -3.14 print(abs(i)) print(abs(j)) print(abs(k)) 1 2 3 10 13.60147050873544...</p></div></div></a></div></div></div><div class="post-navigation d-flex justify-content-between"> <a href="/posts/Python_13_Class2/" class="btn btn-outline-primary" prompt="Older"><p>Python 13 - Class 2</p></a> <a href="/posts/Python_15_File2/" class="btn btn-outline-primary" prompt="Newer"><p>Python 15 - File 2</p></a></div><div id="disqus_thread" class="pt-2 pb-2"><p class="text-center text-muted small"> Comments powered by <a href="https://disqus.com/">Disqus</a>.</p></div><script type="text/javascript"> var disqus_config = function () { this.page.url = 'https://psy0231.github.io/posts/Python_14_File1/'; this.page.identifier = '/posts/Python_14_File1/'; }; /* Lazy loading */ var disqus_observer = new IntersectionObserver(function (entries) { if(entries[0].isIntersecting) { (function () { var d = document, s = d.createElement('script'); s.src = 'https://https-psy0231-github-io.disqus.com/embed.js'; s.setAttribute('data-timestamp', +new Date()); (d.head || d.body).appendChild(s); })(); disqus_observer.disconnect(); } }, { threshold: [0] }); disqus_observer.observe(document.querySelector('#disqus_thread')); /* Auto switch theme */ function reloadDisqus() { /* Disqus hasn't been loaded */ if (typeof DISQUS === "undefined") { return; } if (document.readyState == 'complete') { DISQUS.reset({ reload: true, config: disqus_config }); } } const modeToggle = document.querySelector(".mode-toggle"); if (typeof modeToggle !== "undefined") { /* modeToggle.addEventListener('click', reloadDisqus); // not pretty for 'color-scheme' */ window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', reloadDisqus); } </script></div></div></div><footer class="d-flex w-100 justify-content-center"><div class="d-flex justify-content-between align-items-center text-muted"><div class="footer-left"><p class="mb-0"> © 2023 <a href="https://twitter.com/username">SooyongPark</a>. <span data-toggle="tooltip" data-placement="top" title="Except where otherwise noted, the blog posts on this site are licensed under the Creative Commons Attribution 4.0 International (CC BY 4.0) License by the author.">Some rights reserved.</span></p></div><div class="footer-right"><p class="mb-0"> Powered by <a href="https://jekyllrb.com" target="_blank" rel="noopener">Jekyll</a> with <a href="https://github.com/cotes2020/jekyll-theme-chirpy" target="_blank" rel="noopener">Chirpy</a> theme.</p></div></div></footer></div><div id="search-result-wrapper" class="d-flex justify-content-center unloaded"><div class="col-12 col-sm-11 post-content"><div id="search-hints"><div id="access-tags"><div class="panel-heading">Trending Tags</div><div class="d-flex flex-wrap mt-3 mb-1 mr-3"> <a class="post-tag" href="/tags/c/">c#</a> <a class="post-tag" href="/tags/python/">python</a> <a class="post-tag" href="/tags/docker/">docker</a> <a class="post-tag" href="/tags/git/">git</a> <a class="post-tag" href="/tags/asynchronous/">asynchronous</a> <a class="post-tag" href="/tags/data-type/">data type</a> <a class="post-tag" href="/tags/container/">container</a> <a class="post-tag" href="/tags/getting-started/">getting started</a> <a class="post-tag" href="/tags/io/">io</a> <a class="post-tag" href="/tags/logger/">logger</a></div></div></div><div id="search-results" class="d-flex flex-wrap justify-content-center text-muted mt-3"></div></div></div></div><div id="mask"></div><a id="back-to-top" href="#" aria-label="back-to-top" class="btn btn-lg btn-box-shadow" role="button"> <i class="fas fa-angle-up"></i> </a> <script src="https://cdn.jsdelivr.net/npm/simple-jekyll-search@1.10.0/dest/simple-jekyll-search.min.js"></script> <script> SimpleJekyllSearch({ searchInput: document.getElementById('search-input'), resultsContainer: document.getElementById('search-results'), json: '/assets/js/data/search.json', searchResultTemplate: '<div class="pl-1 pr-1 pl-sm-2 pr-sm-2 pl-lg-4 pr-lg-4 pl-xl-0 pr-xl-0"> <a href="{url}">{title}</a><div class="post-meta d-flex flex-column flex-sm-row text-muted mt-1 mb-1"> {categories} {tags}</div><p>{snippet}</p></div>', noResultsText: '<p class="mt-5">Oops! No result founds.</p>', templateMiddleware: function(prop, value, template) { if (prop === 'categories') { if (value === '') { return `${value}`; } else { return `<div class="mr-sm-4"><i class="far fa-folder fa-fw"></i>${value}</div>`; } } if (prop === 'tags') { if (value === '') { return `${value}`; } else { return `<div><i class="fa fa-tag fa-fw"></i>${value}</div>`; } } } }); </script> <script src="https://cdn.jsdelivr.net/combine/npm/lozad/dist/lozad.min.js,npm/magnific-popup@1/dist/jquery.magnific-popup.min.js,npm/clipboard@2/dist/clipboard.min.js"></script> <script defer src="/assets/js/dist/post.min.js"></script> <script src="https://cdn.jsdelivr.net/combine/npm/popper.js@1.16.1,npm/bootstrap@4/dist/js/bootstrap.min.js"></script> <script defer src="/app.js"></script> <script defer src="https://www.googletagmanager.com/gtag/js?id=UA-160640437-1"></script> <script> document.addEventListener("DOMContentLoaded", function(event) { window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'UA-160640437-1'); }); </script>

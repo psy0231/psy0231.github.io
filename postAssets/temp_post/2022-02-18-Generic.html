@@ -1,0 +1,341 @@
+<h2 id="intro">Intro</h2>
+<ul>
+  <li>다른 프로젝트 보다가 
+익숙치 않은 문구(?)가 많이 보였는데 
+그게 이거래</li>
+  <li>예를들면
+    <div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="k">public</span> <span class="k">class</span> <span class="nc">SomeClass</span><span class="p">&lt;</span><span class="n">TSomeType</span><span class="p">&gt;</span> <span class="p">:</span> <span class="n">BaseClass</span><span class="p">&lt;</span><span class="n">TSomeType</span><span class="p">&gt;</span>
+  <span class="k">where</span> <span class="n">TSomeType</span> <span class="p">:</span> <span class="n">SomeType</span><span class="p">,</span> <span class="k">new</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="c1">//body</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>정리는 아래 두 문서 사용.<sup id="fnref:footnote1" role="doc-noteref"><a href="#fn:footnote1" class="footnote" rel="footnote">1</a></sup> <sup id="fnref:footnote2" role="doc-noteref"><a href="#fn:footnote2" class="footnote" rel="footnote">2</a></sup></li>
+</ul>
+
+<h2 id="1-generic">1. Generic</h2>
+<ul>
+  <li>제네릭으로 메서드, 클래스, 구조체, 인터페이스를<br />
+사용 대상인 정확한 데이터 형식에 맞게 조정할 수 있습니다.
+    <ul>
+      <li>예를 들어
+        <ul>
+          <li>Hashtable은 모든 형식의 키와 값을 허용</li>
+          <li>Dictionary&lt;TKey,TValue&gt; 제네릭 클래스는 <br />
+키에 허용되는 형식과 값을 지정할 수 있음.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>제네릭의 이점으로는
+    <ul>
+      <li>향상된 코드 재사용 가능성</li>
+      <li>형식 안전성 등이 있음.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="11-정의-및-사용">1.1 정의 및 사용</h3>
+<ul>
+  <li>
+    <p>제네릭</p>
+
+    <p>저장하거나 사용하는 하나 이상의 형식에 대한<br />
+자리 표시자(형식 매개 변수)를 포함하는<br />
+클래스, 구조체, 인터페이스, 메서드.</p>
+  </li>
+  <li>
+    <p>제네릭 컬렉션 클래스</p>
+
+    <p>저장하는 개체 형식에 대해<br />
+형식 매개 변수를 자리 표시자로 사용.</p>
+  </li>
+  <li>
+    <p>형식 매개 변수</p>
+
+    <p>필드의 형식과 메서드의 매개 변수 형식으로 표시.</p>
+  </li>
+  <li>
+    <p>제네릭 메서드</p>
+
+    <p>형식 매개 변수를 반환 값의 형식 또는<br />
+정식 매개 변수 중 하나의 형식으로 사용할 수 있습니다.</p>
+  </li>
+  <li>
+    <p>다음 코드에서는 간단한 제네릭 클래스 정의를 보여 줍니다.</p>
+    <div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="rouge-code"><pre><span class="k">public</span> <span class="k">class</span> <span class="nc">Generic</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="n">T</span> <span class="n">Field</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">Generic</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">g</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Generic</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;();</span>
+    <span class="n">g</span><span class="p">.</span><span class="n">Field</span> <span class="p">=</span> <span class="s">"A string"</span><span class="p">;</span>
+    <span class="c1">//...</span>
+    <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="s">"Generic.Field           = \"{0}\""</span><span class="p">,</span> <span class="n">g</span><span class="p">.</span><span class="n">Field</span><span class="p">);</span>
+    <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="s">"Generic.Field.GetType() = {0}"</span><span class="p">,</span> <span class="n">g</span><span class="p">.</span><span class="n">Field</span><span class="p">.</span><span class="nf">GetType</span><span class="p">().</span><span class="n">FullName</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+    <ul>
+      <li>제네릭 클래스의 인스턴스를 만들 때는<br />
+형식 매개 변수를 대체할 실제 형식을 지정.</li>
+      <li>이렇게 하면 형식 매개 변수가 표시되는 모든 위치에서<br />
+선택한 형식으로 대체된 새 제네릭 클래스인<br />
+생성된 제네릭 형식이 설정됨.</li>
+      <li>그 결과 Main에 나와 있는 것처럼<br />
+선택한 형식에 맞게 조정된<br />
+형식이 안전한 클래스 생성.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="12-제네릭-관련-용어">1.2 제네릭 관련 용어</h3>
+<ul>
+  <li>제네릭 형식 정의
+    <ul>
+      <li>포함하거나 사용할 수 있는 형식에 대한<br />
+자리 표시자를 포함하며 템플릿으로 작동하는<br />
+클래스, 구조체 또는 인터페이스 선언입니다.</li>
+      <li>Dictionary&lt;TKey,TValue&gt; 경우<br />
+키와 값의 두 형식을 포함.</li>
+      <li>제네릭 형식 정의는 템플릿일 뿐이므로<br />
+제네릭 형식 정의인 클래스, 구조체, 인터페이스의<br />
+인스턴스를 만들 수는 없다.</li>
+    </ul>
+  </li>
+  <li>제네릭 형식 매개 변수( 형식 매개 변수)
+    <ul>
+      <li>제네릭 형식 또는 메서드 정의의 자리 표시자.</li>
+      <li>Dictionary&lt;TKey,TValue&gt;에는<br />
+키와 값의 형식을 나타내는 두 형식 매개 변수<br />
+TKey 및 TValue가 포함되어 있다.</li>
+    </ul>
+  </li>
+  <li>생성된 제네릭 형식( 생성된 형식)
+    <ul>
+      <li>제네릭 형식 정의의 제네릭 형식 매개 변수에 대한<br />
+형식을 지정한 결과로 생성된 형식입니다.</li>
+    </ul>
+  </li>
+  <li>제네릭 형식 인수
+    <ul>
+      <li>제네릭 형식 매개 변수에 대해 대체되는 모든 형식입니다.</li>
+    </ul>
+  </li>
+  <li>
+    <p>일반 용어인 제네릭 형식에는<br />
+생성된 형식과 제네릭 형식 정의가 모두 포함됩니다.</p>
+  </li>
+  <li>공변성(covariance) 및 반공변성(contravariance)
+    <ul>
+      <li>제네릭 형식 매개 변수를 사용하면<br />
+형식 인수가 생성된 대상 형식보다<br />
+더 많이 파생(공변성)되거나 더 적게 파생(반공변성)된<br />
+생성된 제네릭 형식을 사용할 수 있습니다.<br />
+공분산과 반공 분산을 통칭하여 가변성(variance) 이라고 한다.</li>
+    </ul>
+  </li>
+  <li>제약 조건
+    <ul>
+      <li>제네릭 형식 매개 변수에 대해 적용되는 제한 사항입니다.</li>
+      <li>예를 들어 형식 인스턴스의 순서를 지정할 수 있도록<br />
+System.Collections.Generic.IComparer&lt;T&gt;<br />
+제네릭 인터페이스를 구현하는 형식으로<br />
+형식 매개 변수를 제한할 수 있습니다.</li>
+      <li>또한 참조 형식 또는 값 형식이거나<br />
+특정 기본 클래스 또는<br />
+매개 변수가 없는 생성자를 포함하는 형식으로<br />
+형식 매개 변수를 제한할 수도 있습니다.<br />
+제네릭 형식의 사용자는<br />
+제약 조건을 충족하지 않는 형식 인수를<br />
+대체할 수 없습니다.</li>
+    </ul>
+  </li>
+  <li>제네릭 메서드 정의
+    <ul>
+      <li>두 매개 변수 목록,<br />
+즉 제네릭 형식 매개 변수 목록과<br />
+정식 매개 변수 목록을 갖는 메서드입니다.</li>
+      <li>형식 매개 변수는<br />
+다음 코드에 나와 있는 것처럼<br />
+정식 매개 변수의 형식 또는<br />
+반환 형식으로 표시될 수 있습니다.
+        <div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="n">T</span> <span class="n">Generic</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;(</span><span class="n">T</span> <span class="n">arg</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">T</span> <span class="n">temp</span> <span class="p">=</span> <span class="n">arg</span><span class="p">;</span>
+    <span class="c1">//...</span>
+    <span class="k">return</span> <span class="n">temp</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div>        </div>
+      </li>
+      <li>제네릭 메서드<br />
+제네릭 형식 또는 제네릭이 아닌 형식으로 표시될 수 있다.<br />
+메서드는 단순히 제네릭 형식에 속한다고 해서<br />
+제네릭인 것은 아니며,<br />
+형식이 바깥쪽 형식의<br />
+제네릭 매개 변수인 정식 매개 변수를 포함하더라도<br />
+제네릭은 아니다.<br />
+메서드는<br />
+자체 형식 매개 변수 목록을 포함하는 경우에만 제네릭입니다.<br />
+다음 코드에서는 G 메서드만 제네릭입니다.
+        <div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+</pre></td><td class="rouge-code"><pre><span class="k">class</span> <span class="nc">A</span>
+<span class="p">{</span>
+    <span class="n">T</span> <span class="n">G</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;(</span><span class="n">T</span> <span class="n">arg</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">T</span> <span class="n">temp</span> <span class="p">=</span> <span class="n">arg</span><span class="p">;</span>
+        <span class="c1">//...</span>
+        <span class="k">return</span> <span class="n">temp</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="k">class</span> <span class="nc">Generic</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span>
+<span class="p">{</span>
+    <span class="n">T</span> <span class="nf">M</span><span class="p">(</span><span class="n">T</span> <span class="n">arg</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">T</span> <span class="n">temp</span> <span class="p">=</span> <span class="n">arg</span><span class="p">;</span>
+        <span class="c1">//...</span>
+        <span class="k">return</span> <span class="n">temp</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="13-제네릭의-장점-및-단점">1.3 제네릭의 장점 및 단점</h3>
+<ul>
+  <li>제네릭 컬렉션과 대리자를 사용하는 경우의 장점.
+    <ul>
+      <li>
+        <p>형식 안전성.</p>
+
+        <p>제네릭을 사용하면 컴파일러에서<br />
+형식 안전성을 보장해야 하는 부담이 줄어듦.</p>
+
+        <p>컴파일 타임에 올바른 데이터 형식이 적용되므로<br />
+코드를 작성하여 데이터 형식을 테스트할 필요가 없음.</p>
+
+        <p>형식 캐스팅의 필요성과 런타임 오류 발생 가능성도 감소.</p>
+      </li>
+      <li>
+        <p>코드의 양 감소, 코드를 재사용 쉬워짐.<br />
+기본 형식에서 상속하고 멤버를 재정의할 필요가 없음.<br />
+예를 들어 LinkedList&lt;T&gt; 은 즉시 사용할 수 있습니다.<br />
+다음 변수 선언을 사용하면 문자열의 연결된 목록을 만들 수 있습니다.</p>
+
+        <div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">LinkedList</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">llist</span> <span class="p">=</span> <span class="k">new</span> <span class="n">LinkedList</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;();</span>
+</pre></td></tr></tbody></table></code></pre></div>        </div>
+      </li>
+      <li>
+        <p>성능 향상.<br />
+제네릭 컬렉션 형식은<br />
+값 형식을 boxing할 필요가 없기 때문에<br />
+일반적으로 값 형식 저장 및 조작 시 성능이 보다 우수.</p>
+      </li>
+      <li>
+        <p>제네릭 대리자를 사용하면<br />
+여러 대리자 클래스를 만들지 않고도<br />
+형식이 안전한 콜백을 사용할 수 있습니다.<br />
+예를 들어 Predicate&lt;T&gt; 제네릭 대리자를 사용하면<br />
+특정 형식에 대해 고유한 검색 기준을 구현하는 메서드를 만든 다음<br />
+Array , Find, FindLast등의 FindAll형식 메서드와 함께<br />
+사용할 수 있다.</p>
+      </li>
+      <li>
+        <p>제네릭을 통해 동적으로 생성된 코드를 원활하게 실행.<br />
+동적으로 생성된 코드에서 제네릭을 사용하는 경우 형식을 생성할 필요가 없습니다. 이로 인해 전체 어셈블리를 생성하는 대신 간단한 동적 메서드를 사용할 수 있는 시나리오의 수가 증가합니다. 자세한 내용은 방법: 동적 메서드 및 DynamicMethod를 정의하고 실행합니다.</p>
+      </li>
+    </ul>
+  </li>
+  <li>아래에는 제네릭의 몇 가지 제한이 나와 있습니다.
+    <ul>
+      <li>
+        <p>제네릭 형식은 MarshalByRefObject 와 같은<br />
+대부분의 기본 클래스에서 파생될 수 있으며,<br />
+제약 조건을 사용하면<br />
+제네릭 형식 매개 변수가 MarshalByRefObject와 같은<br />
+기본 클래스에서 파생되어야 하도록 지정할 수 있습니다.<br />
+그러나 .NET에서는<br />
+컨텍스트에 바인딩된 제네릭 형식을 지원하지 않습니다.<br />
+제네릭 형식이 ContextBoundObject에서 파생될 수는 있지만<br />
+해당 형식의 인스턴스를 만들려고 하면<br />
+TypeLoadException이 발생합니다.</p>
+      </li>
+      <li>
+        <p>열거형은 제네릭 형식 매개 변수를 포함할 수 없습니다.<br />
+열거형은 Visual Basic, C#, C++를 사용하여 정의되는<br />
+제네릭 형식에 중첩되는<br />
+경우 부수적으로만 제네릭이 될 수 있습니다.<br />
+자세한 내용은 공용 형식 시스템에서 “열거”를 참조하세요.</p>
+      </li>
+      <li>
+        <p>경량의 동적 메서드는 제네릭이 될 수 없습니다.</p>
+      </li>
+      <li>
+        <p>Visual Basic, C#, C++에서는<br />
+모든 바깥쪽 형식의 형식 매개 변수에 형식이 할당된 경우가 아니면<br />
+제네릭 형식으로 묶인 중첩 형식을 인스턴스화할 수 없습니다.<br />
+다시 말해서, 리플렉션에서 이러한 언어를 사용하여 정의되는 중첩 형식은<br />
+모든 바깥쪽 형식의 형식 매개 변수를 포함합니다.<br />
+따라서 바깥쪽 형식의 형식 매개 변수를<br />
+중첩 형식의 멤버 정의에서 사용할 수 있습니다.<br />
+자세한 내용은 MakeGenericType의 “중첩 형식”을 참조하세요.</p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="참고">참고</h2>
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:footnote1" role="doc-endnote">
+      <p><a href="https://docs.microsoft.com/ko-kr/dotnet/standard/generics/collections">.NET의 제네릭 컬렉션</a> <a href="#fnref:footnote1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:footnote2" role="doc-endnote">
+      <p><a href="https://docs.microsoft.com/ko-kr/dotnet/csharp/programming-guide/generics/generic-type-parameters">제네릭 형식 매개 변수(C# 프로그래밍 가이드)</a> <a href="#fnref:footnote2" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>

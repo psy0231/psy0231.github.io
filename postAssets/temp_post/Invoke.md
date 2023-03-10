@@ -1,0 +1,7 @@
+- https://www.google.com/search?q=this.Invoke&oq=this.Invoke&aqs=chrome..69i57j0l9.389j0j7&sourceid=chrome&ie=UTF-8
+- https://muhan56.tistory.com/289
+- https://docs.microsoft.com/ko-kr/dotnet/api/system.windows.forms.control.invokerequired?view=net-5.0#System_Windows_Forms_Control_InvokeRequired
+- https://docs.microsoft.com/ko-kr/dotnet/desktop/winforms/controls/how-to-make-thread-safe-calls-to-windows-forms-controls?view=netframeworkdesktop-4.8
+- https://docs.microsoft.com/ko-kr/dotnet/api/system.windows.forms.methodinvoker?redirectedfrom=MSDN&view=net-5.0
+- https://www.google.com/search?q=cross+thread+%3F&sxsrf=ALeKk02j7dk26m4JgsNXyX5Ne88i3bDZ-A%3A1624233953749&ei=4dfPYPGMLc-Nr7wPj6mDyAs&oq=cross+thread+%3F&gs_lcp=Cgdnd3Mtd2l6EAMyAggAMgIIADICCAAyBQgAEMsBMgUIABDLATIFCAAQywEyBQgAEMsBMgUIABDLATIFCAAQywEyBQgAEMsBOgUIABCwAzoJCAAQsAMQBxAeUKwuWJM3YOQ4aAFwAHgAgAFliAGXApIBAzIuMZgBAKABAaoBB2d3cy13aXrIAQrAAQE&sclient=gws-wiz&ved=0ahUKEwixgeH-tqfxAhXPxosBHY_UALkQ4dUDCA8&uact=5
+- https://bigenergy.tistory.com/entry/C-CrossThread-Invoke-%EC%A0%95%EC%83%81%EC%A0%81%EC%9D%B8-%EB%B0%A9%EB%B2%95%EA%B3%BC-%EB%B9%84%EC%A0%95%EC%83%81%EC%A0%81%EC%9D%B8-%EB%B0%A9%EB%B2%95
