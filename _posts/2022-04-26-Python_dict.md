@@ -55,7 +55,7 @@ value에 대한 update는
 - reversed는 3.8이상.
 
 ## Method
-
+```markdown
 |||
 | --- |--- |
 | [list(dict)](#listdict) | [dict.items()](#dictitems) |
@@ -69,6 +69,8 @@ value에 대한 update는
 | [dict.copy()](#dictcopy) |[dict \| other](#dict--other) |
 | [fromkeys(iterable, [, value])](#fromkeysiterablevalue) |[dict \|= oather](#dict--other-1) |
 | [dict.get(key[, default])](#dictgetkeydefault) |
+
+```
 
 ### list(dict)
 - `list`로 type cast된 새 list반환.
