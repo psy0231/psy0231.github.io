@@ -87,7 +87,7 @@ print(len(data))
 3
 ```
 
-### dict[key]
+### dict\[key\]
 
 - key에 해당하는 value를 반환.
 - key가 없으면 KeyError
@@ -250,7 +250,7 @@ dict_items([(1, 'value1'), (2, 'value2'), (3, 'value3')])
 
 - dict의 key view를 반환.
 
-### dict.pop(key[, default])
+### dict.pop(key\[, default\])
 
 - key에 해당하는 value반환.
 
