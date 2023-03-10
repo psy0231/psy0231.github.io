@@ -58,7 +58,7 @@ value에 대한 update는
 
 |||
 | --- |--- |
-| [dict[key]](#dictkey) |[dict.pop(key[, default])](#dictpopkey-default) |
+| [dict[key]](#dictkey) |[dict.pop(key[, default])](#dictpopkeydefault) |
 
 
 ### list
@@ -250,7 +250,7 @@ dict_items([(1, 'value1'), (2, 'value2'), (3, 'value3')])
 
 - dict의 key view를 반환.
 
-### dict.pop(key\[, default\])
+### dict.pop(key\[,default\])
 
 - key에 해당하는 value반환.
 
