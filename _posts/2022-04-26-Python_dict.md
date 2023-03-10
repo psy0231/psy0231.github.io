@@ -56,8 +56,12 @@ value에 대한 update는
 
 ## Method
 
-
-
+|||
+| --- |--- |
+| [list(dict)](#listdict) | [dict.items()](#dictitems) |
+| [len(dict)](#lendict) |[dict.keys()](#dictkeys) |
+| [dict[key]](#dictkey) |[dict.pop(key[, default])](#dictpopkey-default) |
+| [dict[key]=value](#dictkey--value) |[dict.popitem()](#dictpopitem) |
 ### list(dict)
 - `list`로 type cast된 새 list반환.
 - key만 반영됨
