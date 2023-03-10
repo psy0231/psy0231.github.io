@@ -71,7 +71,7 @@ value에 대한 update는
 | dict.get(key[, default])[^footnote] |
 
 
-### list(dict)[^footnote1]
+### [^footnote1]: list(dict)
 - `list`로 type cast된 새 list반환.
 - key만 반영됨
 
