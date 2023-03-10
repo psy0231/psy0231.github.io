@@ -55,24 +55,23 @@ value에 대한 update는
 - reversed는 3.8이상.
 
 ## Method
-```markdown
+
 |||
 | --- |--- |
-| [list(dict)](#listdict) | [dict.items()](#dictitems) |
-| [len(dict)](#lendict) |[dict.keys()](#dictkeys) |
-| [dict[key]](#dictkey) |[dict.pop(key[, default])](#dictpopkeydefault) |
-| [dict[key]=value](#dictkey--value) |[dict.popitem()](#dictpopitem) |
-| [del dict[key]](#del-dictkey) |[reversed(dict)](#reverseddict) |
-| [key (not) in dict](#key-not-in-dict) | [dict.setdefauilt(key[, default])](#dictsetdefaultkeydefault) |
-| [iter(dict)](#iterdict) |[dict.update([other])](#dictupdateother) |
-| [dict.clear()](#dictclear) |[dict.values()](#dictvalues) |
-| [dict.copy()](#dictcopy) |[dict \| other](#dict--other) |
-| [fromkeys(iterable, [, value])](#fromkeysiterablevalue) |[dict \|= oather](#dict--other-1) |
-| [dict.get(key[, default])](#dictgetkeydefault) |
+| list(dict)[^footnote1] | dict.items()[^footnote] |
+| len(dict)[^footnote] | dict.keys()[^footnote] |
+| dict[key][^footnote] | dict.pop(key[, default])[^footnote] |
+| dict[key]=value[^footnote] | dict.popitem()[^footnote] |
+| del dict[key][^footnote] | reversed(dict)[^footnote] |
+| key (not) in dict[^footnote] | dict.setdefauilt(key[, default])[^footnote] |
+| iter(dict)[^footnote] | dict.update([other])[^footnote] |
+| dict.clear()[^footnote] | dict.values()[^footnote] |
+| dict.copy()[^footnote] | dict \| other[^footnote] |
+| fromkeys(iterable, [, value])[^footnote] | dict \|= oather[^footnote] |
+| dict.get(key[, default])[^footnote] |
 
-```
 
-### list(dict)
+### list(dict)[^footnote1]
 - `list`로 type cast된 새 list반환.
 - key만 반영됨
 
@@ -96,7 +95,7 @@ print(len(data))
 3
 ```
 
-### dict\[key\]
+### dict[key]
 - key에 해당하는 value를 반환.
 - key가 없으면 KeyError
 
@@ -132,7 +131,7 @@ print(data)
 {1: True, 2: 'value2', 3: 'value3', 4: 'new value'}
 ```
 
-### del&nbsp;dict[key]
+### del dict[key]
 
 - key에 해당하는 item삭제  
 key가 없으면 KeyError
@@ -165,7 +164,7 @@ print(data)
 
 - dict의 얕은복사
 
-### fromkeys(iterable,[,value])
+### fromkeys(iterable, [, value])
 
 - iterable을 key로 하고   
 value를 갖는 새 dict를 반환.
@@ -215,7 +214,7 @@ dict 생성 이후에 수정하면
   type inheritance에 쓴적있음.
   
 
-### dict.get(key[,default])
+### dict.get(key [, default])
 
 - key에 해당하는 value반환.
 
@@ -257,7 +256,7 @@ dict_items([(1, 'value1'), (2, 'value2'), (3, 'value3')])
 
 - dict의 key view를 반환.
 
-### dict.pop(key[,default])
+### dict.pop(key [, default])
 
 - key에 해당하는 value반환.
 
@@ -285,7 +284,7 @@ LIFO순서 보장은 3.7이상
 - same as `reversed(d.keys())`
 - iter의 반대
 
-### dict.setdefault(key[,default])
+### dict.setdefault(key [, default])
 
 - key가 있으면 해당 value반환
 - 없으면 key insert하고  
