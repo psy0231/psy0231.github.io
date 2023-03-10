@@ -62,7 +62,7 @@ value에 대한 update는
 | len(dict)[^footnote] | dict.keys()[^footnote] |
 | dict[key][^footnote] | dict.pop(key[, default])[^footnote] |
 | dict[key]=value[^footnote] | dict.popitem()[^footnote] |
-| del dict[key][^footnote] | reversed(dict)[^footnote] |
+| del dict[key][del d](2022-04-26-Python_dict.md#del-dictkey) | reversed(dict)[^footnote] |
 | key (not) in dict[^footnote] | dict.setdefauilt(key[, default])[^footnote] |
 | iter(dict)[^footnote] | dict.update([other])[^footnote] |
 | dict.clear()[^footnote] | dict.values()[^footnote] |
@@ -71,7 +71,7 @@ value에 대한 update는
 | dict.get(key[, default])[^footnote] |
 
 
-### [^footnote1]: list(dict)
+### list(dict)
 - `list`로 type cast된 새 list반환.
 - key만 반영됨
 
